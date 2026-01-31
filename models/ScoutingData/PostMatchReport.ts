@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-
 export interface MatchReport{
 AmmountScored: Number;
 AmmountLaunched: number;
@@ -8,11 +7,9 @@ ClimbLevel: number;
 DidCLimb:boolean;
 DidWin: boolean;
 DidRobotDissconnect: boolean;
-
 }
 
-
-const MatchReport = new mongoose.Schema({
+const MatchReportSchema = new mongoose.Schema({
     AmmountScored: {
         type: String,
         required: true,
@@ -29,16 +26,18 @@ const MatchReport = new mongoose.Schema({
     DidCLimb: {
             type: Boolean,
             required: true,
-        },
-           
+        },   
+    DidWin: {
+        type: Boolean,
+        required: true,
+    },
     DidRobotDissconnect: {
             type: Boolean,
-            required: true,
-            
+            required: true,  
         },
     }
 );
 
-const Example = mongoose.models?.MatchReport || mongoose.model<MatchReport>('MatchReport', MatchReport);
-
-export default Example;
+const MatchReport = mongoose.models?.MatchReport || mongoose.model<MatchReport>('MatchReport', MatchReportSchema);
+export default MatchReport;
+//Need to add more API features later such as the win condition.
