@@ -27,21 +27,18 @@ const MatchReport = new mongoose.Schema({
         required: false,
     },
     DidCLimb: {
-        DidClimb: {
             type: Boolean,
-        },
-     DidWin: {
-        DidWin: {
-          type: Boolean
             required: true,
         },
            
-        }
+    DidRobotDissconnect: {
+            type: Boolean,
+            required: true,
             
-        }
-    },
+        },
+    }
 );
 
-const Example = mongoose.models?.Example || mongoose.model<MatchReport>('Example', MatchReport);
+const Example = mongoose.models?.MatchReport || mongoose.model<MatchReport>('MatchReport', MatchReport);
 
 export default Example;
