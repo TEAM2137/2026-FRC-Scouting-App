@@ -30,9 +30,18 @@ const MatchReport = new mongoose.Schema({
         DidClimb: {
             type: Boolean,
         },
+     DidWin: {
+        DidWin: {
+          type: Boolean
+            required: true,
+        },
+           
+        }
+            
+        }
     },
-});
+);
 
-const Example = mongoose.models?.Example || mongoose.model<IExample>('Example', ExampleSchema);
+const Example = mongoose.models?.Example || mongoose.model<MatchReport>('Example', MatchReport);
 
 export default Example;
