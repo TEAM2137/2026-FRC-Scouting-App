@@ -8,7 +8,7 @@ const ScoutingData1 = () => {
        <h2>This-Is-The-Post-match-report-Page Copywright 2026 2137 TORC</h2>
      </main>
      <header className="header-class">Header Content</header>
-   <div><footer className="fixed bottom-0 w-full bg-blue-600 text-center p-2 text-slate-100">Copywright 2026 2137 TORC</footer></>
+   <div><footer className="fixed bottom-0 w-full bg-blue-600 text-center p-2 text-slate-100">Copywright 2026 2137 TORC</footer></div>
    <div><header className="fixed top-0 w-full bg-green-600 text-center p-2 text-slate-100">This is the Header</header></div>
   </>
   );
