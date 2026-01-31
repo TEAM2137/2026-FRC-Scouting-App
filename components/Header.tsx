@@ -1,0 +1,18 @@
+'use client'
+
+const Header = () => {
+    return (
+        <div className="grid grid-cols-2 w-full h-full">
+            <div className="col-span-1 text-left">
+                <h1>Our Scouting App Logo</h1>
+            </div>
+            <div className="col-span-1 text-right">
+                <h1>Our Scouting App Menu</h1>
+            </div>
+            
+        </div>
+
+    )
+}
+
+export default Header
