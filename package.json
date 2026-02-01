@@ -9,6 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@radix-ui/react-label": "^2.1.8",
     "@types/bcrypt": "^6.0.0",
     "bcrypt-ts": "^8.0.0",
     "class-variance-authority": "^0.7.1",
