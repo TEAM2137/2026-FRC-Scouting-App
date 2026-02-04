@@ -9,20 +9,15 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
+import { Button } from "@/components/ui/button"
 const thisIsTheSignupPage = () => {
   return (
-
-
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-export function CardDemo() {
-  return (
-    <Card className="w-full max-w-sm">
-      <CardHeader>
-        <CardTitle>Login to your account</CardTitle>
-        <CardDescription>
-          Enter your email below to login to your account
+      <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+      <Card className="w-full max-w-sm">
+        <CardHeader>
+          <CardTitle>Login to your account</CardTitle>
+          <CardDescription>
+            Enter your email below to login to your account
         </CardDescription>
         <CardAction>
           <Button variant="link">Sign Up</Button>
@@ -31,16 +26,16 @@ export function CardDemo() {
       <CardContent>
         <form>
           <div className="flex flex-col gap-6">
-            <div className="grid gap-2">
+            <div className="grid gap-1">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
                 type="email"
-                placeholder="m@example.com"
+                placeholder="RoboticsTeam@roboticsTeam.com"
                 required
               />
             </div>
-            <div className="grid gap-2">
+            <div className="center grid gap-3">
               <div className="flex items-center">
                 <Label htmlFor="password">Password</Label>
                 <a
@@ -50,7 +45,7 @@ export function CardDemo() {
                   Forgot your password?
                 </a>
               </div>
-              <Input id="password" type="password" required />
+              <Input id="password" type="password" required placeholder= "P455w0rd H3r3" />
             </div>
           </div>
         </form>
@@ -59,38 +54,10 @@ export function CardDemo() {
         <Button type="submit" className="w-full">
           Login
         </Button>
-        <Button variant="outline" className="w-full">
-          Login with Google
-        </Button>
       </CardFooter>
     </Card>
-  )
-}
-
-
-
-
-   <><div className="flex min-h-screen items-center justify-center bg-blue-500">
-        <h1> Welcome to the Signup Page of 2026-scouting-app </h1>
-        <Card>
-  <CardHeader>
-    <CardTitle>Card Title</CardTitle>
-    <CardDescription>Card Description</CardDescription>
-    <CardAction>Card Action</CardAction>
-  </CardHeader>
-  <CardContent>
-    <p>Card Content</p>
-  </CardContent>
-  <CardFooter>
-    <p>Card Footer</p>
-  </CardFooter>
-</Card>
-</div>
-
-//get the user input for email and password finnished on tuesday
-
-
-</>
+   </div>
   );
 }
+//get the user input for email and password finished on tuesday
 export default thisIsTheSignupPage;
