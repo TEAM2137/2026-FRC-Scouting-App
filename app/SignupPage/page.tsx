@@ -1,3 +1,12 @@
+import mongoose from "mongoose"
+interface Signup {
+  teamNumber: string;
+  managerName: string;
+  managerEmail: string;
+  managerPassword: string;
+  managerPhoneNumber: string;
+  roleOnTeam: string;
+}
 import {
   Card,
   CardAction,
@@ -24,7 +33,17 @@ import {
   FieldTitle,
 } from "@/components/ui/field"
 import SignInForm from "@/components/auth/SignInForm"
-
+import { useState } from "react"
+const [teamNumber, setTeamNumber] = useState('');
+const handleFormSubmit = () => {
+  if (teamNumber === '') 
+    prompt("Please enter your Team Number");
+  return  
+  if (!teamNumber.includes(teamNumber ))
+    prompt("Please enter a valid Team Number");
+  return
+  }
+}
 const Page = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
@@ -72,16 +91,13 @@ const Page = () => {
                   <option value="coach">Adult Mentor on Team</option>
                   <option value="scout">Student Leader on Team</option>
                 </select>
-
-
               </div>
-              
               <div>
                 <Checkbox className="h-6 w-6 text-green-500" required />
                 <label htmlFor="terms">I am responsible for my and my teams actions. By using this app, your team will not add bad data into the database and will input data that is meaningful to the database</label>
               </div>
-              <div><Button type="submit" className="w-full">
-                  Sign Up 
+              <div><Button type="submit" className="w-full" onClick={() => handleFormSubmit()}>
+                  Sign Up                   
                 </Button></div>
             </div>
           </form>
@@ -90,5 +106,4 @@ const Page = () => {
     </div>
     )
     }
-//get the user input for email and password finished on tuesday
 export default Page;
