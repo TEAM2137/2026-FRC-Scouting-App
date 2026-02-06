@@ -100,3 +100,33 @@ export const signUpTeamAdmin = async (adminData: ITeamAdmin) => {
         return ({ success: false, message: 'Error registering team admin' });
     }
 }
+
+export const signInTeamAdmin = async (email: string, password: string) => {
+    try {
+        await connectDB();
+        // Find user by email
+        const user = await TeamAdmin.findOne({ managerEmail: email });
+        if (!user) {
+            return ({ success: false, message: 'Invalid email or password' });
+        }
+        
+        // TODO: Implement proper password verification using bcrypt
+        // For now, doing a direct comparison (NOT SECURE - replace with bcrypt!)
+        if (user.managerPassword !== password) {
+            return ({ success: false, message: 'Invalid email or password' });
+        }
+        return ({ 
+            success: true, 
+            message: 'Sign in successful', 
+            data: { 
+                id: user._id, 
+                email: user.managerEmail, 
+                teamNumber: user.teamNumber,
+                managerName: user.managerName
+            } 
+        });
+    } catch (err) {
+        console.error(err);
+        return ({ success: false, message: 'Error signing in' });
+    }
+}

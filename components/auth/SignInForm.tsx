@@ -10,9 +10,52 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
+import { useState } from "react"
 
 const SignInForm = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const [loading, setLoading] = useState(false);
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    setSuccess('');
+    setLoading(true);
+
+    try {
+      const response = await fetch('/api/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setSuccess(data.message);
+        // TODO: Store token and redirect to dashboard
+        console.log('User signed in:', data.data);
+        // Clear form
+        setEmail('');
+        setPassword('');
+      } else {
+        setError(data.message);
+      }
+    } catch (err) {
+      setError('An error occurred during sign in. Please try again.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
   return (
     <Card className="w-full max-w-sm">
       <CardHeader>
@@ -73,19 +116,16 @@ const SignInForm = () => {
                 }}
               />
             </div>
+            <Button 
+              type="submit" 
+              className="w-full"
+              disabled={loading}
+            >
+              {loading ? 'Signing in...' : 'Login'}
+            </Button>
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex-col gap-2">
-        <Button 
-          type="submit" 
-          className="w-full"
-          disabled={loading}
-          onClick={handleSubmit}
-        >
-          {loading ? 'Signing in...' : 'Login'}
-        </Button>
-      </CardFooter>
     </Card>
   );
 }
