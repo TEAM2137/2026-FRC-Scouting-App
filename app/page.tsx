@@ -29,8 +29,7 @@ export default function Home() {
                 <button>yes</button>
               </CardContent>
         </Card>
-        <script>
-        </script>
+        <script src=""></script>
         <Image src="/webapp-icons/android-chrome-512x512.png" alt="Logo" width="200" height="200" />
       </main>
     </div>
