@@ -4,6 +4,8 @@
 import connectDB from '@/lib/db';
 import Example from '@/models/example/Example';
 import { IExample } from '@/models/example/Example';
+import TeamAdmin from '@/models/auth/TeamAdmin';
+import { ITeamAdmin } from '@/models/auth/TeamAdmin';
 
 export const storeExample = async (exampleDATA: IExample) => {
     try {
@@ -73,5 +75,28 @@ export const deleteExample = async (idVariable: string) => {
     } catch (err) {
         console.log(err);
         return ({ success: false, message: 'Error deleting Example' });
+    }
+}
+
+export const signUpTeamAdmin = async (adminData: ITeamAdmin) => {
+    try {
+        await connectDB();
+        // Check if team already exists
+        const existingTeam = await TeamAdmin.findOne({ teamNumber: adminData.teamNumber });
+        if (existingTeam) {
+            return ({ success: false, message: 'Team number already registered' });
+        }
+        // Check if email already exists
+        const existingEmail = await TeamAdmin.findOne({ managerEmail: adminData.managerEmail });
+        if (existingEmail) {
+            return ({ success: false, message: 'Email already registered' });
+        }
+        // TODO: Hash the password before saving (use bcrypt)
+        const newAdmin = new TeamAdmin(adminData);
+        await newAdmin.save();
+        return ({ success: true, message: 'Team admin registered successfully', data: newAdmin._id });
+    } catch (err) {
+        console.error(err);
+        return ({ success: false, message: 'Error registering team admin' });
     }
 }
