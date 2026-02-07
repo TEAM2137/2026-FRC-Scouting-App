@@ -105,7 +105,6 @@ export default function Home() {
                 </CardFooter>
                 <CardFooter><p className="bg-amber-400 rounded-2xl size-3/30 text-center border-2 border-amber-600">Total Score: {HPI + fuel}</p> <p className="bg-indigo-600 rounded-2xl size-3/30 text-center border-2 border-indigo-800">RP gained: {RP}</p></CardFooter>
             </Card>
-            
         </body>
     </html>
     );

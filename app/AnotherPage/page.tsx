@@ -15,19 +15,14 @@ import Image from "next/image";
 
 
 export default function Home() {
-    const [cardIm,setcardIm] = useState("/webapp-icons/FRC-Card-Back2.png")
-    const flipCard = () => {
-        setcardIm(cardIm === "/webapp-icons/FRC-Card-Back2.png" ? "/webapp-icons/FRC-Card-Outline3.png" : "/webapp-icons/FRC-Card-Back2.png")
+    const [score, setScore] = useState(0);
+    const getInfo = () => {
+        
     }
     return (
         <html>
             <body>
-                <Card>
-                    <CardHeader><center>Easter Eggs</center></CardHeader>
-                    <CardContent><center><button>spawn fuel</button></center></CardContent>
-                    
-                </Card>
-                <img onClick={flipCard} src="/webapp-icons/FRC-Card-Back2.png"></img>
+                <p className="bg-purple-400"> 1234 match</p>
             </body>
         </html>
     );
