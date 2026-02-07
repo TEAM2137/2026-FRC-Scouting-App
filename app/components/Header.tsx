@@ -1,6 +1,7 @@
 const Header =   () => {
 return (
 <div className="grid grid-cols-2 w-full h-full">
+
     <div className="col-span-1 text-left">
     <h1> Our scouting app logo</h1>
 </div> 

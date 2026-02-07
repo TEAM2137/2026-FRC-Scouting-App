@@ -1,6 +1,6 @@
 'use server'
 
-import connectDB from '@/lib/db'
-import PitReport from '@/models/ScoutingData/PitReeport';
-
-
+//import connectDB from '@/lib/db'
+//import PitReports from './models/example/scoutingData/PitReports';
+//import { IPitReport } from 'models/example/scoutingData/PitReports';
+ 
