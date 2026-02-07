@@ -55,7 +55,7 @@ const Page = () => {
     setError(''); // Clear error when user starts typing
   };
  
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     
     // Validate all fields are filled
@@ -109,9 +109,8 @@ const Page = () => {
         try {      const response = await fetch('/api/signup', {
         method: 'FETCH',
         headers: {}
-     mongoo.set('strictQuery', false);
+       
           
-        
         });
       const data = await response.json();
 
@@ -139,26 +138,10 @@ const Page = () => {
     } finally {
       setLoading(false);
     }
-  const { teamNumber } = Request.teamNumber();
-
-  if (!teamNumber) {
-    return Response.status(400).json({ success: false, message: 'Team number is required' });
   }
-
-  try {
-    const result = await teamNumber(teamNumber);
-
-    if (result.success) {
-      return Response.status(200).json({ success: true, message: 'Team found', data: result.data });
-    } else {
-      return Response.status(404).json({ success: false, message: 'Team not found' });
-    }
-  } catch (error) {
-    console.error('Error fetching team:', error);
-    return Response.status(500).json({ success: false, message: 'Internal server error' });
-  }
-  };
-
+   catch( err ) {
+    console.log(err)
+   }}
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
       <Card>
@@ -200,7 +183,7 @@ const Page = () => {
                   type="text" 
                   required 
                   placeholder="John Smith"
-                  value={formData.managerName}
+                  value={FormData.managerName}
                   onChange={handleInputChange}
                 />
               </div>
@@ -211,7 +194,7 @@ const Page = () => {
                   type="email"
                   placeholder="Email@Email.com"
                   required
-                  value={formData.managerEmail}
+                  value={FormData.managerEmail}
                   onChange={handleInputChange}
                 />
               </div>
@@ -221,7 +204,7 @@ const Page = () => {
                   id="password" 
                   type="password" 
                   required
-                  value={formData.managerPassword}
+                  value={FormData.managerPassword}
                   onChange={handleInputChange}
                 />
               </div>
@@ -232,7 +215,7 @@ const Page = () => {
                   type="tel" 
                   placeholder="123-456-7890" 
                   required
-                  value={formData.managerPhoneNumber}
+                  value={FormData.managerPhoneNumber}
                   onChange={handleInputChange}
                 />
               </div>
@@ -275,8 +258,7 @@ const Page = () => {
       </Card>
     </div>
   );
-};
-
+}
 export default Page;
 
 
