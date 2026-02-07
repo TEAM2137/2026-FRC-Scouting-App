@@ -84,7 +84,7 @@ const Page = () => {
     setSuccess('');
 
     try {
-      const response = await fetch('/api/signup', {
+      const response = await fetch('/api/signup/student', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

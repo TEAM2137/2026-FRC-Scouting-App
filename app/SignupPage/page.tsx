@@ -25,7 +25,7 @@ interface Signup {
   managerPhoneNumber: string;
   roleOnTeam: string;
 }
-
+ 
 const Page = () => {
   const [formData, setFormData] = useState<Signup>({
     teamNumber: '',
@@ -54,7 +54,7 @@ const Page = () => {
     }));
     setError(''); // Clear error when user starts typing
   };
-
+ 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     
@@ -106,7 +106,13 @@ const Page = () => {
         },
         body: JSON.stringify(formData),
       });
-
+        try {      const response = await fetch('/api/signup', {
+        method: 'FETCH',
+        headers: {}
+     mongoo.set('strictQuery', false);
+          
+        
+        });
       const data = await response.json();
 
       if (data.success) {
@@ -133,6 +139,24 @@ const Page = () => {
     } finally {
       setLoading(false);
     }
+  const { teamNumber } = Request.teamNumber();
+
+  if (!teamNumber) {
+    return Response.status(400).json({ success: false, message: 'Team number is required' });
+  }
+
+  try {
+    const result = await teamNumber(teamNumber);
+
+    if (result.success) {
+      return Response.status(200).json({ success: true, message: 'Team found', data: result.data });
+    } else {
+      return Response.status(404).json({ success: false, message: 'Team not found' });
+    }
+  } catch (error) {
+    console.error('Error fetching team:', error);
+    return Response.status(500).json({ success: false, message: 'Internal server error' });
+  }
   };
 
   return (
@@ -254,3 +278,5 @@ const Page = () => {
 };
 
 export default Page;
+
+

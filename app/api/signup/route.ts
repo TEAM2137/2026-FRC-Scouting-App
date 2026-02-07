@@ -1,11 +1,25 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { signUpTeamAdmin } from '@/lib/ServerSideFunctions';
-import { ITeamAdmin } from '@/models/auth/TeamAdmin';
-
+import TeamAdmin, { ITeamAdmin } from '@/models/auth/TeamAdmin';
+import connectDB from '@/lib/db';
+import teams from '@/models/FRC-API/Teams';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-
+try {
+    await connectDB();
+    
+    // chekc if team number exists in database, if not return error,
+    const team = await teams.findOne({ teamNumber: body.teamNumber });
+    if (!team) {
+        return ({ success: false, message: 'Team number not found' });
+    }
+    // Check if team already exists
+    const existingTeam = await TeamAdmin.findOne({ teamNumber: body.teamNumber });
+    if (existingTeam) {
+        return ({ success: false, message: 'Team number already registered' });
+    }
+    }
     // Validate required fields
     const requiredFields = ['teamNumber', 'managerName', 'managerEmail', 'managerPassword', 'managerPhoneNumber', 'roleOnTeam'];
     const missingFields = requiredFields.filter(field => !body[field]);
@@ -58,4 +72,9 @@ export async function POST(request: NextRequest) {
       { status: 500 }
     );
   }
-}
+
+  }
+
+
+
+//check if team number exists in database, if not return error, if it does, check if email already exists, if it does return error, if not save to database

@@ -6,6 +6,8 @@ import Example from '@/models/example/Example';
 import { IExample } from '@/models/example/Example';
 import TeamAdmin from '@/models/auth/TeamAdmin';
 import { ITeamAdmin } from '@/models/auth/TeamAdmin';
+import Student from '@/models/auth/Student';
+import { IStudent } from '@/models/auth/Student';
 
 export const storeExample = async (exampleDATA: IExample) => {
     try {
@@ -100,7 +102,7 @@ export const signUpTeamAdmin = async (adminData: ITeamAdmin) => {
         return ({ success: false, message: 'Error registering team admin' });
     }
 }
-export const signupStudent = async (studentData: any) => {
+export const signupStudent = async (studentData: IStudent) => {
     try {
         await connectDB();
         // Check if team exists
@@ -108,6 +110,15 @@ export const signupStudent = async (studentData: any) => {
         if (!team) {
             return ({ success: false, message: 'Team number not found' });
         }
+        // Check if email already exists
+        const existingEmail = await Student.findOne({ StudentEmail: studentData.StudentEmail });
+        if (existingEmail) {
+            return ({ success: false, message: 'Email already registered' });
+        }
+        // TODO: Hash the password before saving (use bcrypt)
+        const newStudent = new Student(studentData);
+        await newStudent.save();
+        return ({ success: true, message: 'Student registered successfully', data: newStudent._id });
     } catch (err) {
         console.error(err);
         return ({ success: false, message: 'Error registering student' });
