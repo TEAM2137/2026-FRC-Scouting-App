@@ -1,0 +1,73 @@
+import mongoose from "mongoose";
+
+interface ITeam {
+    teamNumber: number,
+    nameFull: string,
+    nameShort: string,
+    city: string,
+    events: string[];
+    stateProv: string,
+    country: string,
+    rookieYear: number,
+    robotName: string,
+    districtCode: string,
+    schoolName: string,
+    website: string,
+    homeCMP: string | null;
+}
+const TeamSchema = new mongoose.Schema<ITeam>(
+    {
+        "teamNumber": {
+            type: Number,
+            required: true
+        },
+        "nameFull": {
+            type: String,
+            required: true
+        },
+        "nameShort": {
+            type: String,
+            required: true
+        },
+        "city": {
+            type: String,
+            required: true
+        },
+        "events": {
+            type: [String],
+            required: true
+        },
+        "stateProv": {
+            type: String,
+            required: true
+        },
+        "country": {
+            type: String,
+            required: true
+        },
+        "rookieYear": {
+            type: Number,
+            required: true
+        },
+        "robotName": {
+            type: String,
+            required: true
+        },
+        "districtCode": {
+            type: String,
+            required: true
+        },
+        "schoolName": {
+            type: String,
+            required: true
+        },
+        "website": {
+            type: String,
+            required: true
+        },
+        "homeCMP": {
+            type: String,
+            required: false
+        }
+    }
+)
