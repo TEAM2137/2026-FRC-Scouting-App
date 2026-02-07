@@ -16,6 +16,8 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import SignInForm from "@/components/auth/SignInForm"
+import { Database } from "lucide-react";
+import { exists } from "fs";
 
 interface Signup {
   teamNumber: string;
@@ -49,9 +51,9 @@ const Page = () => {
     setError(''); // Clear error when user starts typing
   };
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmitStudent = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+   
     // Validate all fields are filled
     if (!formData.teamNumber) {
       setError("Please enter your Team Number");
@@ -77,7 +79,6 @@ const Page = () => {
       setError("You must accept the terms and conditions");
       return;
     }
-    
     setLoading(true);
     setError('');
     setSuccess('');
@@ -128,7 +129,7 @@ const Page = () => {
           </CardAction>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleFormSubmit}>
+          <form onSubmit={handleFormSubmitStudent}>
             <div className="flex flex-col gap-3">
               {error && (
                 <div className="rounded bg-red-100 p-3 text-sm text-red-700">
@@ -206,7 +207,15 @@ const Page = () => {
           </CardContent>
         </Card>
       </div>
-    );
+      
+  
+  
+  
+  
+  
+  
+  
+  );
   };
 
 export default Page;

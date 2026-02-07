@@ -100,6 +100,22 @@ export const signUpTeamAdmin = async (adminData: ITeamAdmin) => {
         return ({ success: false, message: 'Error registering team admin' });
     }
 }
+export const signupStudent = async (studentData: any) => {
+    try {
+        await connectDB();
+        // Check if team exists
+        const team = await TeamAdmin.findOne({ teamNumber: studentData.teamNumber });
+        if (!team) {
+            return ({ success: false, message: 'Team number not found' });
+        }
+    } catch (err) {
+        console.error(err);
+        return ({ success: false, message: 'Error registering student' });
+    }
+}
+
+
+
 
 export const signInTeamAdmin = async (email: string, password: string) => {
     try {
