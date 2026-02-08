@@ -16,8 +16,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import SignInForm from "@/components/auth/SignInForm"
-import * as  bcrypt from 'bcrypt-ts'
-import { hash } from 'bcrypt-ts'
+import hashedPassword from "@/lib/hashPassword";
 interface Signup {
   teamNumber: string;
   managerName: string;
@@ -26,11 +25,7 @@ interface Signup {
   managerPhoneNumber: string;
   roleOnTeam: string;
 }
- const SALT_ROUNDS =10;
- async function hashPassword(password: string): Promise<string> {
-const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
-return hashedPassword;
-}
+ 
 const Page = () => {
   const [formData, setFormData] = useState<Signup>({
     teamNumber: '',
@@ -104,13 +99,13 @@ const Page = () => {
     setSuccess('');
 
     try {
-     const hashedPassword = await hashPassword(formData.managerPassword);
+      const hashedPasswordValue = await hashedPassword(formData.managerPassword);
       const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, managerPassword: hashedPassword }),
+        body: JSON.stringify({ ...formData, managerPassword: hashedPasswordValue }),
       });
         try {      const response = await fetch('/api/signup', {
         method: 'POST',

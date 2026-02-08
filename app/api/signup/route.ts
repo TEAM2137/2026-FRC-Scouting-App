@@ -3,17 +3,23 @@ import { signUpTeamAdmin } from '@/lib/ServerSideFunctions';
 import TeamAdmin, { ITeamAdmin } from '@/models/auth/TeamAdmin';
 import connectDB from '@/lib/db';
 import teams from '@/models/FRC-API/Teams';
+import * as  bcrypt from 'bcrypt-ts'
+import { hash } from 'bcrypt-ts'
+
 export async function POST(request: NextRequest) {
 
  await connectDB();
 
 
   const body = await request.json(
- 
- 
- 
- 
 );
+
+const SALT_ROUNDS =10;
+ async function hashPassword(password: string): Promise<string> {
+const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+return hashedPassword;
+}
+
     // chekc if team number exists in database, if not return error,
     const team = await teams.findOne({ teamNumber: body.teamNumber });
     if (!team) {
