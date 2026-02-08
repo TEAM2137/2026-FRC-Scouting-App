@@ -4,11 +4,18 @@ import TeamAdmin, { ITeamAdmin } from '@/models/auth/TeamAdmin';
 import connectDB from '@/lib/db';
 import teams from '@/models/FRC-API/Teams';
 export async function POST(request: NextRequest) {
+const body = await request.json(
   try {
-    const body = await request.json();
-try {
-    await connectDB();
+
+
+
+
+
+
+  }
     
+  await connectDB();
+    );
     // chekc if team number exists in database, if not return error,
     const team = await teams.findOne({ teamNumber: body.teamNumber });
     if (!team) {
@@ -30,7 +37,7 @@ try {
         { status: 400 }
       );
     }
-
+  
     // Validate team number is numeric
     if (isNaN(Number(body.teamNumber))) {
       return NextResponse.json(
