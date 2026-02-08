@@ -16,7 +16,7 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import SignInForm from "@/components/auth/SignInForm"
-
+import bcrypt from 'bcrypt'
 interface Signup {
   teamNumber: string;
   managerName: string;
@@ -25,7 +25,11 @@ interface Signup {
   managerPhoneNumber: string;
   roleOnTeam: string;
 }
- 
+ const SALT_ROUNDS =10;
+ async function hashPassword(password: string): Promise<string> {
+const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+return hashedPassword;
+}
 const Page = () => {
   const [formData, setFormData] = useState<Signup>({
     teamNumber: '',
@@ -99,21 +103,21 @@ const Page = () => {
     setSuccess('');
 
     try {
+     const hashedPassword = await hashPassword(formData.managerPassword);
       const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, managerPassword: hashedPassword }),
       });
         try {      const response = await fetch('/api/signup', {
-        method: 'FETCH',
-        headers: {}
-       
-          
-        });
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
       const data = await response.json();
-
       if (data.success) {
         setSuccess('Account created successfully! You can now sign in.');
         setFormData({
@@ -183,7 +187,7 @@ const Page = () => {
                   type="text" 
                   required 
                   placeholder="John Smith"
-                  value={FormData.managerName}
+                  value={formData.managerName}
                   onChange={handleInputChange}
                 />
               </div>
@@ -194,7 +198,7 @@ const Page = () => {
                   type="email"
                   placeholder="Email@Email.com"
                   required
-                  value={FormData.managerEmail}
+                  value={formData.managerEmail}
                   onChange={handleInputChange}
                 />
               </div>
@@ -204,7 +208,7 @@ const Page = () => {
                   id="password" 
                   type="password" 
                   required
-                  value={FormData.managerPassword}
+                  value={formData.managerPassword}
                   onChange={handleInputChange}
                 />
               </div>
@@ -215,7 +219,7 @@ const Page = () => {
                   type="tel" 
                   placeholder="123-456-7890" 
                   required
-                  value={FormData.managerPhoneNumber}
+                  value={formData.managerPhoneNumber}
                   onChange={handleInputChange}
                 />
               </div>

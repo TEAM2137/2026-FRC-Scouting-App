@@ -5,15 +5,6 @@ import connectDB from '@/lib/db';
 import teams from '@/models/FRC-API/Teams';
 export async function POST(request: NextRequest) {
 const body = await request.json(
-  try {
-
-
-
-
-
-
-  }
-    
   await connectDB();
     );
     // chekc if team number exists in database, if not return error,
@@ -72,14 +63,12 @@ const body = await request.json(
     } else {
       return NextResponse.json(result, { status: 400 });
     }
-  } catch (error) {
+   catch (error) {
     console.error('Signup error:', error);
     return NextResponse.json(
       { success: false, message: 'Internal server error' },
       { status: 500 }
     );
-  }
-
   }
 
 
