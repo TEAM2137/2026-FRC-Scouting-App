@@ -4,18 +4,25 @@ import TeamAdmin, { ITeamAdmin } from '@/models/auth/TeamAdmin';
 import connectDB from '@/lib/db';
 import teams from '@/models/FRC-API/Teams';
 export async function POST(request: NextRequest) {
-const body = await request.json(
-  await connectDB();
-    );
+
+ await connectDB();
+
+
+  const body = await request.json(
+ 
+ 
+ 
+ 
+);
     // chekc if team number exists in database, if not return error,
     const team = await teams.findOne({ teamNumber: body.teamNumber });
     if (!team) {
-        return ({ success: false, message: 'Team number not found' });
+        return NextResponse.json({ success: false, message: 'Team number not found' }, { status: 404 });
     }
     // Check if team already exists
     const existingTeam = await TeamAdmin.findOne({ teamNumber: body.teamNumber });
     if (existingTeam) {
-        return ({ success: false, message: 'Team number already registered' });
+        return NextResponse.json({ success: false, message: 'Team number already registered' }, { status: 409 });
     }
     }
     // Validate required fields
@@ -55,22 +62,20 @@ const body = await request.json(
       );
     }
 
-    // Call server function to save to database
-    const result = await signUpTeamAdmin(body as ITeamAdmin);
+    try {
+      // Call server function to save to database
+      const result = await signUpTeamAdmin(body as ITeamAdmin);
 
-    if (result.success) {
-      return NextResponse.json(result, { status: 201 });
-    } else {
-      return NextResponse.json(result, { status: 400 });
+      if (result.success) {
+        return NextResponse.json(result, { status: 201 });
+      } else {
+        return NextResponse.json(result, { status: 400 });
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      return NextResponse.json(
+        { success: false, message: 'Internal server error' },
+        { status: 500 }
+      );
     }
-   catch (error) {
-    console.error('Signup error:', error);
-    return NextResponse.json(
-      { success: false, message: 'Internal server error' },
-      { status: 500 }
-    );
-  }
 
-
-
-//check if team number exists in database, if not return error, if it does, check if email already exists, if it does return error, if not save to database

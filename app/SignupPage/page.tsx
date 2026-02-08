@@ -16,7 +16,8 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import SignInForm from "@/components/auth/SignInForm"
-import bcrypt from 'bcrypt'
+import * as  bcrypt from 'bcrypt-ts'
+import { hash } from 'bcrypt-ts'
 interface Signup {
   teamNumber: string;
   managerName: string;
