@@ -1,25 +1,26 @@
 import mongoose from "mongoose";
 
 interface ITeam {
-    teamNumber: number,
-    nameFull: string,
-    nameShort: string,
-    city: string,
-    events: string[];
-    stateProv: string,
-    country: string,
-    rookieYear: number,
-    robotName: string,
-    districtCode: string,
-    schoolName: string,
-    website: string,
-    homeCMP: string | null;
+    "teamNumber": number,
+    "nameFull": string,
+    "nameShort": string,
+    "city": string,
+    "stateProv": string,
+    "country": string,
+    "rookieYear": number,
+    "robotName": string,
+    "districtCode": string,
+    "schoolName": string,
+    "website": string,
+    "homeCMP": string
 }
+
 const TeamSchema = new mongoose.Schema<ITeam>(
     {
         "teamNumber": {
             type: Number,
-            required: true
+            required: true,
+            unique: true
         },
         "nameFull": {
             type: String,
@@ -31,10 +32,6 @@ const TeamSchema = new mongoose.Schema<ITeam>(
         },
         "city": {
             type: String,
-            required: true
-        },
-        "events": {
-            type: [String],
             required: true
         },
         "stateProv": {
@@ -63,11 +60,17 @@ const TeamSchema = new mongoose.Schema<ITeam>(
         },
         "website": {
             type: String,
-            required: true
         },
         "homeCMP": {
             type: String,
-            required: false
+            required: true
         }
+    },
+    {
+        timestamps: true,
     }
-)
+);
+
+const Team = mongoose.models?.Team || mongoose.model("Team", TeamSchema);
+
+export default Team;
