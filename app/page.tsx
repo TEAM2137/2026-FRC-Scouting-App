@@ -30,12 +30,15 @@ export default function Home() {
         } else {
             setRP(0)
         }
-        if (fuel >= 400) {
-            setFuel(400)
+        if (fuel >= 800) {
+            setFuel(800)
             alert("nuh uh")
-            var yesno = prompt("yes or no")
-            if (yesno == "yes") {
-                 open("https://www.youtube.com/watch?v=yzUHolqu-NA")
+            if (Math.random() <= 0.5) {
+                open("https://www.youtube.com/watch?v=yzUHolqu-NA")
+            } else if (Math.random() <= 0.5) {
+                open("https://youtu.be/N2mGh-PHJXs?t=9")
+            } else {
+                open("https://youtu.be/e1wcXEedXO4")
             }
             
             
@@ -61,8 +64,8 @@ export default function Home() {
         if (Number(event.target.value)%1 == 0) {
             setDeInAmount(Number(event.target.value));
         }
-        if (Number(event.target.value) > 50) {
-            setDeInAmount(50)
+        if (Number(event.target.value) > 60) {
+            setDeInAmount(60)
         }
     }
     const ChangeLevel = (level: Number) => {

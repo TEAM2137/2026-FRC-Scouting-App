@@ -15,19 +15,24 @@ import Image from "next/image";
 
 
 export default function Home() {
-  const [yodels, setYodels] = useState(0)
-  const [MYPC, setMYPC] = useState(1)
-  const [price, setPrice] = useState([10,50,100,1000,10000])
-  const yodel = () => {
-    setYodels(yodels + 1)
+  const [sizey,setSizey] = useState(200)
+  const [oneyFound, setOneyFound] = useState(0);
+  const moveShaw = () => {
+    const shaw = document.getElementById("shaw");
+    shaw.style.top = Math.random() * window.innerHeight + "px";
+    shaw.style.left = Math.random() * window.innerWidth + "px";
+    setSizey(Math.random() * 40 + 10);
+    setOneyFound(oneyFound + 1);
   }
     return (
            <html>
           <body>
-           <center><button onClick={yodel}className="font-bold rounded-2xl" style={{ backgroundColor: 'blue', color: 'white', width: "100px"}}>yodel</button></center>
-           <center><h1>{yodels}</h1></center>
-           <center><button>+1 yodels per click, costs: {price}</button></center>
-
+            <center> <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-center py-32 px-16 bg-white dark:bg-black sm:items-start">
+                    <h1>find the oney plays dance</h1>
+                    <h1>you've found it: {oneyFound}</h1>
+                    <Image src="/webapp-icons/android-chrome-512x512.png" alt="Logo" width="200" height="200" />
+                    <Image id="shaw" onClick={moveShaw} src="/webapp-icons/Shaw.gif" alt="Shaw" width={sizey} height={sizey} style={{position: "absolute", top: "0px", left: "0px"}} />
+                    </main> </center>
           </body>
         </html>
     );
