@@ -8,7 +8,19 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-
+const  handleForgotPassword = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const email = (e.currentTarget.elements.namedItem("email") as HTMLInputElement).value;
+  try {
+    const response = await fetch("/api/forgot-password", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });} catch (error) {
+    console.error("Error sending forgot password request:", error);
+  }
 const Page = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-comicsans dark:bg-black">
@@ -37,6 +49,7 @@ const Page = () => {
       </Card>
     </div>
   )
-}
+}}
+
 
 export default Page
