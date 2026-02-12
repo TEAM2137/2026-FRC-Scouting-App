@@ -15,8 +15,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
-import SignInForm from "@/components/auth/SignInForm"
-import { hashedPassword } from "@/lib/ServerSideFunctions"
+
 interface Signup {
   teamNumber: string;
   managerName: string;
@@ -99,13 +98,13 @@ const Page = () => {
     setSuccess('');
 
     try {
-      const hashedPasswordValue = await hashedPassword(formData.managerPassword);
+      
       const response = await fetch('/api/signup', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...formData, managerPassword: hashedPasswordValue }),
+       
       });
         try {      const response = await fetch('/api/signup', {
         method: 'POST',
@@ -143,7 +142,7 @@ const Page = () => {
     console.log(err)
    }}
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
+    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-comicsans dark:bg-black">
       <Card>
         <CardHeader>
           <CardTitle>Sign Up for an Account</CardTitle>
