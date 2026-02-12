@@ -1,14 +1,19 @@
 'use client'
 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 const SignIn = () => {
     return (
-        <div className="flex flex-col items-center justify-center gap-4 p-4">
-            <h1 className="text-sm sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-bold">Sign In</h1>
-            <p className="text-lg">
-                Sign in to your account to scout!
-            </p>
-        </div>
+        <Card >
+            <CardHeader>
+                <CardTitle className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-bold">Sign In</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <CardDescription>
+                    Sign in to your account to scout!
+                </CardDescription>
+            </CardContent>
+        </Card>
     )
 }
 
