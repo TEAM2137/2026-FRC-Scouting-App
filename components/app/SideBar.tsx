@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { PanelRightClose, PanelRightOpen } from "lucide-react"
-
+import Image from "next/image"
 import { Button } from "@/components/ui/button"
 
 
@@ -13,9 +13,9 @@ const SideBar = () => {
         <div className={`fixed top-0 left-0 z-10 ${isOpen ? "w-64" : "w-16"} h-screen flex max-w-screen flex-col gap-4 p-4 overflow-hidden bg-[#0F1031]`}>
             <div className="flex flex-row gap-2">
                 <Button variant="ghost" size="icon" onClick={() => setOpen(!isOpen)}>
-                    {isOpen ? <PanelRightOpen className="m-auto" /> : <PanelRightClose className="m-auto" />}
+                    <Image src="/images/TEAM2137-Robocat-Head.svg" alt="Acme Logo" width={32} height={32} />
                 </Button>
-                <div className={`text-lg font-bold p-1 ${!isOpen && "hidden" }`}>NEXT SCOUT</div>
+                <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>NEXT SCOUT</div>
             </div>
             <div className="flex flex-row gap-2">
                 <Button variant="ghost" size="icon" onClick={() => setOpen(!isOpen)}>
