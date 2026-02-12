@@ -1,6 +1,4 @@
 'use server'
-
-
 import connectDB from '@/lib/db';
 import Example from '@/models/example/Example';
 import { IExample } from '@/models/example/Example';
