@@ -19,7 +19,7 @@ const Page = () => {
         </CardHeader>
         <CardContent>
           <div className="grid gap-3">
-            <Label htmlFor="email">Manager Email</Label>
+            <Label htmlFor="email">Student Email</Label>
             <Input
               id="email"
               type="email"
