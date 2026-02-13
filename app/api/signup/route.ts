@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server';
-import TeamAdmin, { ITeamAdmin } from '@/models/auth/TeamAdmin';
+import User, { IUser } from '@/models/auth/User';
 import connectDB from '@/lib/db';
-import teams from '@/models/FRC-API/Teams';
-import * as  bcrypt from 'bcrypt-ts'
+import Team from '@/models/frc-events/Team';
+import {hashSync, genSaltSync}  from 'bcrypt-ts'
+import { genSalt } from 'bcrypt';
 
 export async function POST(request: NextRequest) {
 
@@ -11,19 +12,19 @@ export async function POST(request: NextRequest) {
 
   const body = await request.json(
 );
-const SALT_ROUNDS =10;
+const salt =genSaltSync(10);
  async function hashPassword(password: string): Promise<string> {
-const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+const hashedPassword = hashSync(password, salt);
 return hashedPassword;
 }
 
     // chekc if team number exists in database, if not return error,
-    const team = await teams.findOne({ teamNumber: body.teamNumber });
+    const team = await Team.findOne({ teamNumber: body.teamNumber });
     if (!team) {
         return NextResponse.json({ success: false, message: 'Team number not found' }, { status: 404 });
     }
     // Check if team already exists
-    const existingTeam = await TeamAdmin.findOne({ teamNumber: body.teamNumber });
+    const existingTeam = await User.findOne({ teamNumber: body.teamNumber });
     if (existingTeam) {
         return NextResponse.json({ success: false, message: 'Team number already registered' }, { status: 409 });
     }
@@ -66,7 +67,7 @@ return hashedPassword;
 
     try {
       // Call server function to save to database
-      const result = await ITeamAdmin(body as ITeamAdmin);
+      const result = await User.findOneAndUpdate({email: body.email}, body as IUser, {upsert: true, new: true});
 
       if (result.success) {
         return NextResponse.json(result, { status: 201 });
