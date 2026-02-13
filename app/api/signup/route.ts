@@ -8,10 +8,8 @@ import { genSalt } from 'bcrypt';
 export async function POST(request: NextRequest) {
 
  await connectDB();
-
-
-  const body = await request.json(
-);
+ 
+  const body = await request.json();
 const salt =genSaltSync(10);
  async function hashPassword(password: string): Promise<string> {
 const hashedPassword = hashSync(password, salt);
@@ -28,6 +26,7 @@ return hashedPassword;
     if (existingTeam) {
         return NextResponse.json({ success: false, message: 'Team number already registered' }, { status: 409 });
     }
+    
     // Validate required fields
     const requiredFields = ['teamNumber', 'managerName', 'managerEmail', 'managerPassword', 'managerPhoneNumber', 'roleOnTeam'];
     const missingFields = requiredFields.filter(field => !body[field]);

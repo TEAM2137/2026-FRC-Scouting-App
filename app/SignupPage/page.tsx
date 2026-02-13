@@ -153,14 +153,14 @@ const Page = () => {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleFormSubmit}>
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-1">
               {error && (
-                <div className="rounded bg-red-100 p-3 text-sm text-red-700">
+                <div className="rounded bg-red-100 p-1 text-sm text-red-700">
                   {error}
                 </div>
               )}
               {success && (
-                <div className="rounded bg-green-100 p-3 text-sm text-green-700">
+                <div className="rounded bg-green-100 p-1 text-sm text-green-700">
                   {success}
                 </div>
               )}
@@ -175,7 +175,7 @@ const Page = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="grid gap-3">
+              <div className="grid gap-2">
                 <Label htmlFor="name">Manager Name</Label>
                 <Input 
                   id="name" 
@@ -186,7 +186,7 @@ const Page = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="grid gap-3">
+              <div className="grid gap-2">
                 <Label htmlFor="email">Manager Email</Label>
                 <Input
                   id="email"
@@ -197,7 +197,7 @@ const Page = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="grid gap-3">
+              <div className="grid gap-2">
                 <Label htmlFor="password">Manager Password</Label>
                 <Input 
                   id="password" 
@@ -207,7 +207,7 @@ const Page = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="grid gap-3">
+              <div className="grid gap-2">
                 <Label htmlFor="PhoneNumber">Manager Phone Number</Label>
                 <Input 
                   id="PhoneNumber" 
@@ -225,7 +225,7 @@ const Page = () => {
                   required
                   value={formData.roleOnTeam}
                   onChange={handleInputChange}
-                  className="rounded border border-gray-300 px-3 py-2"
+                  className="rounded border border-gray-300 px-2 py-1"
                 >
                   <option value="">Select your role</option>
                   <option value="manager">FIRST Lead Mentor</option>
