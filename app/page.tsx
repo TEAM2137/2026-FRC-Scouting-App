@@ -1,7 +1,13 @@
+'use client'
+
 import SignIn from '@/components/auth/SignIn';
+import SignUpTeam from '@/components/auth/SignUpTeam';
 import Image from 'next/image';
+import { useState } from 'react';
 
 export default function Home() {
+  const [authDisplay, setAuthDisplay] = useState('signin');
+
   return (
     <div className="grid grid-col h-screen w-screen pl-16 justify-center place-items-center  bg-zinc-50 font-sans dark:bg-neutral-900 ">
         
@@ -10,7 +16,22 @@ export default function Home() {
           <div className="text-lg font-bold">NEXT SCOUT</div>
           <div className="text-sm font-normal italic">Welcome to our scouting app for 2026!</div>
         </div>
+
+        {authDisplay === 'signin' && 
+        <>
         <SignIn />
+        <button onClick={() => setAuthDisplay('signupteam')}>
+        If your team is not registered, you can sign up for a team here.</button>
+        </>
+        }
+        {authDisplay === 'signupteam' && 
+        <>
+        <SignUpTeam />
+        <button onClick={() => setAuthDisplay('signin')}>
+        If you already have a team, you can sign in here.</button>
+        </>
+        }
+
 
     </div>
   );
