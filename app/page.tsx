@@ -1,4 +1,7 @@
+'use client'
+
 import SignIn from '@/components/auth/SignIn';
+import SignUpTeam from '@/components/auth/SignUpTeam';
 import Image from 'next/image';
 import { Button } from "@/components/ui/button"
 import {
