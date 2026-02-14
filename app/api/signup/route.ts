@@ -3,26 +3,40 @@ import User, { IUser } from '@/models/auth/User';
 import connectDB from '@/lib/db';
 import Team from '@/models/frc-events/Team';
 import {hashSync, genSaltSync}  from 'bcrypt-ts'
-import { genSalt } from 'bcrypt';
+
 
 export async function POST(request: NextRequest) {
 
  await connectDB();
+ const formData = await request.formData();
+ const salt = genSaltSync(10);
+  let password = "Password"
+  if (formData.get("Password") !== null){
+    password = formData.get("Password") || ""
+  }
  
-  const body = await request.json();
-const salt =genSaltSync(10);
- async function hashPassword(password: string): Promise<string> {
-const hashedPassword = hashSync(password, salt);
-return hashedPassword;
-}
+ const signupData = {
+ teamNumber: formData.get("TeamNumber"),
+  managerName ,
+  managerEmail,
+  managerPassword: hashSync(password, salt),
+  managerPhoneNumber: formData.get("PhoneNumber");
+  roleOnTeam: string;
+
+ }
+
+
+  const name = formData.get('name');
+
+
 
     // chekc if team number exists in database, if not return error,
-    const team = await Team.findOne({ teamNumber: body.teamNumber });
+    const team = await Team.findOne({ number:  });
     if (!team) {
         return NextResponse.json({ success: false, message: 'Team number not found' }, { status: 404 });
     }
     // Check if team already exists
-    const existingTeam = await User.findOne({ teamNumber: body.teamNumber });
+    const existingTeam = await User.findOne({ number: body.number });
     if (existingTeam) {
         return NextResponse.json({ success: false, message: 'Team number already registered' }, { status: 409 });
     }

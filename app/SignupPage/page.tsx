@@ -1,6 +1,6 @@
 'use client';
 
-import mongoose from "mongoose"
+
 import { useState } from "react"
 import {
   Card,
@@ -96,22 +96,15 @@ const Page = () => {
     setLoading(true);
     setError('');
     setSuccess('');
-
+const myForm= new FormData(e.currentTarget)
     try {
       
       const response = await fetch('/api/signup', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        body: myForm
        
       });
-        try {      const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+    
       const data = await response.json();
       if (data.success) {
         setSuccess('Account created successfully! You can now sign in.');
@@ -164,7 +157,7 @@ const Page = () => {
                   {success}
                 </div>
               )}
-              <div className="grid gap-3">
+              <div className="grid gap-1">
                 <Label htmlFor="TeamNumber">Team Number</Label>
                 <Input 
                   id="TeamNumber" 
@@ -178,7 +171,7 @@ const Page = () => {
               <div className="grid gap-2">
                 <Label htmlFor="name">Manager Name</Label>
                 <Input 
-                  id="name" 
+                  id="Name" 
                   type="text" 
                   required 
                   placeholder="John Smith"
@@ -189,7 +182,7 @@ const Page = () => {
               <div className="grid gap-2">
                 <Label htmlFor="email">Manager Email</Label>
                 <Input
-                  id="email"
+                  id="Email"
                   type="email"
                   placeholder="Email@Email.com"
                   required
@@ -200,7 +193,7 @@ const Page = () => {
               <div className="grid gap-2">
                 <Label htmlFor="password">Manager Password</Label>
                 <Input 
-                  id="password" 
+                  id="Password" 
                   type="password" 
                   required
                   value={formData.managerPassword}
@@ -218,10 +211,10 @@ const Page = () => {
                   onChange={handleInputChange}
                 />
               </div>
-              <div className="grid gap-3">
+              <div className="grid gap-1">
                 <Label htmlFor="role">Role on team</Label>
                 <select 
-                  id="role" 
+                  id="Role" 
                   required
                   value={formData.roleOnTeam}
                   onChange={handleInputChange}
