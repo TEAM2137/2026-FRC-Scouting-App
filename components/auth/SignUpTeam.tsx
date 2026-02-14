@@ -16,74 +16,57 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 
-interface Signup {
-  teamNumber: string;
-  managerName: string;
-  managerEmail: string;
-  managerPassword: string;
-  managerPhoneNumber: string;
-  roleOnTeam: string;
-}
+import { IUser } from "@/models/auth/User"
+import storeUser from "@/lib/auth/storeUser"
  
 const SignUpTeam = () => {
-  const [formData, setFormData] = useState<Signup>({
-    teamNumber: '',
-    managerName: '',
-    managerEmail: '',
-    managerPassword: '',
-    managerPhoneNumber: '',
-    roleOnTeam: '',
+  const [formData, setFormData] = useState<IUser>({
+    number: '',
+    name: '',
+    email: '',
+    password: '',
+    phone: '',
+    role: '',
+    isManager: false,
+    isApproved: false,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   });
-
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { id, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      [id === 'TeamNumber' ? 'teamNumber' : 
-       id === 'name' ? 'managerName' : 
-       id === 'email' ? 'managerEmail' : 
-       id === 'password' ? 'managerPassword' : 
-       id === 'PhoneNumber' ? 'managerPhoneNumber' : 
-       id === 'role' ? 'roleOnTeam' : id]: value
-    }));
-    setError(''); // Clear error when user starts typing
-  };
  
-  const handleFormSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const handleStoreUser = async () => {
+    
     
     // Validate all fields are filled
-    if (!formData.teamNumber) {
+    if (!formData.number) {
       setError("Please enter your Team Number");
       return;
     }
 
-    if (!formData.managerName) {
+    if (!formData.name) {
       setError("Please enter your Manager Name");
       return;
     }
 
-    if (!formData.managerEmail) {
+    if (!formData.email) {
       setError("Please enter your Manager Email");
       return;
     }
 
-    if (!formData.managerPassword) {
+    if (!formData.password) {
       setError("Please enter a Password");
       return;
     }
 
-    if (!formData.managerPhoneNumber) {
+    if (!formData.phone) {
       setError("Please enter your Phone Number");
       return;
     }
 
-    if (!formData.roleOnTeam) {
+    if (!formData.role) {
       setError("Please select your Role on Team");
       return;
     }
@@ -98,49 +81,33 @@ const SignUpTeam = () => {
     setSuccess('');
 
     try {
-      
-      const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-       
-      });
-        try {      const response = await fetch('/api/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      const data = await response.json();
-      if (data.success) {
+      const response = await storeUser(formData);
+      if (response.result) {
         setSuccess('Account created successfully! You can now sign in.');
         setFormData({
-          teamNumber: '',
-          managerName: '',
-          managerEmail: '',
-          managerPassword: '',
-          managerPhoneNumber: '',
-          roleOnTeam: '',
+          number: '',
+          name: '',
+          email: '',
+          password: '',
+          phone: '',
+          role: '',
+          isManager: false,
+          isApproved: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
         });
         setTermsAccepted(false);
-        // Optionally redirect to sign in page after a delay
-        setTimeout(() => {
-          window.location.href = '/'; // Adjust path as needed
-        }, 2000);
       } else {
-        setError(data.message || 'Failed to create account');
+        setError(response.message || 'Failed to create account');
       }
+
     } catch (err) {
-      console.error('Signup error:', err);
       setError('An error occurred while creating your account. Please try again.');
-    } finally {
-      setLoading(false);
     }
+
   }
-   catch( err ) {
-    console.log(err)
-   }}
+
+
   return (
     
       <Card>
@@ -152,7 +119,7 @@ const SignUpTeam = () => {
           </CardAction>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleFormSubmit}>
+          
             <div className="flex flex-col gap-3">
               {error && (
                 <div className="rounded bg-red-100 p-3 text-sm text-red-700">
@@ -165,14 +132,14 @@ const SignUpTeam = () => {
                 </div>
               )}
               <div className="grid gap-3">
-                <Label htmlFor="TeamNumber">Team Number</Label>
+                <Label htmlFor="number">Team Number</Label>
                 <Input 
-                  id="TeamNumber" 
+                  id="number" 
                   type="text" 
                   required 
                   placeholder="12345"
-                  value={formData.teamNumber}
-                  onChange={handleInputChange}
+                  value={formData.number}
+                  onChange={(e) => {setFormData({...formData, number: e.target.value})}}
                 />
               </div>
               <div className="grid gap-3">
@@ -182,8 +149,8 @@ const SignUpTeam = () => {
                   type="text" 
                   required 
                   placeholder="John Smith"
-                  value={formData.managerName}
-                  onChange={handleInputChange}
+                  value={formData.name}
+                  onChange={(e) => {setFormData({...formData, name: e.target.value})}}
                 />
               </div>
               <div className="grid gap-3">
@@ -193,8 +160,8 @@ const SignUpTeam = () => {
                   type="email"
                   placeholder="Email@Email.com"
                   required
-                  value={formData.managerEmail}
-                  onChange={handleInputChange}
+                  value={formData.email}
+                  onChange={(e) => {setFormData({...formData, email: e.target.value})}}
                 />
               </div>
               <div className="grid gap-3">
@@ -203,19 +170,19 @@ const SignUpTeam = () => {
                   id="password" 
                   type="password" 
                   required
-                  value={formData.managerPassword}
-                  onChange={handleInputChange}
+                  value={formData.password}
+                  onChange={(e) => {setFormData({...formData, password: e.target.value})}}
                 />
               </div>
               <div className="grid gap-3">
-                <Label htmlFor="PhoneNumber">Manager Phone Number</Label>
+                <Label htmlFor="phone">Manager Phone Number</Label>
                 <Input 
-                  id="PhoneNumber" 
+                  id="phone" 
                   type="tel" 
                   placeholder="123-456-7890" 
                   required
-                  value={formData.managerPhoneNumber}
-                  onChange={handleInputChange}
+                  value={formData.phone}
+                  onChange={(e) => {setFormData({...formData, phone: e.target.value})}}
                 />
               </div>
               <div className="grid gap-3">
@@ -223,14 +190,14 @@ const SignUpTeam = () => {
                 <select 
                   id="role" 
                   required
-                  value={formData.roleOnTeam}
-                  onChange={handleInputChange}
+                  value={formData.role}
+                  onChange={(e) => {setFormData({...formData, role: e.target.value})}}
                   className="rounded border border-gray-300 px-3 py-2"
                 >
                   <option value="">Select your role</option>
-                  <option value="manager">FIRST Lead Mentor</option>
-                  <option value="coach">Adult Mentor on Team</option>
-                  <option value="scout">Student Leader on Team</option>
+                  <option value="lead mentor">FIRST Lead Mentor</option>
+                  <option value="mentor">Adult Mentor on Team</option>
+                  <option value="student lead">Student Leader on Team</option>
                 </select>
               </div>
               <div className="flex items-start gap-2">
@@ -247,12 +214,13 @@ const SignUpTeam = () => {
                   type="submit" 
                   className="w-full" 
                   disabled={loading}
+                  onClick={() => {handleStoreUser()}}
                 >
                   {loading ? 'Creating Account...' : 'Sign Up'}
                 </Button>
               </div>
             </div>
-          </form>
+
         </CardContent>
       </Card>
 
