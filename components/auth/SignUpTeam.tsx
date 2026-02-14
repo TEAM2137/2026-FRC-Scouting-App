@@ -114,9 +114,7 @@ const SignUpTeam = () => {
         <CardHeader>
           <CardTitle>Sign Up for an Account</CardTitle>
           <CardDescription>Create your account by filling the form below.</CardDescription>
-          <CardAction>
-            <Button variant="link">Already have an account? Sign In</Button>
-          </CardAction>
+
         </CardHeader>
         <CardContent>
           
