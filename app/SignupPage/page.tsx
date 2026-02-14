@@ -250,7 +250,7 @@ const myForm= new FormData(e.currentTarget)
       </Card>
     </div>
   );
-}
+
 export default Page;
 
 
