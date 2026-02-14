@@ -33,7 +33,6 @@ export default function RootLayout({
         <main className=" grid grid-rows-[auto_1fr] min-h-screen bg-black h-full">{children}</main>
         <footer className="row-span-1 bg-blue-500 fixed bottom-0 w-full text-center p-2 text-slate-100 z-100 ">2026 FRC Scouting App Footer
         </footer>
-        
       </body>
 </html>
   );
