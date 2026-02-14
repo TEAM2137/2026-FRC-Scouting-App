@@ -4,7 +4,7 @@ import SignIn from '@/components/auth/SignIn';
 import SignUpTeam from '@/components/auth/SignUpTeam';
 import Image from 'next/image';
 import { useState } from 'react';
-
+import SignUpScout from '@components/auth/SignUpScout'
 export default function Home() {
   const [authDisplay, setAuthDisplay] = useState('signin');
 
@@ -32,7 +32,13 @@ export default function Home() {
         </>
         }
 
-
-    </div>
+{authDisplay === "signupstudent" &&
+<>
+<SignUpScout/>
+<button onClick={() => setAuthDisplay("signup")}>
+If you are a student then signup here</button>
+</>
+}
+</div>
   );
 }
