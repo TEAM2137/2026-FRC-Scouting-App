@@ -4,7 +4,7 @@ import SignIn from '@/components/auth/SignIn';
 import SignUpTeam from '@/components/auth/SignUpTeam';
 import Image from 'next/image';
 import { useState } from 'react';
-
+import ForgotPassword from '@components/auth/ForgotPassword'
 export default function Home() {
   const [authDisplay, setAuthDisplay] = useState('signin');
 
@@ -31,8 +31,13 @@ export default function Home() {
         If you already have a team, you can sign in here.</button>
         </>
         }
-
-
+        {authDisplay === 'signupteam' && 
+        <>
+        <ForgotPassword />
+        <button onClick={() => setAuthDisplay('ForgotPassword')}>
+        If you have forgot your password click here</button>
+        </>
+        }
     </div>
   );
 }
