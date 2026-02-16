@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
-const Page = () => {
+const ForgotPassword = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-comicsans dark:bg-black">
       {/* You must wrap the sub-components in the main Card component */}
@@ -39,4 +39,4 @@ const Page = () => {
   )
 }
 
-export default Page
+export default ForgotPassword
