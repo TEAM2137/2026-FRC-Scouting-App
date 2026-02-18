@@ -19,7 +19,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { IUser } from "@/models/auth/User"
 import storeUser from "@/lib/auth/storeUser"
  
-const SignUpStduent = () => {
+const SignUpScout = () => {
   const [formData, setFormData] = useState<IUser>({
     number: '',
     name: 'null',
@@ -162,15 +162,16 @@ const SignUpStduent = () => {
                   disabled={loading}
                   onClick={() => {handleStoreUser()}}
                 >
-                    </div>
+                    
                   {loading ? 'Creating Account...' : 'Sign Up'}
                 </Button>
               </div>
             </div>
-
+          </div>
         </CardContent>
       </Card>
 
   );
 }
+
 export default SignUpScout;
