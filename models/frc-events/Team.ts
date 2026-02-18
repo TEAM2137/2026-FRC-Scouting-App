@@ -7,7 +7,7 @@ export interface ITeam {
     name: string;
 }
 
-const TeamSchema = new mongoose.Schema<ITeam>({
+export const TeamSchema = new mongoose.Schema<ITeam>({
     number: {
         type: Number,
         required: true,
