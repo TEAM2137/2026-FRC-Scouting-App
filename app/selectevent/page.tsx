@@ -164,7 +164,7 @@ const Page = () => {
                 {displayEvents.map((event: DisplayEvent, index: number) => (
                     <div key={index} className="flex flex-row w-70 text-xs bg-slate-800 rounded-lg p-2 gap-2">
                         <div className="flex flex-col p-2 bg-slate-700 rounded-lg">{!event.districtCode ? 'REG' : event.districtCode}</div>
-                        <p className="p-2">{event.name.substring(0, 30)}...</p>
+                        <p className="p-2">{event.name}</p>
                     </div>
                 ))}
                 </div>
