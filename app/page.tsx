@@ -22,6 +22,8 @@ export default function Home() {
         <SignIn />
         <button onClick={() => setAuthDisplay('signupteam')}>
         If your team is not registered, you can sign up for a team here.</button>
+        <button onClick={() => setAuthDisplay('forgotpassword')}>
+        If you forgot your password you can reset it here.</button>
         </>
         }
         {authDisplay === 'signupteam' && 
@@ -31,7 +33,13 @@ export default function Home() {
         If you already have a team, you can sign in here.</button>
         </>
         }
-
+        {authDisplay === 'forgotpassword' && 
+        <>
+        <h1>Forgot Password Component Goes Here</h1>
+        <button onClick={() => setAuthDisplay('signin')}>
+        If you already have a team, you can sign in here.</button>
+        </>
+        }
 
     </div>
   );
