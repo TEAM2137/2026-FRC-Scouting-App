@@ -2,8 +2,15 @@
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAppContext } from '@/context/AppContext';
+import { storeToken } from '@/lib/jwt';
+import { CircleX } from "lucide-react";
 
-import { CircleX } from "lucide-react"
+
+interface ITeam {
+    number: string;
+    name: string;
+}
 
 interface DisplayEvent {
     week: string;
@@ -16,7 +23,7 @@ interface DisplayEvent {
     city: string;
     stateprov: string;
     country: string;
-    teams: string[];
+    teams: ITeam[];
 }   
 
 export const Weeks = [
@@ -38,6 +45,7 @@ export const Weeks = [
 
 const Page = () => {
     const router = useRouter();
+    const { setAppEvent } = useAppContext();
     const [event, setEvent] = useState<DisplayEvent>({} as DisplayEvent);
     const [showEvent, setShowEvent] = useState<boolean>(false);
     const [events, setEvents] = useState<DisplayEvent[]>([]);
@@ -45,6 +53,7 @@ const Page = () => {
     const [refresh, setRefresh] = useState(false);
     const [districtFilter, setDistrictFilter] = useState('');
     const [weekFilter, setWeekFilter] = useState('Week 1');
+    
 
     useEffect(() => {
         const fetchEvent = async () => {
@@ -80,9 +89,9 @@ const Page = () => {
                     }
                 }
 
-                const teamsList: string[] = [];
+                const teamsList: ITeam[] = [];
                 for (const team of event.teams) {
-                    teamsList.push(team.number);
+                    teamsList.push({ number: team.number, name: team.name });
                 }
 
                 const displayEvent: DisplayEvent = {
@@ -128,6 +137,12 @@ const Page = () => {
         setShowEvent(true);
     }
 
+
+    const handleSetEvent = async (event: DisplayEvent) => {
+        setAppEvent(event);
+        const token = await storeToken('event', event);
+        router.push(`/scout`);
+    }
 
     return (
         <div className="flex flex-col w-screen pl-20 text-xs">
@@ -186,7 +201,7 @@ const Page = () => {
             </div>
 
             {showEvent && 
-                <div className="fixed top-0 left-0 z-10 w-screen h-screen p-8 text-xs text-slate-200 bg-neutral-800 flex flex-col gap-4">
+                <div className="fixed top-0 left-0 z-10 w-screen h-screen p-8 text-xs text-slate-200 bg-neutral-800 flex flex-col gap-4 overflow-y-scroll">
                     <div className="grid grid-cols-[9fr_1fr] gap-2">
                         <h2 className="text-lg md:text-xl lg:text-4xl font-bold">{event.name}</h2>
                         <button className="justify-self-start" onClick={() => setShowEvent(false)}><CircleX className="m-auto" /></button>
@@ -196,11 +211,13 @@ const Page = () => {
                     <p className="text-xs sm:text-sm md:text-base lg:text-lg italic">{event.dateStart.toLocaleDateString()} - {event.dateEnd.toLocaleDateString()}</p>
                     <p>Teams Attenting: </p>
                     <div className="flex flex-row flex-wrap gap-1">
-                    {event.teams.map((team: string, index: number) => (
-                        <p key={index} className="flex text-[9px] p-2 text-slate-800 bg-white font-bold rounded-lg">{team}</p> 
+                    {event.teams.map((team: ITeam, index: number) => (
+                        <p key={index} className="flex text-[9px] p-2 text-slate-800 bg-white font-bold rounded-lg">{team.number} {team.name}</p> 
 
                     ))}
                     </div>
+
+                    <button className="w-full bg-blue-900 text-xl font-bold rounded-lg mb-8 p-2 " onClick={() => handleSetEvent(event)}>Scout This Event</button>
 
                 </div>
             
