@@ -47,7 +47,7 @@ const SideBar = () => {
                 <Button variant="ghost" size="icon" onClick={() => router.push('/scout/data')}>
                     <CalendarDays className="m-auto" />
                 </Button>
-                <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>View Data</div>
+                <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>View Event Data</div>
             </div>}
             <div className="flex flex-row gap-2">
                 <Button variant="ghost" size="icon" onClick={() => setOpen(!isOpen)}>
