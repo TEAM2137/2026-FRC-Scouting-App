@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 
-import { IEvent } from '@/models/frc-events/Event';
+import { CircleX } from "lucide-react"
 
 interface DisplayEvent {
     week: string;
@@ -38,7 +38,8 @@ export const Weeks = [
 
 const Page = () => {
     const router = useRouter();
-    const [event, setEvent] = useState<any>(null);
+    const [event, setEvent] = useState<DisplayEvent>({} as DisplayEvent);
+    const [showEvent, setShowEvent] = useState<boolean>(false);
     const [events, setEvents] = useState<DisplayEvent[]>([]);
     const [displayEvents, setDisplayEvents] = useState<DisplayEvent[]>([]);
     const [refresh, setRefresh] = useState(false);
@@ -79,6 +80,11 @@ const Page = () => {
                     }
                 }
 
+                const teamsList: string[] = [];
+                for (const team of event.teams) {
+                    teamsList.push(team.number);
+                }
+
                 const displayEvent: DisplayEvent = {
                     week: week,
                     dateStart: new Date(event.dateStart),
@@ -90,7 +96,7 @@ const Page = () => {
                     city: event.city,
                     stateprov: event.stateprov,
                     country: event.country,
-                    teams: event.teams.map((team: any) => team.number),
+                    teams: teamsList,
                 };
 
                 DisplayEvents.push(displayEvent)
@@ -116,6 +122,12 @@ const Page = () => {
             }
         }
     }, [events, weekFilter, districtFilter]);
+
+    const handleShowEvent = (event: DisplayEvent) => {
+        setEvent(event);
+        setShowEvent(true);
+    }
+
 
     return (
         <div className="flex flex-col w-screen pl-20 text-xs">
@@ -162,7 +174,7 @@ const Page = () => {
 
                 <div className="flex flex-row flex-wrap gap-2">
                 {displayEvents.map((event: DisplayEvent, index: number) => (
-                    <div key={index} className="flex flex-row w-70 text-xs bg-slate-800 rounded-lg p-2 gap-2">
+                    <div key={index} className="flex flex-row w-70 text-xs bg-slate-800 rounded-lg p-2 gap-2" onClick={() => handleShowEvent(event)}>
                         <div className="flex flex-col p-2 bg-slate-700 rounded-lg">{!event.districtCode ? 'REG' : event.districtCode}</div>
                         <p className="p-2">{event.name}</p>
                     </div>
@@ -172,6 +184,35 @@ const Page = () => {
             
             
             </div>
+
+            {showEvent && 
+                <div className="fixed top-0 left-0 z-10 w-screen h-screen p-8 text-xs text-slate-200 bg-neutral-800 flex flex-col gap-4">
+                    <div className="grid grid-cols-[9fr_1fr] gap-2">
+                        <h2 className="text-lg md:text-xl lg:text-4xl font-bold">{event.name}</h2>
+                        <button className="justify-self-start" onClick={() => setShowEvent(false)}><CircleX className="m-auto" /></button>
+                    </div>
+
+                    <p className="text-xs sm:text-sm md:text-base lg:text-lg font-bold">{!event.districtCode ? 'Regional' : event.districtCode} {event.week} Event</p>
+                    <p className="text-xs sm:text-sm md:text-base lg:text-lg italic">{event.dateStart.toLocaleDateString()} - {event.dateEnd.toLocaleDateString()}</p>
+                    <p>Teams Attenting: </p>
+                    <div className="flex flex-row flex-wrap gap-1">
+                    {event.teams.map((team: string, index: number) => (
+                        <p key={index} className="flex text-[9px] p-2 text-slate-800 bg-white font-bold rounded-lg">{team}</p> 
+
+                    ))}
+                    </div>
+
+                </div>
+            
+            
+            
+            }
+
+
+
+
+
+
         </div>
     );
 }
