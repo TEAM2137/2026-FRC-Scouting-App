@@ -11,7 +11,7 @@ import { useAppContext } from "@/context/AppContext"
 const SideBar = () => {
     const router = useRouter();
     const [isOpen, setOpen] = useState<boolean>(false)
-    const { event, setAppEvent } = useAppContext();
+    const { appEvent, setAppEvent } = useAppContext();
 
     return (
         <div className={`fixed top-0 left-0 z-10 ${isOpen ? "w-64" : "w-16"} h-screen flex max-w-screen flex-col gap-4 p-4 overflow-hidden bg-[#0F1031]`}>
@@ -25,24 +25,24 @@ const SideBar = () => {
                 <Button variant="ghost" size="icon" onClick={() => router.push('/selectevent')}>
                     <CalendarDays className="m-auto" />
                 </Button>
-                {event && <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>{event?.name}</div>}
-                {!event && <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>Select Event to Scout</div>}
+                {appEvent && <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>{appEvent?.name}</div>}
+                {!appEvent && <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>Select Event to Scout</div>}
             </div>
-            {event && 
+            {appEvent && 
             <div className="flex flex-row gap-2">
                 <Button variant="ghost" size="icon" onClick={() => router.push('/scout/matches')}>
                     <CalendarDays className="m-auto" />
                 </Button>
                 <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>Scout Matches</div>
             </div>}
-            {event && 
+            {appEvent && 
             <div className="flex flex-row gap-2">
                 <Button variant="ghost" size="icon" onClick={() => router.push('/scout/pits')}>
                     <CalendarDays className="m-auto" />
                 </Button>
                 <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>Pit Scout</div>
             </div>}
-            {event && 
+            {appEvent && 
             <div className="flex flex-row gap-2">
                 <Button variant="ghost" size="icon" onClick={() => router.push('/scout/data')}>
                     <CalendarDays className="m-auto" />

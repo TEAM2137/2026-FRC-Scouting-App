@@ -31,25 +31,25 @@ interface IEvent {
 }
 
 interface IAppContext {
-    user: IUser | null;
-    event: IEvent | null;
-    setUser: any;
+    appUser: IUser | null;
+    appEvent: IEvent | null;
+    setAppUser: any;
     setAppEvent: any;
 }
 
 const AppContext = createContext<IAppContext>({
-    user: null,
-    event: null,
-    setUser: () => {},
+    appUser: null,
+    appEvent: null,
+    setAppUser: () => {},
     setAppEvent: () => {},
 })
 
 export const AppContextProvider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState<IUser | null>(null)
-    const [event, setAppEvent] = useState<IEvent | null>(null)
+    const [appUser, setAppUser] = useState<IUser | null>(null)
+    const [appEvent, setAppEvent] = useState<IEvent | null>(null)
 
     return (
-        <AppContext.Provider value={{ user, event, setUser, setAppEvent }}>
+        <AppContext.Provider value={{ appUser, appEvent, setAppUser, setAppEvent }}>
             {children}
         </AppContext.Provider>
     )

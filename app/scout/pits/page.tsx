@@ -12,13 +12,13 @@ import { set } from 'mongoose';
 
 const Page = () => {
     const router = useRouter();
-    const { event, setAppEvent } = useAppContext();
+    const { appEvent } = useAppContext();
     
 
     
 return (
     <div className="flex flex-col w-screen pl-20 text-xs">
-        <h1 className="text-xl font-bold">{event?.name}</h1>
+        <h1 className="text-xl font-bold">{appEvent?.name}</h1>
         <p>Pit scout robots at the event.</p>
     </div>
 )
