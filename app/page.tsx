@@ -6,8 +6,10 @@ import Image from 'next/image';
 import { useState } from 'react';
 import SignUpScout from '@/components/auth/SignUpScout'
 export default function Home() {
-  const [authDisplay, setAuthDisplay] = useState('signin');
+  
+  const clickyBlicky = () => {
 
+  }
   return (
     <div className="grid grid-col h-screen w-screen pl-16 justify-center place-items-center  bg-zinc-50 font-sans dark:bg-neutral-900 ">
         
