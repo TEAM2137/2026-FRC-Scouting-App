@@ -4,10 +4,12 @@ import SignIn from '@/components/auth/SignIn';
 import SignUpTeam from '@/components/auth/SignUpTeam';
 import Image from 'next/image';
 import { useState } from 'react';
-import ForgotPassword from '@/components/auth/ForgotPassword'
+import SignUpScout from '@/components/auth/SignUpScout'
 export default function Home() {
-  const [authDisplay, setAuthDisplay] = useState('signin');
+  
+  const clickyBlicky = () => {
 
+  }
   return (
     <div className="grid grid-col h-screen w-screen pl-16 justify-center place-items-center  bg-zinc-50 font-sans dark:bg-neutral-900 ">
         
@@ -22,7 +24,7 @@ export default function Home() {
         <SignIn />
         <button onClick={() => setAuthDisplay('signupteam')}>
         If your team is not registered, you can sign up for a team here.</button>
-         <button onClick={() => setAuthDisplay('ForgotPassword')}>
+        <button onClick={() => setAuthDisplay('forgotpassword')}>
         If you forgot your password you can reset it here.</button>
         </>
         }
@@ -33,13 +35,8 @@ export default function Home() {
         If you already have a team, you can sign in here.</button>
         </>
         }
-        {authDisplay === 'ForgotPassword' && 
-        <>
-        <ForgotPassword />
-        <button onClick={() => setAuthDisplay('signin')}>
-        You can go back to signin here.</button>
-        </>
-        }
+
+
     </div>
   );
 }
