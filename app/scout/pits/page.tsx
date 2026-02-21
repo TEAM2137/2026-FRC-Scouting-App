@@ -12,14 +12,12 @@ import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
-import { getToken } from '@/lib/jwt';
-import { set } from 'mongoose';
-import { IUser } from "@/models/auth/User"
+import { IPitscout } from "@/models/PitScout"
 
 
 const Page = () => {
-   const [formData, setFormData] = useState<IUser>({
-averageFuelScore: '',
+   const [formData, setFormData] = useState<IPitscout>({
+PassPosition: '',
 maxFuelCarry: '',
 
 
@@ -28,7 +26,7 @@ maxFuelCarry: '',
    })
      
     const router = useRouter();
-    const { event, setAppEvent } = useAppContext();
+    const { appEvent, setAppEvent } = useAppContext();
     
 
     

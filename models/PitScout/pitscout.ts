@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 export interface IPitscout {
   maxFuelCarry: number;
-  PassPosition: boolean;
+  PassPosition: number;
   scoringPosition: number;
   autonPath: string;
   canGoThroughTrench: boolean;
@@ -12,44 +12,44 @@ export interface IPitscout {
   autonClimb: boolean;
   closedHopper: boolean;
   multishot: number;
-  climbLevelTeleop: number;
+  teleopClimb: number;
   launchSpeed: number;
 }
 
 const UserSchema = new mongoose.Schema<IPitscout>(
     {
-        number: {
-            type: String,
+        maxFuelCarry: {
+            type: Number,
             required: true,
         },
-        name: {
-            type: String,
+        PassPosition: {
+            type: Number,
             required: true,
         },
-        email: {
-            type: String,
+         scoringPosition: {
+            type: Number,
             required: true,
             unique: true,
         },
-        phone: {
+        autonPath: {
             type: String,
             required: false,
         },
-        password: {
+        autonClimb: {
+            type: Boolean,
+            required: true,
+        },
+        intakeType: {
             type: String,
             required: true,
         },
-        role: {
-            type: String,
-            required: true,
-        },
-        isManager: {
+        canGoThroughTrench: {
              type: Boolean,
              default: false,
         },
-        isApproved: {
-            type: Boolean,
-            default: false,
+        teleopClimb: {
+            type: Number,
+            required: true
         },
         createdAt: {
             type: Date,
@@ -59,9 +59,21 @@ const UserSchema = new mongoose.Schema<IPitscout>(
             type: Date,
             default: Date.now,
         },
+        closedHopper:{
+            type: Boolean,
+            required:true
+        },
+        multishot:{
+            type: Number,
+            required:true
+        },
+        launchSpeed:{
+            type: Number,
+            required: true
+        },
     },
 );
 
-const pitscout = mongoose.models?.User || mongoose.model<IPitscout>("User", UserSchema);
+const pitscout = mongoose.models?.User || mongoose.model<IPitscout>("Pitscout", UserSchema);
 
 export default pitscout;
