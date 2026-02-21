@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 // Define DB COnnection for getting/storing data
 import connectDB from "@/lib/db";
 import Event from "@/models/frc-events/Event";
-import { IEvent } from "@/models/frc-events/Event";
+
 
 export async function GET(req: NextRequest) {
 

@@ -76,8 +76,10 @@ const Page = () => {
                 throw new Error('Failed to fetch data from server');
             }
             const DisplayEvents = []
+            
             for (const event of data) {
-                const compDate = new Date(event.dateStart);
+                console.log(event)
+              const compDate = new Date(event.dateStart);
                 const compare = (compDate.getFullYear().valueOf() * 10000) + ((compDate.getMonth().valueOf() + 1) * 100) + compDate.getDate().valueOf();
                 //console.log('Compare Value: ', compare, " from date: ", compDate.toLocaleDateString());
                 let week = ''
