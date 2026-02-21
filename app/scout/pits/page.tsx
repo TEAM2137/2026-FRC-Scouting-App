@@ -14,7 +14,6 @@ import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
 import { getToken } from '@/lib/jwt';
 import { set } from 'mongoose';
-import {user}
 import { IUser } from "@/models/auth/User"
 
 
@@ -27,7 +26,7 @@ maxFuelCarry: '',
 
 
    })
-     }
+     
     const router = useRouter();
     const { event, setAppEvent } = useAppContext();
     
@@ -53,7 +52,7 @@ type="text"
 required
 placeholder="12345"
 value={FormData.number}
-onChange={(e) => {setFormData({...FormData, number: e.target.value})}></Input>
+onChange={(e) => {setFormData({...FormData, number: e.target.value})}}></Input>
     
     <div className='grid gap-3'>
 <Label htmlFor="number">What is their average fuel score</Label>
