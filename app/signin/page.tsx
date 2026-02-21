@@ -13,12 +13,26 @@ export default function Home() {
         
         <div className="flex flex-col w-full p-2 gap-2 place-items-center">
           <Image src="/images/TEAM2137-Robocat-Head.svg" alt="Acme Logo" width={100} height={50} />
+          <div className="text-lg font-bold">NEXT SCOUT</div>
           <div className="text-sm font-normal italic">Welcome to our scouting app for 2026!</div>
-          <Image src="/images/ABACUS-white-4x5.svg" alt="Abacus Logo" width={200} height={250} />
-          <div className="text-2xl font-bold">ABACUS</div>
         </div>
 
-        
+        {authDisplay === 'signin' && 
+        <>
+        <SignIn />
+        <button onClick={() => setAuthDisplay('signupteam')}>
+        If your team is not registered, you can sign up for a team here.</button>
+        <button onClick={() => setAuthDisplay('forgotpassword')}>
+        If you forgot your password you can reset it here.</button>
+        </>
+        }
+        {authDisplay === 'signupteam' && 
+        <>
+        <SignUpTeam />
+        <button onClick={() => setAuthDisplay('signin')}>
+        If you already have a team, you can sign in here.</button>
+        </>
+        }
 
 
     </div>
