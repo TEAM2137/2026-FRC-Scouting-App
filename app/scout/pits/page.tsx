@@ -14,11 +14,20 @@ import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
 import { getToken } from '@/lib/jwt';
 import { set } from 'mongoose';
-
-
+import {user}
+import { IUser } from "@/models/auth/User"
 
 
 const Page = () => {
+   const [formData, setFormData] = useState<IUser>({
+averageFuelScore: '',
+maxFuelCarry: '',
+
+
+
+
+   })
+     }
     const router = useRouter();
     const { event, setAppEvent } = useAppContext();
     
