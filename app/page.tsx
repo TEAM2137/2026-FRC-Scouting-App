@@ -7,7 +7,7 @@ import { useState } from 'react';
 import SignUpScout from '@/components/auth/SignUpScout'
 export default function Home() {
   
-  const clickyBlicky = () => {
+  const authDisplay = () => {
 
   }
   return (
