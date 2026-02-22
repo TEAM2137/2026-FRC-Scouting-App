@@ -1,0 +1,72 @@
+import mongoose from "mongoose";
+
+export interface IMatchscout {
+totalShotsAuto: number,
+totalPassedAuto: number,
+totalScored: number,
+totalHerded: number,
+totalPassedTeleop: number,
+totalShotsTeleop: number,
+climbLevelTeleop: number,
+didDie: number,
+didBreak: number
+didAutoClimb: number,
+createdAt: Date,
+updatedAt: Date,
+}
+
+export const Matchscoutschema = new mongoose.Schema<IMatchscout>(
+{
+        totalShotsAuto:{
+            type: Number,
+            required: true,
+        },
+        totalPassedAuto:{
+            type: Number,
+            required: true,
+        },
+        totalScored:{
+            type: Number,
+            required: true,
+        },
+        totalHerded:{
+            type: Number,
+            required: true,
+        },
+        totalPassedTeleop:{
+            type: Number,
+            required: true,
+        },
+        totalShotsTeleop:{
+            type: Number,
+            required: true,
+        },
+        climbLevelTeleop:{
+            type: Number,
+            required: true,
+        },
+        didDie:{
+            type: Number,
+            required: true,
+        },
+        didBreak:{
+            type: Number,
+            required: true,
+        },
+        didAutoClimb:{
+            type: Number,
+            required: true,
+        },
+        createdAt:{
+            type: Date,
+            default: Date.now,
+        },
+        updatedAt:{
+            type: Date,
+            default: Date.now,
+        },
+    }
+)
+const Matchscout = mongoose.models?.User || mongoose.model<IMatchscout>("Matchscout", Matchscoutschema)
+
+export default Matchscout;
