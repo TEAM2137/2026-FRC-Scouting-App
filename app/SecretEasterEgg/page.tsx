@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import Image from 'next/image';
 
 
-const Page = () => {
+export default function Page() {
 
     const[fullString, setFullString] = useState("hello! i'm fuel ball!")
     const[option1, setOption1] = useState("whats your name?")
@@ -56,4 +56,3 @@ return (
 )
 }
 
-export default Page;

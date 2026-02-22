@@ -1,19 +1,19 @@
-'use client'
-
-
-import { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+'use server'
+//import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
 import { getToken } from '@/lib/jwt';
 import { set } from 'mongoose';
+import connectDB from "@/lib/db";
+import Matchscout from "@/models/frc-events/matchScout/matchScout";
 
 
+export default async function Pagee() {
+//  const router = useRouter();
+//    const { event, setAppEvent } = useAppContext();
+    
+    await connectDB()
 
-
-const Page = () => {
-    const router = useRouter();
-    const { event, setAppEvent } = useAppContext();
-
+    const matchData = await Matchscout.find({}).lean()
 
     
 return (
@@ -21,8 +21,15 @@ return (
         <h1 className="text-xl font-bold"></h1>
         <p>Robot Data for this event.</p>
         <button id="yodler maker" >yodelelele</button>
+            {matchData.map((match) => (
+            <h1 key={match._id.toString()}>
+                    <p className="bg-violet-400 border-violet-900 border-3 rounded-3xl text-white w-30 h-30 text-center">
+                    Match Test Team: {match.MeetTheTeam} - Scored: {match.IFuelNumb} HangLevel - {match.IsHangerLevel}
+                    </p>
+    
+                
+            </h1>
+            ))}
     </div>
-)
+    )
 }
-
-export default Page;

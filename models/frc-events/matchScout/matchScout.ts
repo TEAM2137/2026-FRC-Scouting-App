@@ -16,6 +16,8 @@ MeetTheTeam: number,
 //meta data for the file
 //createdAt: Date,
 //updatedAt: Date,
+TeamColor: string,
+
 }
 
 export const Matchscoutschema = new mongoose.Schema<IMatchscout>(
@@ -36,9 +38,13 @@ export const Matchscoutschema = new mongoose.Schema<IMatchscout>(
         MeetTheTeam:{
             type: Number,
             required: false,
+        },
+        TeamColor:{
+            type: String,
+            required: false,
         }
     }
 )
-const Matchscout = mongoose.models?.User || mongoose.model<IMatchscout>("Matchscout", Matchscoutschema)
+const Matchscout = mongoose.models?.Matchscout || mongoose.model<IMatchscout>("Matchscout", Matchscoutschema)
 
 export default Matchscout;

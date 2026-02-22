@@ -10,7 +10,7 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useSyncExternalStore } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
 import { getToken } from '@/lib/jwt';
@@ -36,30 +36,15 @@ const Page = () => {
     const [ColorChange, setColorChange] = useState("white")
     const [HangText,setHangText] = useState("Robot Hung?")
     const [HangSize, setHangSize] = useState("Disabled")
-
+    const [TeamColore, setTeamColore] = useState("blue")
+    const [TotalScore, setTotalScore] = useState(0)
     const [MatchData, setMatchData] = useState<IMatchscout>({
         IFuelNumb: 0,
        IsHangerLevel: 0,
       ToeTalScorn: 0,
        MeetTheTeam: 0,
+       TeamColor: '',
      });
-     const HandleStoreMatch = async () => {
-        const response = await storeMatch(MatchData);
-        console.log("Click works")
-        console.log(response)
-        if (response.result) {
-            console.log("It did stuff")
-             setMatchData({
-                IFuelNumb: fuel,
-                IsHangerLevel: hangLevel,
-                ToeTalScorn: (HPI + fuel),
-                MeetTheTeam: 0,
-            })
-            console.log(MatchData)
-
-
-        }
-     }
     const increaseFuel = () => {
         setFuel((fuel  + DeInAmount));
         setColorChange("white")
@@ -118,6 +103,29 @@ const Page = () => {
             setHangText("Robot hang level: " + Number(level))
         } 
     }
+       const HandleStoreMatch = async () => {
+           if (Math.random() >= 0.5) {
+                setTeamColore("red")
+        } else {
+            setTeamColore("blue")
+        }
+        console.log("Click works")
+        const response = await storeMatch(MatchData);
+        console.log(response)
+        if (response.result) {
+            console.log("It did stuff")
+             setMatchData({
+                IFuelNumb: fuel,
+                IsHangerLevel: hangLevel,
+                ToeTalScorn: TotalScore,
+                MeetTheTeam: Math.round(Math.random() * 10000),
+                TeamColor: TeamColore
+            })
+            console.log(MatchData)
+
+
+        }
+     }
 
     return (
         <div className="fixed top-0 left-0 w-screen h-screen z-11">
