@@ -19,6 +19,8 @@ import Image from 'next/image';
 // import { IUser } from "@/models/auth/User"
 // I don't think i need store user yet, So i won't use it unless I need to 
 // import storeUser from "@/lib/auth/storeUser"
+import { IMatchscout } from "@/models/frc-events/matchScout/matchScout";
+import storeMatch from "@/lib/auth/storeMatch"
 
 
 const Page = () => {
@@ -35,12 +37,29 @@ const Page = () => {
     const [HangText,setHangText] = useState("Robot Hung?")
     const [HangSize, setHangSize] = useState("Disabled")
 
-   // const [MatchData, setMatchData] = useState<IUser>({
-  //      IFuelNumb: 0,
-   //     IsTheHangerLevel: 0,
-  //      ToeTalScorn: 0,
-   //     MeetTheTeam: 0,
-   // });
+    const [MatchData, setMatchData] = useState<IMatchscout>({
+        IFuelNumb: 0,
+       IsHangerLevel: 0,
+      ToeTalScorn: 0,
+       MeetTheTeam: 0,
+     });
+     const HandleStoreMatch = async () => {
+        const response = await storeMatch(MatchData);
+        console.log("Click works")
+        console.log(response)
+        if (response.result) {
+            console.log("It did stuff")
+             setMatchData({
+                IFuelNumb: fuel,
+                IsHangerLevel: hangLevel,
+                ToeTalScorn: (HPI + fuel),
+                MeetTheTeam: 0,
+            })
+            console.log(MatchData)
+
+
+        }
+     }
     const increaseFuel = () => {
         setFuel((fuel  + DeInAmount));
         setColorChange("white")
@@ -117,16 +136,16 @@ const Page = () => {
                 <CardDescription>
                     <center><p style={{color: "white"}}>Fuel Change Amount</p><input className="bg-blue-950 rounded-4xl border-3 border-blue-875 text-white text-center"onChange={ChangeFuel} value={DeInAmount}></input></center>
                 </CardDescription>
-                <CardFooter><p className="bg-amber-400 rounded-2xl size-20 text-center border-3 border-amber-600" onClick={() => ChangeLevel(1)} style={{position:"absolute", top:"350px", left: "154px"}}> {HangText}</p>
-                <button style={{position:"absolute", top:"435px", left: "110px"}} onClick={() => ChangeLevel(2)} className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900" >Level 2</button>
-                <button style={{position:"absolute", top:"435px", left: "205px"}}onClick={() => ChangeLevel(3)} className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900">Level 3</button>
+                <CardFooter><p className="bg-amber-400 rounded-2xl size-20 text-center border-3 border-amber-600" onClick={() => ChangeLevel(1)}  style={{position:"absolute", top:"350px", left: "154px"}}> {HangText}</p>
+                <button style={{position:"absolute", top:"435px", left: "110px"}} onClick={() => ChangeLevel(2)}  className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900" >Level 2</button>
+                <button style={{position:"absolute", top:"435px", left: "205px"}}onClick={() => ChangeLevel(3)}  className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900">Level 3</button>
                 </CardFooter>
-                <CardFooter><p className="bg-amber-400 rounded-2xl h-8 w-40 text-center border-2 border-amber-600" style={{position:"absolute",top:"800px", left:"5px"}}>Total Score: {HPI + fuel}</p> <p className="bg-indigo-600 rounded-2xl h-8 w-40 text-center border-2 border-indigo-800" style={{position:"absolute",top:"800px", left:"225px"}}>RP gained: {RP}</p></CardFooter>
+                <CardFooter><p className="bg-amber-400 rounded-2xl h-8 w-40 text-center border-2 border-amber-600" onChange={() => setMatchData({...MatchData, ToeTalScorn: (HPI + fuel)})} style={{position:"absolute",top:"800px", left:"5px"}}>Total Score: {HPI + fuel}</p> <p className="bg-indigo-600 rounded-2xl h-8 w-40 text-center border-2 border-indigo-800" style={{position:"absolute",top:"800px", left:"225px"}}>RP gained: {RP}</p></CardFooter>
                 <p 
-               // onClick={() => {setMatchData({...MatchData, IFuelNumb: {fuel}})}}
+                onClick={() => {HandleStoreMatch()}}
                 className="bg-lime-400 border-2 border-lime-600 w-30 h-12 rounded-3xl text-center text-black" 
                 style={{position:"absolute", top:"740px", left:"140px"}}> 
-                Save Data
+                Save Data (double click)
                 </p>
             </Card>
         </div>
