@@ -68,6 +68,6 @@ export const Matchscoutschema = new mongoose.Schema<IMatchscout>(
         },
     }
 )
-const Matchscout = mongoose.models?.User || mongoose.model<IMatchscout>("Matchscout", Matchscoutschema)
+const Matchscout = mongoose.models?.Matchscout || mongoose.model<IMatchscout>("Matchscout", Matchscoutschema)
 
 export default Matchscout;
