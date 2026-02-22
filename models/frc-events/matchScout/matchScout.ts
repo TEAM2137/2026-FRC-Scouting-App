@@ -11,6 +11,7 @@ climbLevelTeleop: number,
 didDie: number,
 didBreak: number
 didAutoClimb: number,
+//meta data for the file
 createdAt: Date,
 updatedAt: Date,
 }

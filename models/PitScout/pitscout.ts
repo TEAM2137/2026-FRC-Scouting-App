@@ -1,19 +1,21 @@
 import mongoose from "mongoose";
 
 export interface IPitscout {
-  maxFuelCarry: number;
-  PassPosition: number;
-  scoringPosition: number;
-  autonPath: string;
-  canGoThroughTrench: boolean;
-  createdAt: Date;
-  updatedAt: Date;
-  intakeType: string;
-  autonClimb: boolean;
-  closedHopper: boolean;
-  multishot: number;
-  teleopClimb: number;
-  launchSpeed: number;
+  maxFuelCarry: number,
+  PassPosition: number,
+  scoringPosition: number,
+  autonPath: string,
+  canGoThroughTrench: boolean,
+  intakeType: string,
+  autonClimb: boolean,
+  closedHopper: boolean,
+  multishot: number,
+  teleopClimb: number,
+  launchSpeed: number,
+  weight: number,
+  //meta data for the file. 
+  createdAt: Date,
+  updatedAt: Date,
 }
 
 export const PitscoutSchema = new mongoose.Schema<IPitscout>(
