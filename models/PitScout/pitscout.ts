@@ -16,7 +16,7 @@ export interface IPitscout {
   launchSpeed: number;
 }
 
-const UserSchema = new mongoose.Schema<IPitscout>(
+export const PitscoutSchema = new mongoose.Schema<IPitscout>(
     {
         maxFuelCarry: {
             type: Number,
@@ -74,6 +74,6 @@ const UserSchema = new mongoose.Schema<IPitscout>(
     },
 );
 
-const pitscout = mongoose.models?.User || mongoose.model<IPitscout>("Pitscout", UserSchema);
+const pitscout = mongoose.models?.User || mongoose.model<IPitscout>("Pitscout", PitscoutSchema);
 
 export default pitscout;
