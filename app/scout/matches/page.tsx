@@ -16,7 +16,9 @@ import { useAppContext } from '@/context/AppContext';
 import { getToken } from '@/lib/jwt';
 import { set } from 'mongoose';
 import Image from 'next/image';
-
+// import { IUser } from "@/models/auth/User"
+// I don't think i need store user yet, So i won't use it unless I need to 
+// import storeUser from "@/lib/auth/storeUser"
 
 
 const Page = () => {
@@ -24,7 +26,6 @@ const Page = () => {
     const { event, setAppEvent } = useAppContext();
     
 
-    
     const [fuel, setFuel] = useState(0)
     const [DeInAmount, setDeInAmount] = useState(1)
     const [hangLevel, setHangLevel] = useState(0)
@@ -33,6 +34,13 @@ const Page = () => {
     const [ColorChange, setColorChange] = useState("white")
     const [HangText,setHangText] = useState("Robot Hung?")
     const [HangSize, setHangSize] = useState("Disabled")
+
+   // const [MatchData, setMatchData] = useState<IUser>({
+  //      IFuelNumb: 0,
+   //     IsTheHangerLevel: 0,
+  //      ToeTalScorn: 0,
+   //     MeetTheTeam: 0,
+   // });
     const increaseFuel = () => {
         setFuel((fuel  + DeInAmount));
         setColorChange("white")
@@ -114,7 +122,12 @@ const Page = () => {
                 <button style={{position:"absolute", top:"435px", left: "205px"}}onClick={() => ChangeLevel(3)} className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900">Level 3</button>
                 </CardFooter>
                 <CardFooter><p className="bg-amber-400 rounded-2xl h-8 w-40 text-center border-2 border-amber-600" style={{position:"absolute",top:"800px", left:"5px"}}>Total Score: {HPI + fuel}</p> <p className="bg-indigo-600 rounded-2xl h-8 w-40 text-center border-2 border-indigo-800" style={{position:"absolute",top:"800px", left:"225px"}}>RP gained: {RP}</p></CardFooter>
-                <p onClick={() => router.push('/selectevent')}className="bg-lime-400 border-2 border-lime-600 w-30 h-12 rounded-3xl text-center text-black" style={{position:"absolute", top:"740px", left:"140px"}}> Save Data</p>
+                <p 
+               // onClick={() => {setMatchData({...MatchData, IFuelNumb: {fuel}})}}
+                className="bg-lime-400 border-2 border-lime-600 w-30 h-12 rounded-3xl text-center text-black" 
+                style={{position:"absolute", top:"740px", left:"140px"}}> 
+                Save Data
+                </p>
             </Card>
         </div>
     
