@@ -13,6 +13,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
 import { IPitscout } from "@/models/PitScout/pitscout"
+import { DropdownMenu } from '@/components/ui/dropdown-menu';
 
 
 const Page = () => {
@@ -93,16 +94,21 @@ placeholder="123456"
   value={formData.autonPath}
   onChange={(e) => {setFormData({...formData, Number: e.target.value})}}
 />
-
+</div>
+<div>
+<Label>can they go through the trench</Label>
+<Checkbox>yes they do</Checkbox>
 
 </div>
-
+<div>
+  <Label>What is their intake type</Label>
+  <DropdownMenu>
+  <option value="">select</option>
+  <option value="in bumper">in bumper intake</option>
+  <option value="over bumper">over the bumper intake.</option>
+  </DropdownMenu>
+</div>
 </CardContent>
-
-
-
-    
-  
    </Card>
 </>
 )
