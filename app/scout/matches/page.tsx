@@ -142,7 +142,7 @@ const Page = () => {
                     <button onClick={decreaseFuel} className="bg-red-600 rounded-2xl border-3 border-red-900 size-18" style={{position:"absolute",top:"107px",left:"300px"}} id="Decrease1">-{DeInAmount} fuel</button>
                 </CardContent>
                 <CardDescription>
-                    <center><p style={{color: "white"}}>Fuel Change Amount</p><input className="bg-blue-950 rounded-4xl border-3 border-blue-875 text-white text-center"onChange={ChangeFuel} value={DeInAmount}></input></center>
+                    <center><p style={{color: "white"}}>Change Button Increments</p><input className="bg-blue-950 rounded-4xl border-3 border-blue-875 text-white text-center"onChange={ChangeFuel} value={DeInAmount}></input></center>
                 </CardDescription>
                 <CardFooter><p className="bg-amber-400 rounded-2xl size-20 text-center border-3 border-amber-600" onClick={() => ChangeLevel(1)}  style={{position:"absolute", top:"350px", left: "154px"}}> {HangText}</p>
                 <button style={{position:"absolute", top:"435px", left: "110px"}} onClick={() => ChangeLevel(2)}  className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900" >Level 2</button>
