@@ -104,6 +104,13 @@ const Page = () => {
         } 
     }
        const HandleStoreMatch = async () => {
+            setMatchData({
+                IFuelNumb: fuel,
+                IsHangerLevel: hangLevel,
+                ToeTalScorn: TotalScore,
+                MeetTheTeam: Math.round(Math.random() * 10000),
+                TeamColor: TeamColore
+            })
            if (Math.random() >= 0.5) {
                 setTeamColore("red")
         } else {
@@ -114,14 +121,14 @@ const Page = () => {
         console.log(response)
         if (response.result) {
             console.log("It did stuff")
-             setMatchData({
+            console.log(MatchData)
+            setMatchData({
                 IFuelNumb: fuel,
                 IsHangerLevel: hangLevel,
                 ToeTalScorn: TotalScore,
                 MeetTheTeam: Math.round(Math.random() * 10000),
                 TeamColor: TeamColore
             })
-            console.log(MatchData)
 
 
         }
