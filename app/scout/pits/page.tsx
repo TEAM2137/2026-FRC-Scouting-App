@@ -45,7 +45,7 @@ return (
    
    
    
-   <Card>
+   <Card className="fixed top-0 left-0 w-screen h-screen z-11">
     <CardHeader>
 <CardTitle> scouting page</CardTitle>
     <CardDescription> this page is for the pit scouting</CardDescription>
@@ -59,7 +59,7 @@ type="number"
 required
 placeholder='1234'
 value={formData.maxFuelCarry}
-onChange={(e) => {setFormData({...formData, Number: e.target.value})}}
+onChange={(e) => {setFormData({...formData, maxFuelCarry: e.target.valueAsNumber})}}
 />
 </div>
 <div>
@@ -70,7 +70,7 @@ onChange={(e) => {setFormData({...formData, Number: e.target.value})}}
   required
   placeholder="1234"
   value={formData.maxFuelCarry}
-  onChange={(e) => {setFormData({...formData, Number: e.target.value})}}
+  onChange={(e) => {setFormData({...formData, PassPosition: e.target.valueAsNumber})}}
     />
 </div>
 <div>
@@ -81,7 +81,7 @@ type="number"
 required
 placeholder="123456"
   value={formData.scoringPosition}
-  onChange={(e) => {setFormData({...formData, Number: e.target.value})}}
+  onChange={(e) => {setFormData({...formData, scoringPosition: e.target.valueAsNumber})}}
 />
 </div>
 <div>
@@ -92,7 +92,7 @@ type="srting"
 required
 placeholder="123456"
   value={formData.autonPath}
-  onChange={(e) => {setFormData({...formData, Number: e.target.value})}}
+  onChange={(e) => {setFormData({...formData, autonPath: e.target.value})}}
 />
 </div>
 <div>
@@ -100,13 +100,19 @@ placeholder="123456"
 <Checkbox>yes they do</Checkbox>
 
 </div>
-<div>
+<div className=''>
   <Label>What is their intake type</Label>
-  <DropdownMenu>
+  <select
+id="intake Type"
+required
+value={formData.intakeType}
+  onChange={(e) => {setFormData({...formData, intakeType: e.target.value})}}
+className='rounded border border-black-100 px-3 py-2'
+>
   <option value="">select</option>
   <option value="in bumper">in bumper intake</option>
   <option value="over bumper">over the bumper intake.</option>
-  </DropdownMenu>
+  </select>
 </div>
 </CardContent>
    </Card>
