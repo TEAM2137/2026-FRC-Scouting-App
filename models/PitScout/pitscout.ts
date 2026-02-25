@@ -1,22 +1,25 @@
 import mongoose from "mongoose";
 
 export interface IPitscout {
+  teamNumber: number,
+ eventCode: string,
   maxFuelCarry: number,
-  PassPosition: number,
+  PassPosition: boolean,
   scoringPosition: number,
   autonPath: string,
   canGoThroughTrench: boolean,
   intakeType: string,
-  autonClimb: boolean,
+  autonClimb: number,
   closedHopper: boolean,
   multishot: number,
   teleopClimb: number,
   launchSpeed: number,
   weight: number,
+  driveTeam: string,
   //meta data for the file. 
   createdAt: Date,
   updatedAt: Date,
-  teamNumber: number,
+  
 }
 
 export const PitscoutSchema = new mongoose.Schema<IPitscout>(
@@ -26,7 +29,7 @@ export const PitscoutSchema = new mongoose.Schema<IPitscout>(
             required: true,
         },
         PassPosition: {
-            type: Number,
+            type: Boolean,
             required: true,
         },
          scoringPosition: {
@@ -39,7 +42,7 @@ export const PitscoutSchema = new mongoose.Schema<IPitscout>(
             required: false,
         },
         autonClimb: {
-            type: Boolean,
+            type: Number,
             required: true,
         },
         intakeType: {
@@ -74,6 +77,7 @@ export const PitscoutSchema = new mongoose.Schema<IPitscout>(
             type: Number,
             required: true
         },
+    
     },
 );
 

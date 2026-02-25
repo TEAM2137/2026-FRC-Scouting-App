@@ -1,6 +1,11 @@
 import mongoose from "mongoose";
 
 export interface IMatchscout {
+teamNumber: number, 
+eventCode: number, 
+tournomentLevel: string,
+matchNumber: number,
+scoutTeamNumber: number,
 totalShotsAuto: number,
 totalPassedAuto: number,
 totalScored: number,
@@ -12,6 +17,8 @@ didDie: number,
 didBreak: number
 didAutoClimb: number,
 //meta data for the file
+isHidden: boolean,
+isIgnored: boolean,
 createdAt: Date,
 updatedAt: Date,
 }
@@ -66,7 +73,14 @@ export const Matchscoutschema = new mongoose.Schema<IMatchscout>(
             type: Date,
             default: Date.now,
         },
+    isHidden:{
+        type: Boolean
     }
+    isIgnored:{
+        type: Boolean
+    }
+    }
+
 )
 const Matchscout = mongoose.models?.Matchscout || mongoose.model<IMatchscout>("Matchscout", Matchscoutschema)
 
