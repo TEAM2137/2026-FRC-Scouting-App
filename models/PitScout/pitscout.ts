@@ -16,6 +16,7 @@ export interface IPitscout {
   //meta data for the file. 
   createdAt: Date,
   updatedAt: Date,
+  teamNumber: number,
 }
 
 export const PitscoutSchema = new mongoose.Schema<IPitscout>(

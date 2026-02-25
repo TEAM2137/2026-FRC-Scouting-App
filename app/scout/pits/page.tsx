@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
 import { IPitscout } from "@/models/PitScout/pitscout"
-import { DropdownMenu } from '@/components/ui/dropdown-menu';
+
 
 
 const Page = () => {
@@ -38,7 +38,17 @@ const Page = () => {
     const router = useRouter();
     const { appEvent, setAppEvent } = useAppContext();
     
+const handleStorePitScout = async () => {
 
+
+
+
+
+
+
+
+  
+}
     
 return (
     <>
