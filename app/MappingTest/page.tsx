@@ -1,3 +1,4 @@
+
 'use server'
 //import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
@@ -23,7 +24,7 @@ return (
         <button id="yodler maker" >yodelelele</button>
             {matchData.map((match) => (
             <h1 key={match._id.toString()}>
-                    <p className="bg-violet-400 border-violet-900 border-3 rounded-3xl text-white w-30 h-30 text-center">
+                    <p className=" border-3 rounded-3xl text-white w-30 h-30 text-center" style={{backgroundColor:match.TeamColor}}>
                     Match Test Team: {match.MeetTheTeam} - Scored: {match.IFuelNumb} HangLevel - {match.IsHangerLevel}
                     </p>
     

@@ -12,7 +12,7 @@ export default async function storeMatch(match: IMatchscout) {
 
     await connectDB()
   try {
-    const store = await Matchscout.findOneAndUpdate({ IFuelNumb: match.IFuelNumb }, match, { upsert: true, new: true })
+    const store = await Matchscout.findOneAndUpdate({ MeetTheTeam: match.MeetTheTeam }, match, { upsert: true, new: true })
     // const store = await ({fuelScored: match.IFuelNumb})
     console.log("yay it worked it worked it worked it worked.")
     return ({result: true, message: "User Stored Successfully"})

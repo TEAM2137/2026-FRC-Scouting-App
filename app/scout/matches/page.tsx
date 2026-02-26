@@ -21,6 +21,7 @@ import Image from 'next/image';
 // import storeUser from "@/lib/auth/storeUser"
 import { IMatchscout } from "@/models/frc-events/matchScout/matchScout";
 import storeMatch from "@/lib/auth/storeMatch"
+import { Fuel } from "lucide-react";
 
 
 const Page = () => {
@@ -37,7 +38,8 @@ const Page = () => {
     const [HangText,setHangText] = useState("Robot Hung?")
     const [HangSize, setHangSize] = useState("Disabled")
     const [TeamColore, setTeamColore] = useState("blue")
-    const [TotalScore, setTotalScore] = useState(0)
+    const [Team, setTeam] = useState(0)
+
     const [MatchData, setMatchData] = useState<IMatchscout>({
         IFuelNumb: 0,
        IsHangerLevel: 0,
@@ -104,49 +106,49 @@ const Page = () => {
         } 
     }
        const HandleStoreMatch = async () => {
-            setMatchData({
-                IFuelNumb: fuel,
-                IsHangerLevel: hangLevel,
-                ToeTalScorn: TotalScore,
-                MeetTheTeam: Math.round(Math.random() * 10000),
-                TeamColor: TeamColore
-            })
-           if (Math.random() >= 0.5) {
-                setTeamColore("red")
-        } else {
-            setTeamColore("blue")
-        }
-        console.log("Click works")
         const response = await storeMatch(MatchData);
-        console.log(response)
         if (response.result) {
+                 if (Math.random() >= 0.5) {
+                    setTeamColore("red")
+                } else {
+                    setTeamColore("blue")
+                }
             console.log("It did stuff")
-            console.log(MatchData)
             setMatchData({
-                IFuelNumb: fuel,
-                IsHangerLevel: hangLevel,
-                ToeTalScorn: TotalScore,
-                MeetTheTeam: Math.round(Math.random() * 10000),
-                TeamColor: TeamColore
-            })
-
-
+               IFuelNumb: fuel,
+               IsHangerLevel: hangLevel,
+                ToeTalScorn: (HPI + fuel),
+                MeetTheTeam: Team,
+               TeamColor: TeamColore,
+         });
         }
-     }
+     
+      
+        console.log("Click works")
+        console.log(response)
+            console.log(MatchData)
+    }
+const ChangeTeam = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTeam(Number(event.target.value))
+
+}
+
+
+      
+        
+       
 
     return (
         <div className="fixed top-0 left-0 w-screen h-screen z-11">
             <Card className=" rounded-4xl w-full h-full" style={{backgroundColor:"#0f0f31"}}>
                 <CardHeader  className="border-3 border-amber-600"style={{backgroundColor:"#fecd07"}} id ="yodelelo">Team Number: 
-                    <select id="yellow">
-                        <option value="1">Nothing</option>
-                        <option value="2">Nothing</option>
-                    </select>
+                    <input type="number" id="yellow" className="bg-orange-400 border-3 rounded-3xl text-center border-orange-700" onChange={ChangeTeam}>
+                    </input>
                 </CardHeader>
                 <CardContent>
                     <button onClick={increaseFuel} className="bg-green-600 border-3 border-green-900 rounded-2xl size-18"id="Increase1">+{DeInAmount} fuel</button>
                     <center><p style={{color: ColorChange}}className="font-bold text-2xl"id = "fuelAmount"> {fuel} </p><Image src="/webapp-icons/FuelBall2.png" alt="Logo" width="50" height="50"/></center>
-                    <button onClick={decreaseFuel} className="bg-red-600 rounded-2xl border-3 border-red-900 size-18" style={{position:"absolute",top:"107px",left:"300px"}} id="Decrease1">-{DeInAmount} fuel</button>
+                    <button onClick={decreaseFuel} className="bg-red-600 rounded-2xl border-3 border-red-900 size-18" style={{position:"absolute",top:"116.5px",left:"300px"}} id="Decrease1">-{DeInAmount} fuel</button>
                 </CardContent>
                 <CardDescription>
                     <center><p style={{color: "white"}}>Change Button Increments</p><input className="bg-blue-950 rounded-4xl border-3 border-blue-875 text-white text-center"onChange={ChangeFuel} value={DeInAmount}></input></center>
@@ -155,11 +157,11 @@ const Page = () => {
                 <button style={{position:"absolute", top:"435px", left: "110px"}} onClick={() => ChangeLevel(2)}  className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900" >Level 2</button>
                 <button style={{position:"absolute", top:"435px", left: "205px"}}onClick={() => ChangeLevel(3)}  className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900">Level 3</button>
                 </CardFooter>
-                <CardFooter><p className="bg-amber-400 rounded-2xl h-8 w-40 text-center border-2 border-amber-600" onChange={() => setMatchData({...MatchData, ToeTalScorn: (HPI + fuel)})} style={{position:"absolute",top:"800px", left:"5px"}}>Total Score: {HPI + fuel}</p> <p className="bg-indigo-600 rounded-2xl h-8 w-40 text-center border-2 border-indigo-800" style={{position:"absolute",top:"800px", left:"225px"}}>RP gained: {RP}</p></CardFooter>
+                <CardFooter><p className="bg-amber-400 rounded-2xl h-8 w-40 text-center border-2 border-amber-600" onChange={() => setMatchData({...MatchData, ToeTalScorn: (HPI + fuel)})} style={{position:"absolute",top:"525px", left:"114px"}}>Total Score: {HPI + fuel}</p> <p className="bg-indigo-600 rounded-2xl h-8 w-40 text-center border-2 border-indigo-800" style={{position:"absolute",top:"800px", left:"225px"}}>RP gained: {RP}</p></CardFooter>
                 <p 
                 onClick={() => {HandleStoreMatch()}}
-                className="bg-lime-400 border-2 border-lime-600 w-30 h-12 rounded-3xl text-center text-black" 
-                style={{position:"absolute", top:"740px", left:"140px"}}> 
+                className="bg-lime-400 border-2 border-lime-600 w-40 h-12 rounded-3xl text-center text-black" 
+                style={{position:"absolute", top:"790px", left:"20px"}}> 
                 Save Data (double click)
                 </p>
             </Card>
