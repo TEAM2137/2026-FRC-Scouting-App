@@ -6,6 +6,7 @@ eventCode: number,
 tournomentLevel: string,
 matchNumber: number,
 scoutTeamNumber: number,
+launchAuto: number,
 totalShotsAuto: number,
 totalPassedAuto: number,
 totalScored: number,
@@ -25,7 +26,11 @@ updatedAt: Date,
 
 export const Matchscoutschema = new mongoose.Schema<IMatchscout>(
 {
-        totalShotsAuto:{
+        launchAuto:{
+        type: Number,
+        required: true,
+        },    
+    totalShotsAuto:{
             type: Number,
             required: true,
         },
@@ -75,10 +80,10 @@ export const Matchscoutschema = new mongoose.Schema<IMatchscout>(
         },
     isHidden:{
         type: Boolean
-    }
+    },
     isIgnored:{
         type: Boolean
-    }
+    },
     }
 
 )
