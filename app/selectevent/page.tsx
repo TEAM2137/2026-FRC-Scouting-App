@@ -27,6 +27,7 @@ interface DisplayEvent {
 }   
 
 export const Weeks = [
+    { week: 'PRE-SEASON', sdate: 20260200, edate: 20260301 },
     { week: 'Week 1', sdate: 20260302, edate: 20260309 },
     { week: 'Week 2', sdate: 20260310, edate: 20260315 },
     { week: 'Week 3', sdate: 20260316, edate: 20260322 },
@@ -153,6 +154,7 @@ const Page = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div className="flex gap-2">
                         <select className="w-70 bg-slate-800 rounded-lg p-4  text-lg" value={weekFilter} onChange={(e) => setWeekFilter(e.target.value)}>
+                            <option className="bg-slate-700 m-1 p-4 rounded-lg text-lg" value="PRE-SEASON">PRE-SEASON</option>
                             <option className="bg-slate-700 m-1 p-4 rounded-lg text-lg" value="Week 1">Week 1</option>
                             <option className="bg-slate-700 m-1 p-4 rounded-lg text-lg" value="Week 2">Week 2</option>
                             <option className="bg-slate-700 m-1 p-4 rounded-lg text-lg" value="Week 3">Week 3</option>

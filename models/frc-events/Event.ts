@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 
-import { ITeam, TeamSchema } from '@/models/frc-events/Team';
+import { ITeam } from '@/models/frc-events/Team';
 
 
 
@@ -16,8 +16,19 @@ export interface IEvent {
             country: string,
             dateStart: Date,
             dateEnd: Date,
-            teams: ITeam[],
+            teams?: ITeam[],
         }
+
+const TeamSchema = new mongoose.Schema<ITeam>({
+    number: {
+        type: Number,
+        required: false,
+    },
+    name: {
+        type: String,
+        required: false,
+    },
+});
 
 
 
@@ -57,7 +68,7 @@ const EventSchema = new mongoose.Schema<IEvent>({
     },
     teams: {
         type: [TeamSchema],
-        required: true,
+        required: false,
     },
     dateStart: {
         type: Date,

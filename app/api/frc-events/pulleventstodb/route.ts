@@ -44,6 +44,7 @@ export async function GET(req: NextRequest) {
 
     // Store data in MongoDB
     for (const event of data.Events) {
+        console.log('Processing Event: ', event.code, event.name);
         try{ 
             // get Teams List for Event
             const teamUrl = `https://frc-api.firstinspires.org/v3.0/2026/teams?eventCode=${event.code}`;
@@ -62,6 +63,7 @@ export async function GET(req: NextRequest) {
 
             // Check if data is empty
             if (data.teams.length === 0) {
+                console.log('No teams found for event: ', event.code);
                 
             }
 
@@ -84,6 +86,7 @@ export async function GET(req: NextRequest) {
                 }
             }
 
+            const byPassEventTeams: ITeam[] = [];
 
             //Create Team daocument values
             const newEvent: IEvent = {
@@ -99,6 +102,8 @@ export async function GET(req: NextRequest) {
                 dateEnd: event.dateEnd,
                 teams: eventTeams,
             };
+
+            console.log('newEvent: ', newEvent);
 
 
             // Update or insert data into MongoDB
