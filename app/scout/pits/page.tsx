@@ -19,12 +19,12 @@ import { IPitscout } from "@/models/PitScout/pitscout"
 const Page = () => {
    const [formData, setFormData] = useState<IPitscout>({
  maxFuelCarry: 0,
-  PassPosition: 0,
+  PassPosition: false,
   scoringPosition: 0,
   autonPath: '',
   canGoThroughTrench: false,
   intakeType: '',
-  autonClimb: false,
+  autonClimb: 0,
   closedHopper: false,
   multishot: 0,
   teleopClimb: 0,
@@ -33,7 +33,14 @@ const Page = () => {
   //meta data for the file. 
   createdAt: new Date(),
   updatedAt: new Date(),
-   })
+teamNumber: 0,
+eventCode: '',
+driveTeam: '',
+
+
+
+
+})
      
     const router = useRouter();
     const { appEvent, setAppEvent } = useAppContext();
@@ -79,8 +86,8 @@ onChange={(e) => {setFormData({...formData, maxFuelCarry: e.target.valueAsNumber
   type="number"
   required
   placeholder="1234"
-  value={formData.maxFuelCarry}
-  onChange={(e) => {setFormData({...formData, PassPosition: e.target.valueAsNumber})}}
+  value={formData.PassPosition}
+  onChange={(e) => {setFormData({...formData, PassPosition: e.target.value})}}
     />
 </div>
 <div>
@@ -100,7 +107,7 @@ placeholder="123456"
 id="autonPath"
 type="srting"
 required
-placeholder="123456"
+placeholder="no"
   value={formData.autonPath}
   onChange={(e) => {setFormData({...formData, autonPath: e.target.value})}}
 />
@@ -123,6 +130,16 @@ className='rounded border border-black-100 px-3 py-2'
   <option value="in bumper">in bumper intake</option>
   <option value="over bumper">over the bumper intake.</option>
   </select>
+</div>
+<div>
+<Label>what is the robot weight</Label>
+<Input
+id='weight'
+required
+value={formData.weight}
+onChange={(e) => {setFormData({...formData, weight: e.target.valueAsNumber})}}
+>
+</Input>
 </div>
 </CardContent>
    </Card>
