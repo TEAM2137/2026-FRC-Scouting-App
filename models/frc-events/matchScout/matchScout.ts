@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 export interface IMatchscout {
 teamNumber: number, 
 eventCode: number, 
-tournomentLevel: string,
+tournamentLevel: string,
 matchNumber: number,
 scoutTeamNumber: number,
 launchAuto: number,

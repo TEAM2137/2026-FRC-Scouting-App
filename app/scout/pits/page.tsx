@@ -140,6 +140,51 @@ onChange={(e) => {setFormData({...formData, weight: e.target.valueAsNumber})}}
 >
 </Input>
 </div>
+
+<div>
+  <Label>can they go through the trench?</Label>
+<Checkbox>
+  yes they can 
+</Checkbox>
+</div>
+
+<div>
+<Label>what is their Intake type</Label>
+<Input
+id="intakeType"
+type="text"
+required
+placeholder="in bumper, over bumper, etc."
+value={formData.intakeType}
+onChange={(e) => {setFormData({...formData, intakeType: e.target.value})}} //change form data once we change the forms
+/>
+</div>
+
+<div>
+<Label>Do they climb in auton</Label>
+<Checkbox
+checked={formData.autonClimb === 1}
+onChange={(e) => {setFormData({...formData, autonClimb: e.target.checked ? 1 : 0})}}
+/>
+</div>
+<div>
+<Label>Do they have a closed hopper?</Label>
+<Checkbox
+checked={formData.closedHopper}
+onChange={(e) => {setFormData({...formData, closedHopper: e.target.checked})}}
+/>
+</div>
+<div> 
+  <Label>How many fuel do they launch at one time?</Label>
+<Input
+id="launchSpeed"
+type="number"
+required
+placeholder="123456"
+  value={formData.launchSpeed}
+  onChange={(e) => {setFormData({...formData, launchSpeed: e.target.valueAsNumber})}}
+/>
+</div>
 </CardContent>
    </Card>
 </>
