@@ -36,31 +36,23 @@ const Page = () => {
 teamNumber: 0,
 eventCode: '',
 driveTeam: '',
-
-
-
-
-})
-     
+});
     const router = useRouter();
     const { appEvent, setAppEvent } = useAppContext();
     
 const handleStorePitScout = async () => {
-
+const [success, setSuccess] =useState('');
+const [error, setError] =useState('');
 try {
   const response = await storePitScout(data)
   if (response.result){
     setSuccess('save successful');
-  emptyForm
+ 
   }
 }
-
-
-
-
-
-
-  
+catch(err) {
+  setError('an error occoured when saving the pit scout data. please check connection and try again later.');
+}
 }
     
 return (
