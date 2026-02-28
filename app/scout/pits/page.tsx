@@ -12,12 +12,11 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
 import { IPitscout } from "@/models/PitScout/pitscout"
-import storePitScout from '@/lib/pits/storePitScout';
 
 
 
 const Page = () => {
-   const [data, setData] = useState<IPitscout>({
+   const [formData, setFormData] = useState<IPitscout>({
  maxFuelCarry: 0,
   PassPosition: false,
   scoringPosition: 0,
@@ -41,6 +40,7 @@ driveTeam: '',
     const { appEvent, setAppEvent } = useAppContext();
     
 const handleStorePitScout = async () => {
+<<<<<<< HEAD
 const [success, setSuccess] =useState('');
 const [error, setError] =useState('');
 try {
@@ -53,6 +53,17 @@ try {
 catch(err) {
   setError('an error occoured when saving the pit scout data. please check connection and try again later.');
 }
+=======
+
+
+
+
+
+
+
+
+  
+>>>>>>> parent of dafd707 (added some components need to still fix)
 }
     
 return (
@@ -71,8 +82,8 @@ id="fuelCount"
 type="number"
 required
 placeholder='1234'
-value={data.maxFuelCarry}
-onChange={(e) => {setData({...data, maxFuelCarry: e.target.valueAsNumber})}}
+value={formData.maxFuelCarry}
+onChange={(e) => {setFormData({...formData, maxFuelCarry: e.target.valueAsNumber})}}
 />
 </div>
 <div>
@@ -88,8 +99,8 @@ id="scoringPosition"
 type="number"
 required
 placeholder="123456"
-  value={data.scoringPosition}
-  onChange={(e) => {setData({...data, scoringPosition: e.target.valueAsNumber})}}
+  value={formData.scoringPosition}
+  onChange={(e) => {setFormData({...formData, scoringPosition: e.target.valueAsNumber})}}
 />
 </div>
 <div>
@@ -99,8 +110,8 @@ id="autonPath"
 type="srting"
 required
 placeholder="no"
-  value={data.autonPath}
-  onChange={(e) => {setData({...data, autonPath: e.target.value})}}
+  value={formData.autonPath}
+  onChange={(e) => {setFormData({...formData, autonPath: e.target.value})}}
 />
 </div>
 <div>
@@ -113,8 +124,8 @@ placeholder="no"
   <select
 id="intake Type"
 required
-value={data.intakeType}
-  onChange={(e) => {setData({...data, intakeType: e.target.value})}}
+value={formData.intakeType}
+  onChange={(e) => {setFormData({...formData, intakeType: e.target.value})}}
 className='rounded border border-black-100 px-3 py-2'
 >
   <option value="">select</option>
@@ -127,8 +138,8 @@ className='rounded border border-black-100 px-3 py-2'
 <Input
 id='weight'
 required
-value={data.weight}
-onChange={(e) => {setData({...data, weight: e.target.valueAsNumber})}}
+value={formData.weight}
+onChange={(e) => {setFormData({...formData, weight: e.target.valueAsNumber})}}
 >
 </Input>
 </div>
@@ -147,23 +158,23 @@ id="intakeType"
 type="text"
 required
 placeholder="in bumper, over bumper, etc."
-value={data.intakeType}
-onChange={(e) => {setData({...data, intakeType: e.target.value})}} //change form data once we change the forms
+value={formData.intakeType}
+onChange={(e) => {setFormData({...formData, intakeType: e.target.value})}} //change form data once we change the forms
 />
 </div>
 
 <div>
 <Label>Do they climb in auton</Label>
 <Checkbox
-checked={data.autonClimb === 1}
-onChange={(e) => {setData({...data, autonClimb: e.target.checked ? 1 : 0})}}
+checked={formData.autonClimb === 1}
+onChange={(e) => {setFormData({...formData, autonClimb: e.target.checked ? 1 : 0})}}
 />
 </div>
 <div>
 <Label>Do they have a closed hopper?</Label>
 <Checkbox
-checked={data.closedHopper}
-onChange={(e) => {setData({...data, closedHopper: e.target.checked})}}
+checked={formData.closedHopper}
+onChange={(e) => {setFormData({...formData, closedHopper: e.target.checked})}}
 />
 </div>
 <div> 
@@ -173,8 +184,8 @@ id="launchSpeed"
 type="number"
 required
 placeholder="123456"
-  value={data.launchSpeed}
-  onChange={(e) => {setData({...data, launchSpeed: e.target.valueAsNumber})}}
+  value={formData.launchSpeed}
+  onChange={(e) => {setFormData({...formData, launchSpeed: e.target.valueAsNumber})}}
 />
 </div>
 
@@ -185,8 +196,8 @@ id="teleopClimb"
 type="number"
 required
 placeholder="123456"
-  value={data.teleopClimb}
-  onChange={(e) => {setData({...data, teleopClimb: e.target.valueAsNumber})}}
+  value={formData.teleopClimb}
+  onChange={(e) => {setFormData({...formData, teleopClimb: e.target.valueAsNumber})}}
 />
 </div>
 
@@ -197,8 +208,8 @@ id="launchCycleTime"
 type="number"
 required
 placeholder="123456"
-  value={data.launchSpeed}
-  onChange={(e) => {setData({...data, launchSpeed: e.target.valueAsNumber})}}
+  value={formData.launchSpeed}
+  onChange={(e) => {setFormData({...formData, launchSpeed: e.target.valueAsNumber})}}
 />
 </div>
 <div>
