@@ -59,8 +59,6 @@ const handleStorePitScout = async () => {
 return (
     <>
    
-   
-   
    <Card className="fixed top-0 left-0 w-screen h-screen z-11">
     <CardHeader>
 <CardTitle> scouting page</CardTitle>
@@ -80,14 +78,9 @@ onChange={(e) => {setFormData({...formData, maxFuelCarry: e.target.valueAsNumber
 </div>
 <div>
     <Label>what position do they pass in</Label>
-    <Input
-  id="PassPosition"
-  type="number"
-  required
-  placeholder="1234"
-  value={formData.PassPosition}
-  onChange={(e) => {setFormData({...formData, PassPosition: e.target.value})}}
-    />
+   <Checkbox>
+    yes
+   </Checkbox>
 </div>
 <div>
     <Label>what position do they score in?</Label>
@@ -184,6 +177,47 @@ placeholder="123456"
   value={formData.launchSpeed}
   onChange={(e) => {setFormData({...formData, launchSpeed: e.target.valueAsNumber})}}
 />
+</div>
+
+<div>
+<Label>what is their teleop climb?</Label>
+<Input
+id="teleopClimb"
+type="number"
+required
+placeholder="123456"
+  value={formData.teleopClimb}
+  onChange={(e) => {setFormData({...formData, teleopClimb: e.target.valueAsNumber})}}
+/>
+</div>
+
+<div>
+<Label>what is their launch cycle time</Label>
+<Input
+id="launchCycleTime"
+type="number"
+required
+placeholder="123456"
+  value={formData.launchSpeed}
+  onChange={(e) => {setFormData({...formData, launchSpeed: e.target.valueAsNumber})}}
+/>
+</div>
+<div>
+  <Label>What is their robot weight </Label>
+  <Input
+  id="weight"
+  type="number"
+  required
+  placeholder='123456'
+  value={0}
+  onChange={() => {}}
+  />
+</div>
+
+<div>
+  <Button onClick={handleStorePitScout}>
+    submit
+  </Button>
 </div>
 </CardContent>
    </Card>
