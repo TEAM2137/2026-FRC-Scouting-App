@@ -4,22 +4,39 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
-import { getToken } from '@/lib/jwt';
-import { set } from 'mongoose';
 
+import ScoutMenu from '@/components/scout/ScoutMenu';
+import ScoutMain from '@/components/scout/ScoutMain';
+import ScoutPit from '@/components/scout/ScoutPit';
+import ScoutMatches from '@/components/scout/ScoutMatches';
 
 
 
 const Page = () => {
     const router = useRouter();
+    const [scoutDisplay, setScoutDisplay] = useState('main');
     const { appEvent, setAppEvent } = useAppContext();
     
 
     
 return (
     <div className="flex flex-col w-screen pl-20 text-xs">
-        <h1 className="text-xl font-bold">{appEvent?.name}</h1>
-        <p>Page for scouting the event.</p>
+        <ScoutMenu setDisplay={setScoutDisplay} />
+
+
+        <h1 className="text-xl font-bold">{appEvent?.name} ({appEvent?.code})</h1>
+        
+        {scoutDisplay === 'main' && 
+            <ScoutMain setDisplay={setScoutDisplay} />
+        }
+
+        {scoutDisplay === 'pit' && 
+            <ScoutPit setDisplay={setScoutDisplay} />
+        }
+        {scoutDisplay === 'matches' && 
+            <ScoutMatches setDisplay={setScoutDisplay} />
+        }
+
     </div>
 )
 }

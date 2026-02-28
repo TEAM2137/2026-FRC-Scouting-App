@@ -18,20 +18,29 @@ import { Checkbox } from "@/components/ui/checkbox"
 
 import { IUser } from "@/models/auth/User"
 import storeUser from "@/lib/auth/storeUser"
+
+interface Props {
+  setDisplay: (page: string) => void
+}
+
+
+const emptyData = {
+  number: '',
+  name: '',
+  email: '',
+  password: '',
+  phone: '',
+  role: 'Scout',
+  isManager: false,
+  isApproved: false,
+  createdAt: new Date(),
+  updatedAt: new Date(),
+}
+
+
  
-const SignUpScout = () => {
-  const [formData, setFormData] = useState<IUser>({
-    number: '',
-    name: 'null',
-    email: '',
-    password: '',
-    phone: 'null',
-    role: 'Student',
-    isManager: false,
-    isApproved: false,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  });
+const SignUpScout = ({setDisplay}: Props) => {
+  const [data, setData] = useState<IUser>(emptyData);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
@@ -41,16 +50,16 @@ const SignUpScout = () => {
     
     
     // Validate all fields are filled
-    if (!formData.number) {
+    if (!data.number) {
       setError("Please enter your Team Number");
       return;
     }
-    if (!formData.email) {
+    if (!data.email) {
       setError("Please enter your Manager Email");
       return;
     }
 
-    if (!formData.password) {
+    if (!data.password) {
       setError("Please enter a Password");
       return;
     }
@@ -64,22 +73,12 @@ const SignUpScout = () => {
     setSuccess('');
 
     try {
-      const response = await storeUser(formData);
+      const response = await storeUser(data);
       if (response.result) {
         setSuccess('Account created successfully! You can now sign in.');
-        setFormData({
-          number: '',
-          name: '',
-          email: '',
-          password: '',
-          phone: '',
-          role: 'Student',
-          isManager: false,
-          isApproved: false,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        });
+        setData(emptyData);
         setTermsAccepted(false);
+        setDisplay('signin');
       } else {
         setError(response.message || 'Failed to create account');
       }
@@ -119,8 +118,8 @@ const SignUpScout = () => {
                   type="text" 
                   required 
                   placeholder="12345"
-                  value={formData.number}
-                  onChange={(e) => {setFormData({...formData, number: e.target.value})}}
+                  value={data.number}
+                  onChange={(e) => {setData({...data, number: e.target.value})}}
                 />
               </div>
              
@@ -131,8 +130,8 @@ const SignUpScout = () => {
                   type="email"
                   placeholder="Email@Email.com"
                   required
-                  value={formData.email}
-                  onChange={(e) => {setFormData({...formData, email: e.target.value})}}
+                  value={data.email}
+                  onChange={(e) => {setData({...data, email: e.target.value})}}
                 />
               </div>
               <div className="grid gap-3">
@@ -141,8 +140,8 @@ const SignUpScout = () => {
                   id="password" 
                   type="password" 
                   required
-                  value={formData.password}
-                  onChange={(e) => {setFormData({...formData, password: e.target.value})}}
+                  value={data.password}
+                  onChange={(e) => {setData({...data, password: e.target.value})}}
                 />
               <div className="grid gap-3">
               </div>
