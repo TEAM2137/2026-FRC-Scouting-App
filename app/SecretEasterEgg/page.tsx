@@ -49,8 +49,10 @@ return (
     <img src="/webapp-icons/BackgroundForFBDS.png" className="h-screen w-screen"></img>
     <h1 className='font-bold text-white text-2xl' style={{position:"absolute",top:"0%",left:"35%"}}>Talk to fuelball</h1>
     <img src="/webapp-icons/FuelMan.png" id="feulball" className="w-30 h-80"style={{position:"absolute",top:"350px",left:"135px"}}></img>
-    <button onClick={() => Options(2)} className="bg-amber-400 border-3 border-amber-600 rounded-3xl w-30 text-center h-20"style={{position:"absolute",top:"575px",left:"235px"}}>{option1}</button>
-    <button  onClick={() => Options(1)} className="bg-amber-400 border-3 border-amber-600 rounded-3xl w-30 h-20  text-center"style={{position:"absolute",top:"575px",left:"45px"}}>{option2}</button>
+    <button //onClick={() => Options(2)} 
+    className="bg-amber-400 border-3 border-amber-600 rounded-3xl w-30 text-center h-20"style={{position:"absolute",top:"575px",left:"235px"}}>{option1}</button>
+    <button  //onClick={() => Options(1)} 
+    className="bg-amber-400 border-3 border-amber-600 rounded-3xl w-30 h-20  text-center"style={{position:"absolute",top:"575px",left:"45px"}}>{option2}</button>
     <h2 className="bg-blue-500 border-4 border-blue-700 w-75 h-30 text-center" style={{position:"absolute",top:"660px",left:"50px"}}> {fullString}</h2>
     </div>
 )

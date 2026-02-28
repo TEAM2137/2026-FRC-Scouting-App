@@ -9,8 +9,8 @@ import Matchscout from "@/models/frc-events/matchScout/matchScout";
 
 
 export default async function Pagee() {
-//  const router = useRouter();
-//    const { event, setAppEvent } = useAppContext();
+  //const router = useRouter();
+    const { event, setAppEvent } = useAppContext();
     
     await connectDB()
 

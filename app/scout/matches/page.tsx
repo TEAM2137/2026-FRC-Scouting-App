@@ -33,12 +33,13 @@ const Page = () => {
     const [DeInAmount, setDeInAmount] = useState(1)
     const [hangLevel, setHangLevel] = useState(0)
     const [HPI, setHPI] = useState(0)
-    const [RP, setRP] = useState(0)
     const [ColorChange, setColorChange] = useState("white")
     const [HangText,setHangText] = useState("Robot Hung?")
     const [HangSize, setHangSize] = useState("Disabled")
     const [TeamColore, setTeamColore] = useState("blue")
     const [Team, setTeam] = useState(0)
+    const [Error, setError] = useState(["Nothing wrong here","#0f0f31"])
+    const ErrorMessagge = document.getElementById("Error Message")
 
     const [MatchData, setMatchData] = useState<IMatchscout>({
         IFuelNumb: 0,
@@ -50,15 +51,6 @@ const Page = () => {
     const increaseFuel = () => {
         setFuel((fuel  + DeInAmount));
         setColorChange("white")
-        if (fuel >= 49 && fuel < 99) {
-            setRP(1)
-        } else if (fuel >= 99 && fuel < 359) {
-            setRP(2)
-        } else if (fuel >= 359) {
-            setRP(3)
-        } else {
-            setRP(0)
-        }
         if (fuel >= 500) {
             setColorChange("red")
             setFuel(500)
@@ -69,15 +61,6 @@ const Page = () => {
             setFuel((fuel - DeInAmount));
         } else {
             setFuel(0)
-        }
-        if (fuel >= 49 && fuel < 99) {
-            setRP(1)
-        } else if (fuel >= 99 && fuel < 359) {
-            setRP(2)
-        } else if (fuel >= 359) {
-            setRP(3)
-        } else {
-            setRP(0)
         }
         setColorChange("white")
     }
@@ -105,9 +88,10 @@ const Page = () => {
             setHangText("Robot hang level: " + Number(level))
         } 
     }
-       const HandleStoreMatch = async () => {
+        const HandleStoreMatch = async () => {
         const response = await storeMatch(MatchData);
         if (response.result) {
+            //if () {
                  if (Math.random() >= 0.5) {
                     setTeamColore("red")
                 } else {
@@ -120,7 +104,22 @@ const Page = () => {
                 ToeTalScorn: (HPI + fuel),
                 MeetTheTeam: Team,
                TeamColor: TeamColore,
-         });
+                });
+           //   } else {
+           // Error[1] = "red"
+           // Error[0] = "No team made"
+          //  }
+            const Pmpt = prompt("Does this data look correct? " + MatchData.IFuelNumb + " Fuel " + "(Y/N)")
+            if (Pmpt.toLowerCase() == "y") {
+                Error[1] = "lime"
+                Error[0] = "Thank you for scouting!!!"
+            } else if (Pmpt.toLowerCase() == "n") {
+                Error[1] = "red"
+                Error[0] = "Please reclick the button"
+            } else {
+                 Error[1] = "red"
+                Error[0] = "Please reclick the button"
+            }
         }
      
       
@@ -133,8 +132,9 @@ const ChangeTeam = (event: React.ChangeEvent<HTMLInputElement>) => {
 
 }
 
-
-      
+const ErrorMessage = () => {
+    Error[1] = ""
+}
         
        
 
@@ -157,13 +157,16 @@ const ChangeTeam = (event: React.ChangeEvent<HTMLInputElement>) => {
                 <button style={{position:"absolute", top:"435px", left: "110px"}} onClick={() => ChangeLevel(2)}  className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900" >Level 2</button>
                 <button style={{position:"absolute", top:"435px", left: "205px"}}onClick={() => ChangeLevel(3)}  className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900">Level 3</button>
                 </CardFooter>
-                <CardFooter><p className="bg-amber-400 rounded-2xl h-8 w-40 text-center border-2 border-amber-600" onChange={() => setMatchData({...MatchData, ToeTalScorn: (HPI + fuel)})} style={{position:"absolute",top:"525px", left:"114px"}}>Total Score: {HPI + fuel}</p> <p className="bg-indigo-600 rounded-2xl h-8 w-40 text-center border-2 border-indigo-800" style={{position:"absolute",top:"800px", left:"225px"}}>RP gained: {RP}</p></CardFooter>
+                <CardFooter><p className="bg-amber-400 rounded-2xl h-8 w-40 text-center border-2 border-amber-600" onChange={() => setMatchData({...MatchData, ToeTalScorn: (HPI + fuel)})} style={{position:"absolute",top:"525px", left:"114px"}}>Total Score: {HPI + fuel}</p> <p className="bg-red-600 rounded-3xl h-12 w-40 text-center border-2 border-red-800" style={{position:"absolute",top:"790px", left:"210px"}} onClick={() => router.push('/selectevent')}>Go home</p></CardFooter>
                 <p 
                 onClick={() => {HandleStoreMatch()}}
                 className="bg-lime-400 border-2 border-lime-600 w-40 h-12 rounded-3xl text-center text-black" 
                 style={{position:"absolute", top:"790px", left:"20px"}}> 
                 Save Data (double click)
                 </p>
+                <h2 id="Error Message" style={{position:"absolute", top:"575px", left:"95px",color:Error[1]}} className="w-50 text-center font-bold">
+                    {Error[0]}
+                </h2>
             </Card>
         </div>
     
