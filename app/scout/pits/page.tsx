@@ -6,14 +6,13 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { CardContent, CardHeader } from '@/components/ui/card';
 import { CardTitle } from '@/components/ui/card';
 import { CardDescription } from '@/components/ui/card';
-
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
 import { IPitscout } from "@/models/PitScout/pitscout"
-import NodeCache from 'node-cache';
+
 
 
 const Page = () => {
