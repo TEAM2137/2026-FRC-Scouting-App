@@ -10,7 +10,7 @@ interface IMatchTeam {
 interface IEventSchedule {
     matchID: string,
     eventCode: string,
-    description: "Qualification 1",
+    description: string,
     startTime: Date,
     matchNumber: number,
     field: string,
@@ -38,3 +38,7 @@ const EventScheduleSchema = new mongoose.Schema({
         }
     ]
 });
+
+const EventSchedule = mongoose.models?.EventSchedule || mongoose.model<IEventSchedule>('EventSchedule', EventScheduleSchema);
+
+export default EventSchedule;

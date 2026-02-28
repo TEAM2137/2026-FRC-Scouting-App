@@ -1,4 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
+import connectDB from '@/lib/db';
+import EventSchedule from '@/models/frc-events/EventSchedule';
+
+
 
 export async function GET(req: NextRequest, { params }: { params: { eventCode: string } }) {  
     const { eventCode } = await params;
@@ -27,7 +31,19 @@ export async function GET(req: NextRequest, { params }: { params: { eventCode: s
         return NextResponse.json({ error: 'No matches found for the event ' + eventCode });
     }
 
+    for (const match of data.Schedule) {
+        match.eventCode = eventCode;
+        match.matchID = eventCode + '-' + match.tournamentLevel + '-' + match.matchNumber.toString();
 
+        await connectDB
+        try {
+            const matchDoc = await EventSchedule.findOneAndUpdate({ matchID: match.matchID }, match, { upsert: true, new: true });
+        } catch (error) {
+            console.log(error);
+            return NextResponse.json({ error: 'Error updating EventSchedule for ' + match.matchID });
+        }
+
+    }
 
     return NextResponse.json(data.Schedule);
 
