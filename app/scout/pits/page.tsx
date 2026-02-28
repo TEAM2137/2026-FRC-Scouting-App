@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAppContext } from '@/context/AppContext';
 import { IPitscout } from "@/models/PitScout/pitscout"
-
+import NodeCache from 'node-cache';
 
 
 const Page = () => {
