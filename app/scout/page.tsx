@@ -33,8 +33,8 @@ return (
         {scoutDisplay === 'pit' && 
             <ScoutPit setDisplay={setScoutDisplay} />
         }
-        {scoutDisplay === 'matches' && 
-            <ScoutMatches setDisplay={setScoutDisplay} />
+        {scoutDisplay === 'matches' && appEvent?.code &&
+            <ScoutMatches  eventCode={appEvent?.code} setDisplay={setScoutDisplay} />
         }
 
     </div>
