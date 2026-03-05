@@ -57,19 +57,19 @@ const Page = () => {
     const [TVTS, setTVTS] = useState([0,0,0])
     // Stands for Trigger To Update Screen, Because you have to have a click function to change the screen and stuff
     const [TTUS, setTTUS] = useState(0)
-    const [Roboimgs, setRoboimgs] = useState(["/webapp-icons/RobotAlive.png", "/webapp-icons/Robot3.png"])
+    const [Roboimgs, setRoboimgs] = useState(["/webapp-icons/RobotAlive.png", "/webapp-icons/RobotSafe2.png","Robot Died?","Robot Broke?",0,0])
 
     const [MatchData, setMatchData] = useState<IMatchscout>({
-        IFuelNumb: 0,
-       IsHangerLevel: 0,
-      ToeTalScorn: 0,
-       MeetTheTeam: 0,
+        Fuel: 0,
+       HangLevel: 0,
+      TotalScore: 0,
+       TeamNumber: 0,
        TeamColor: '',
-       OttoShots: 0,
-        OttoClimbed: 0,
-        FuelOttoScored: 0,
-        TheRobotIsDead: 0,
-        TheRobotWasNerfed: 0,
+       AutoShots: 0,
+        AutoClimbLevel: 0,
+        AutoFuel: 0,
+        RobotDied: 0,
+        RobotBroke: 0,
      });
     const increaseFuel = () => {
         setFuel((fuel  + DeInAmount));
@@ -117,7 +117,7 @@ const Page = () => {
         } 
     }
         const HandleStoreMatch = async () => {
-        if (MatchData.MeetTheTeam != 0) {
+        if (MatchData.TeamNumber != 0) {
         const response = await storeMatch(MatchData);
         
         if (response.result) {
@@ -174,57 +174,57 @@ useEffect(() => {
     if (Team) {
         if (TeleAuto[0] == "Teleop") {
         setMatchData({
-            IFuelNumb: (TVTS[0]  + (DeInAmount * PlusMinusWhich)),
-            IsHangerLevel: TVTS[1],
-            ToeTalScorn: (((TVTS[0] + (TVTS[1] * 10)) + (AAGV[0] + (AAGV[1] * 10))) + ((DeInAmount * PlusMinusWhich))),
-            MeetTheTeam: Team,
+            Fuel: (TVTS[0]  + (DeInAmount * PlusMinusWhich)),
+            HangLevel: TVTS[1],
+            TotalScore: (((TVTS[0] + (TVTS[1] * 10)) + (AAGV[0] + (AAGV[1] * 10))) + ((DeInAmount * PlusMinusWhich))),
+            TeamNumber: Team,
             TeamColor: TeamColore,
-            OttoShots: 0,
-            OttoClimbed: AAGV[1],
-            FuelOttoScored: (AAGV[0]),
-            TheRobotIsDead: 0,
-            TheRobotWasNerfed: 0,
+            AutoShots: 0,
+            AutoClimbLevel: AAGV[1],
+            AutoFuel: (AAGV[0]),
+            RobotDied: Roboimgs[4],
+            RobotBroke: Roboimgs[5],
         });
         } else if (TeleAuto[0] == "Autonomous") {
              setMatchData({
-            IFuelNumb: (TVTS[0]),
-            IsHangerLevel: TVTS[1],
-            ToeTalScorn: (((TVTS[0] + (TVTS[1] * 10)) + (AAGV[0] + (AAGV[1] * 10))) + ((DeInAmount * PlusMinusWhich))),
-            MeetTheTeam: Team,
+            Fuel: (TVTS[0]),
+            HangLevel: TVTS[1],
+            TotalScore: (((TVTS[0] + (TVTS[1] * 10)) + (AAGV[0] + (AAGV[1] * 10))) + ((DeInAmount * PlusMinusWhich))),
+            TeamNumber: Team,
             TeamColor: TeamColore,
-            OttoShots: 0,
-            OttoClimbed: AAGV[1],
-            FuelOttoScored: (AAGV[0]  + (DeInAmount * PlusMinusWhich)),
-            TheRobotIsDead: 0,
-            TheRobotWasNerfed: 0,
+            AutoShots: 0,
+            AutoClimbLevel: AAGV[1],
+            AutoFuel: (AAGV[0]  + (DeInAmount * PlusMinusWhich)),
+            RobotDied: Roboimgs[4],
+            RobotBroke: Roboimgs[5],
         });
         }
         
-    if (MatchData.IFuelNumb < 0) {
+    if (MatchData.Fuel < 0) {
          setMatchData({
-            IFuelNumb: 0,
-            IsHangerLevel: hangLevel,
-            ToeTalScorn: (HPI + 0),
-            MeetTheTeam: Team,
+            Fuel: 0,
+            HangLevel: hangLevel,
+            TotalScore: (HPI + 0),
+            TeamNumber: Team,
             TeamColor: TeamColore,
-            OttoShots: 0,
-            OttoClimbed: AAGV[1],
-            FuelOttoScored: AAGV[0],
-            TheRobotIsDead: 0,
-            TheRobotWasNerfed: 0,
+            AutoShots: 0,
+            AutoClimbLevel: AAGV[1],
+            AutoFuel: AAGV[0],
+            RobotDied: Roboimgs[4],
+            RobotBroke: Roboimgs[5],
         });
-    } else if (MatchData.IFuelNumb > 500) {
+    } else if (MatchData.Fuel > 500) {
         setMatchData({
-            IFuelNumb: 500,
-            IsHangerLevel: hangLevel,
-            ToeTalScorn: (HPI + 500),
-            MeetTheTeam: Team,
+            Fuel: 500,
+            HangLevel: hangLevel,
+            TotalScore: (HPI + 500),
+            TeamNumber: Team,
             TeamColor: TeamColore,
-            OttoShots: 0,
-            OttoClimbed: AAGV[1],
-            FuelOttoScored: AAGV[0],
-            TheRobotIsDead: 0,
-            TheRobotWasNerfed: 0,
+            AutoShots: 0,
+            AutoClimbLevel: AAGV[1],
+            AutoFuel: AAGV[0],
+            RobotDied: Roboimgs[4],
+            RobotBroke: Roboimgs[5],
         });
     }
       Error[1] = "#0f0f31"
@@ -287,13 +287,38 @@ const RoboDeadBroke = (ButtonID: Number) => {
         if (Number(ButtonID) === 1) {
             if (Roboimgs[0] == "/webapp-icons/RobotAlive.png") {
             Roboimgs[0] = "/webapp-icons/RobotDED.png"
+            Roboimgs[2] = "The robot is dead"
+            setMatchData({...MatchData, RobotDied: 1})
+            Roboimgs[4] = 1
             } else {
                 Roboimgs[0] = "/webapp-icons/RobotAlive.png"
+                Roboimgs[2] = "Robot died?"
+                setMatchData({...MatchData, RobotDied: 0})
+                Roboimgs[4] = 0
             }
-        } else if (Number(ButtonID) === 2 && HangSize === "Enabled") {
-
+            // tf is HangSize doing here 💀
+            // nevermind i remember now
+        } else if (Number(ButtonID) === 2 //&& HangSize === "Enabled"
+        ) {
+            if (Roboimgs[1] == "/webapp-icons/RobotSafe2.png") {
+                Roboimgs[1] = "/webapp-icons/RobotBroken2.png"
+                Roboimgs[3] = "The robot is broken"
+                Roboimgs[5] = 1
+                setMatchData({...MatchData, RobotBroke: 1})
+            } else {
+                Roboimgs[1] = "/webapp-icons/RobotSafe2.png"
+                Roboimgs[3] = "Robot broke?"
+                setMatchData({...MatchData, RobotBroke: 0})
+                Roboimgs[5] = 0
+            }
         }
     }
+
+const LeaveAndSave = () => {
+    HandleStoreMatch()
+    console.log(MatchData)
+    router.push('/MappingTest')
+}
 
     return (
         <div className="fixed top-0 left-0 w-screen h-screen z-11">
@@ -314,7 +339,7 @@ const RoboDeadBroke = (ButtonID: Number) => {
                 <button style={{position:"absolute", top:"435px", left: "110px"}} onClick={() => ChangeLevel(2)}  className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900" >Level 2</button>
                 <button style={{position:"absolute", top:"435px", left: "205px"}}onClick={() => ChangeLevel(3)}  className="bg-amber-700 rounded-2xl size-18 text-center font-bold border-3 border-amber-900">Level 3</button>
                 </CardFooter>
-                <CardFooter><p className="bg-amber-400 rounded-2xl h-8 w-40 text-center border-2 border-amber-600" onChange={() => setMatchData({...MatchData, ToeTalScorn: (HPI + fuel)})} style={{position:"absolute",top:"525px", left:"114px"}}>Total Score: {HPI + fuel}</p> <p className="bg-red-600 rounded-3xl h-12 w-40 text-center border-2 border-red-800" style={{position:"absolute",top:"790px", left:"210px"}} onClick={() => router.push('/MappingTest')}>Go home</p></CardFooter>
+                <CardFooter><p className="bg-amber-400 rounded-2xl h-8 w-40 text-center border-2 border-amber-600" onChange={() => setMatchData({...MatchData, TotalScore: (HPI + fuel)})} style={{position:"absolute",top:"525px", left:"114px"}}>Total Score: {HPI + fuel}</p> <p className="bg-red-600 rounded-3xl h-12 w-40 text-center border-2 border-red-800" style={{position:"absolute",top:"790px", left:"210px"}} onClick={LeaveAndSave}>Go home</p></CardFooter>
                 <p 
                 onClick={changeMode}
                 className="bg-lime-400 border-2 border-lime-600 w-40 h-12 rounded-3xl text-center text-black" 
@@ -326,7 +351,8 @@ const RoboDeadBroke = (ButtonID: Number) => {
                 </h2>
                 <h3 className="fixed top-30 left-31.5 font-bold text-center text-2xl">{TeleAuto[0]}</h3>
                 <h4 className="fixed top-153 w-38 left-5  h-40 border-3 rounded-3xl text-center" style={{backgroundColor:"#0f0f31"}}>{TeleAuto[3]}</h4>
-                <img className="fixed top-153 left-50" src={Roboimgs[0]} alt="Logo" width="50" height="50" onClick={() => RoboDeadBroke(1)}/>
+                <img className="fixed top-153 left-50" src={Roboimgs[0]} alt="Logo" width="50" height="50" onClick={() => RoboDeadBroke(1)}/> <p className="fixed top-156 left-65"> {Roboimgs[2]}</p>
+                <img className="fixed top-171 left-47 w-18 h-13" src={Roboimgs[1]} alt="Logo" width="50" height="50" onClick={() => RoboDeadBroke(2)}/> <p className="fixed top-174 left-65"> {Roboimgs[3]}</p>
             </Card>
         </div>
     

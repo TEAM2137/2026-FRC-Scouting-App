@@ -4,20 +4,20 @@ export interface IMatchscout {
 //totalShotsAuto: number,
 //totalPassedAuto: number, 
 // Fuel amount for teleop, but Its IFuelNumb because fuel sounds like feel, so thats why its called that
-IFuelNumb: number,
+Fuel: number,
 // this is TotalScore which sounds like Toe-Tal-Scorn so thats why its named that
-ToeTalScorn: number,
+TotalScore: number,
 //totalHerded: number,
 // totalPassedTeleop: number,
 // totalShotsTeleop: number,
 // Hang level but it needed to sound funny so its is the HangerLevel
-IsHangerLevel: number,
+HangLevel: number,
 // didDie: number,
 // idBreak: number
 // idAutoClimb: number,
 // TF2 reference???!?!?!?
 // Its the team number, but I think its funny that in the Schema it says: Meet The Team Number
-MeetTheTeam: number,
+TeamNumber: number,
 //meta data for the file
 //createdAt: Date,
 //updatedAt: Date,
@@ -25,54 +25,54 @@ MeetTheTeam: number,
 TeamColor: string,
 // Otto the goat
 // its Auto but it sounds like otto so thats why its called that.
-OttoShots: number,
+AutoShots: number,
 // originally AutoClimb it got renamed to Otto Climbed because it sounds like that
 // This is the auton climb counter
-OttoClimbed: number,
+AutoClimbLevel: number,
 // This is how much fuel that was scored during auton, so that we can use it for later.
-FuelOttoScored: number,
+AutoFuel: number,
 // another TF2 reference, this time its a reference to the wonderful video: The heavy is dead
 // But this is how we check if a robot died during a match
-TheRobotIsDead: number,
+RobotDied: number,
 // This is how we check if the robot broke during a match
-TheRobotWasNerfed: number
+RobotBroke: number
 }
 
 export const Matchscoutschema = new mongoose.Schema<IMatchscout>(
 {
 
-        IFuelNumb:{
+        Fuel:{
             type: Number,
             required: true,
         },
-        ToeTalScorn:{
+        TotalScore:{
             type: Number,
             required: true,
         },
-        IsHangerLevel:{
+        HangLevel:{
             type: Number,
             required: true,
         },
-        MeetTheTeam:{
+        TeamNumber:{
             type: Number,
             required: true,
         },
         TeamColor:{
             type: String,
             required: true,
-        }, OttoShots:{
+        }, AutoShots:{
             type: Number,
             required: false,
-        }, OttoClimbed:{
+        }, AutoClimbLevel:{
             type: Number,
             required: false,
-        }, FuelOttoScored:{
+        }, AutoFuel:{
             type: Number,
             required: false,
-        }, TheRobotIsDead:{
+        }, RobotDied:{
             type: Number,
             required: false,
-        }, TheRobotWasNerfed:{
+        }, RobotBroke:{
             type: Number,
             required: false,
         }
