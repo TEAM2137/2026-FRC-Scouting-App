@@ -16,7 +16,7 @@ import storePitScout from '@/lib/pits/storePitScout';
 
 
 
-const Page = () => {
+const pitScout = () => {
   const [data, setData] = useState<IPitscout>({
  maxFuelCarry: 0,
   PassPosition: false,
@@ -224,4 +224,4 @@ placeholder="123456"
 )
 }
 
-export default Page
+export default pitScout
