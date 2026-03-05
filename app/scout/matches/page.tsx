@@ -57,6 +57,7 @@ const Page = () => {
     const [TVTS, setTVTS] = useState([0,0,0])
     // Stands for Trigger To Update Screen, Because you have to have a click function to change the screen and stuff
     const [TTUS, setTTUS] = useState(0)
+    const [Roboimgs, setRoboimgs] = useState(["/webapp-icons/RobotAlive.png", "/webapp-icons/Robot3.png"])
 
     const [MatchData, setMatchData] = useState<IMatchscout>({
         IFuelNumb: 0,
@@ -278,9 +279,21 @@ const changeMode = () => {
         TeleAuto[3] = "Autonomous Stats: " + AAGV[0] + " Fuel ---------- Hang Level: " + AAGV[1] + " ---- Total Auto Score: " + AAGV[2]
     } 
 }
+
 // useEffect(() => {
 //   AutonAndGeneralValues[6] = 1
 //}, [TeleAuto, AutonAndGeneralValues])
+const RoboDeadBroke = (ButtonID: Number) => {
+        if (Number(ButtonID) === 1) {
+            if (Roboimgs[0] == "/webapp-icons/RobotAlive.png") {
+            Roboimgs[0] = "/webapp-icons/RobotDED.png"
+            } else {
+                Roboimgs[0] = "/webapp-icons/RobotAlive.png"
+            }
+        } else if (Number(ButtonID) === 2 && HangSize === "Enabled") {
+
+        }
+    }
 
     return (
         <div className="fixed top-0 left-0 w-screen h-screen z-11">
@@ -313,6 +326,7 @@ const changeMode = () => {
                 </h2>
                 <h3 className="fixed top-30 left-31.5 font-bold text-center text-2xl">{TeleAuto[0]}</h3>
                 <h4 className="fixed top-153 w-38 left-5  h-40 border-3 rounded-3xl text-center" style={{backgroundColor:"#0f0f31"}}>{TeleAuto[3]}</h4>
+                <img className="fixed top-153 left-50" src={Roboimgs[0]} alt="Logo" width="50" height="50" onClick={() => RoboDeadBroke(1)}/>
             </Card>
         </div>
     
