@@ -17,7 +17,7 @@ import storePitScout from '@/lib/pits/storePitScout';
 
 
 const Page = () => {
-   const [data, setData] = useState<IPitscout>({
+  const [data, setData] = useState<IPitscout>({
  maxFuelCarry: 0,
   PassPosition: false,
   scoringPosition: 0,
