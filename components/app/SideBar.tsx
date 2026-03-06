@@ -43,27 +43,7 @@ const SideBar = () => {
                 {appEvent && <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>{appEvent?.name}</div>}
                 {!appEvent && <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>Select Event to Scout</div>}
             </div>
-            {appEvent && 
-            <div className="flex flex-row gap-2">
-                <Button variant="ghost" size="icon" onClick={() => router.push('/scout/matches')}>
-                    <CalendarDays className="m-auto" />
-                </Button>
-                <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>Scout Matches</div>
-            </div>}
-            {appEvent && 
-            <div className="flex flex-row gap-2">
-                <Button variant="ghost" size="icon" onClick={() => router.push('/scout/pits')}>
-                    <CalendarDays className="m-auto" />
-                </Button>
-                <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>Pit Scout</div>
-            </div>}
-            {appEvent && 
-            <div className="flex flex-row gap-2">
-                <Button variant="ghost" size="icon" onClick={() => router.push('/scout/data')}>
-                    <CalendarDays className="m-auto" />
-                </Button>
-                <div className={`text-lg font-normal p-1 ${!isOpen && "hidden" }`}>View Event Data</div>
-            </div>}
+            
             <div className="flex flex-row gap-2">
                 <Button variant="ghost" size="icon" onClick={() => setOpen(!isOpen)}>
                     {isOpen ? <PanelRightOpen className="m-auto" /> : <PanelRightClose className="m-auto" />}

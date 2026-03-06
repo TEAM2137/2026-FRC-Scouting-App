@@ -11,7 +11,7 @@ interface Props {
 const ScoutMenu = ({setDisplay}: Props) => {
     
     return (
-        <div className="flex flex-row flex-wrap w-full my-2 text-xs">
+        <div className="flex flex-row flex-wrap w-full my-2 justify-between text-xs">
             <button className="bg-blue-900 text-white rounded-lg px-2 py-2 font-bold" 
             onClick={() => setDisplay('main')}>
                 <HouseIcon className="h-6 w-6" />
@@ -34,6 +34,7 @@ const ScoutMenu = ({setDisplay}: Props) => {
                 <Handshake className="h-6 w-6" /> 
                 <p className="text-[8px]">Alliance Tools</p>
             </button>
+            <div className="flex flex-col px-2 py-2 font-bold">&nbsp;</div>
         </div>
     )
 }
