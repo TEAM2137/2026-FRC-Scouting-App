@@ -13,7 +13,7 @@ export interface IPitScout {
   autonClimb: number,
   typeHopper: string,
   multishot: number,
-  teleopClimb: number,
+  teleopClimb: string,
   launchSpeed: number,
   weight: number,
   driveTeam: string,
@@ -30,68 +30,22 @@ export const PitScoutSchema = new mongoose.Schema<IPitScout>(
             required: true,
             unique: true,
         },
-        teamNumber: {
-            type: String,
-            required: true,
-        },
-        eventCode: {
-            type: String,
-            required: true,
-        },
-        maxFuelCarry: {
-            type: Number,
-            required: true,
-        },
-        PassPosition: {
-            type: String,
-            required: true,
-        },
-         scoringPosition: {
-            type: String,
-            required: true,
-            unique: true,
-        },
-        autonPath: {
-            type: String,
-            required: false,
-        },
-        autonClimb: {
-            type: Number,
-            required: true,
-        },
-        intakeType: {
-            type: String,
-            required: true,
-        },
-        canGoThroughTrench: {
-             type: Boolean,
-             default: false,
-        },
-        teleopClimb: {
-            type: Number,
-            required: true
-        },
-        createdAt: {
-            type: Date,
-            default: Date.now,
-        },
-        updatedAt: {
-            type: Date,
-            default: Date.now,
-        },
-        typeHopper:{
-            type: String,
-            required:true
-        },
-        multishot:{
-            type: Number,
-            required:true
-        },
-        launchSpeed:{
-            type: Number,
-            required: true
-        },
-    
+        teamNumber: { type: String },
+        eventCode: { type: String },
+        maxFuelCarry: { type: Number },
+        PassPosition: { type: String },
+        scoringPosition: { type: String },
+        autonPath: { type: String },
+        autonClimb: { type: Number },
+        intakeType: { type: String },
+        canGoThroughTrench: { type: Boolean, default: false },
+        teleopClimb: { type: String },
+        createdAt: { type: Date, default: Date.now, },
+        updatedAt: { type: Date, default: Date.now, },
+        typeHopper: { type: String },
+        multishot: { type: Number },
+        launchSpeed: { type: Number },
+        weight: { type: Number },
     },
 );
 

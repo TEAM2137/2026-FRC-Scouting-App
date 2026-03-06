@@ -28,7 +28,7 @@ const emptyPitScout: IPitScout = {
   autonClimb: 0,
   typeHopper: '',
   multishot: 0,
-  teleopClimb: 0,
+  teleopClimb: '',
   launchSpeed: 0,
   weight: 0,
   driveTeam: '',
@@ -78,15 +78,15 @@ return (
    <Card className="">
         <CardContent className="flex flex-col gap-3">
         <div className="flex flex-col gap-3">
-        <Label>How much fuel can they carry</Label>
-        <Input
-            id="fuelCount"
-            type="number"
-            required
-            placeholder='1234'
-            value={data.maxFuelCarry}
-            onChange={(e) => {setData({...data, maxFuelCarry: e.target.valueAsNumber})}}
-            />
+            <Label>How much fuel you carry?</Label>
+            <Input
+                id="fuelCount"
+                type="number"
+                required
+                placeholder='1234'
+                value={data.maxFuelCarry}
+                onChange={(e) => setData({...data, maxFuelCarry: e.target.valueAsNumber})}
+                />
         </div>
         <div className="flex flex-col gap-3">
             <Label>How do you primarily pass fuel?</Label>
@@ -127,13 +127,13 @@ return (
         </div>
         <div className="flex flex-col gap-3">
         <Label>What is the robot's weight?</Label>
-        <Input
-            id='weight'
-            type="number"
-            required
-            value={data.weight}
-            onChange={(e) => {setData({...data, weight: e.target.valueAsNumber})}}
-            />
+            <Input
+                id='weight'
+                type="number"
+                required
+                value={data.weight}
+                onChange={(e) => setData({...data, weight: e.target.valueAsNumber})}
+                />
 
         </div>
 
@@ -172,56 +172,35 @@ return (
             </div>
         </div>
         <div className="flex flex-col gap-3"> 
-        <Label>How many fuel do they launch at one time?</Label>
-        <Input
-        id="launchSpeed"
-        type="number"
-        required
-        placeholder="123456"
-        value={data.launchSpeed}
-        onChange={(e) => {setData({...data, launchSpeed: e.target.valueAsNumber})}}
-        />
+            <Label>How many fuel do they launch at one time?</Label>
+            <Input
+            id="launchSpeed"
+            type="number"
+            required
+            placeholder="123456"
+            value={data.launchSpeed}
+            onChange={(e) => setData({...data, launchSpeed: e.target.valueAsNumber})}
+            />
         </div>
 
-        <div>
-        <Label>what is their teleop climb?</Label>
-        <Input
-        id="teleopClimb"
-        type="number"
-        required
-        placeholder="123456"
-        value={data.teleopClimb}
-        onChange={(e) => {setData({...data, teleopClimb: e.target.valueAsNumber})}}
-        />
+        <div className="flex flex-col gap-3">
+            <Label>What level of climb can you do in endgame?</Label>
+            <div className="flex flex-row gap-2 p-2">
+                <button className={`${data.teleopClimb === 'Level 1' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, teleopClimb: 'Level 1'})}>Level 1</button>
+                <button className={`${data.teleopClimb === 'Level 2' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, teleopClimb: 'Level 2'})}>Level 2</button>
+                <button className={`${data.teleopClimb === 'Level 3' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, teleopClimb: 'Level 3'})}>Level 3</button>
+                <button className={`${data.teleopClimb === 'No CLimb' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, teleopClimb: 'No CLimb'})}>No CLimb</button>
+            </div>
         </div>
 
-        <div>
-        <Label>what is their launch cycle time</Label>
-        <Input
-        id="launchCycleTime"
-        type="number"
-        required
-        placeholder="123456"
-        value={data.launchSpeed}
-        onChange={(e) => {setData({...data, launchSpeed: e.target.valueAsNumber})}}
-        />
-        </div>
-        <div>
-        <Label>What is their robot weight </Label>
-        <Input
-        id="weight"
-        type="number"
-        required
-        placeholder='123456'
-        value={0}
-        onChange={() => {}}
-        />
-        </div>
-
-        <div>
-        <Button onClick={handleStorePitScout}>
-            submit
-        </Button>
+        <div className="flex flex-col gap-3">
+            <Button onClick={handleStorePitScout}>
+                submit
+            </Button>
         </div>
         </CardContent>
    </Card>
