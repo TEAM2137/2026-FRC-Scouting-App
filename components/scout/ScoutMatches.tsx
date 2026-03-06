@@ -94,15 +94,15 @@ const ScoutMatches = ({eventCode,setDisplay}: Props) => {
                         <div className="flex flex-col p-1 bg-blue-500 rounded-xl">
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[3].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue1"))}>
-                                {match.teams[0].teamNumber}
+                                {match.teams[3].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[3].teamNumber + '-' + "Blue1") && <Star className="h-4 w-4 ml-1" />}</p>
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[4].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue2"))}>
-                                {match.teams[1].teamNumber}
+                                {match.teams[4].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[4].teamNumber + '-' + "Blue2") && <Star className="h-4 w-4 ml-1" />}</p>
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[5].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue3"))}>
-                                {match.teams[2].teamNumber}
+                                {match.teams[5].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[5].teamNumber + '-' + "Blue3") && <Star className="h-4 w-4 ml-1" />}</p>
                         </div>
                     </div>
@@ -141,15 +141,15 @@ const ScoutMatches = ({eventCode,setDisplay}: Props) => {
                         <div className="flex flex-col p-1 bg-blue-500 rounded-xl">
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[3].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue1"))}>
-                                {match.teams[0].teamNumber}
+                                {match.teams[3].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[3].teamNumber + '-' + "Blue1") && <Star className="h-4 w-4 ml-1" />}</p>
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[4].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue2"))}>
-                                {match.teams[1].teamNumber}
+                                {match.teams[4].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[4].teamNumber + '-' + "Blue2") && <Star className="h-4 w-4 ml-1" />}</p>
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[5].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue3"))}>
-                                {match.teams[2].teamNumber}
+                                {match.teams[5].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[5].teamNumber + '-' + "Blue3") && <Star className="h-4 w-4 ml-1" />}</p>
                         </div>
                     </div>
@@ -199,15 +199,15 @@ const ScoutMatches = ({eventCode,setDisplay}: Props) => {
                         <div className="flex flex-col p-1 bg-blue-500 rounded-xl">
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[3].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue1"))}>
-                                {match.teams[0].teamNumber}
+                                {match.teams[3].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[3].teamNumber + '-' + "Blue1") && <Star className="h-4 w-4 ml-1" />}</p>
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[4].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue2"))}>
-                                {match.teams[1].teamNumber}
+                                {match.teams[4].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[4].teamNumber + '-' + "Blue2") && <Star className="h-4 w-4 ml-1" />}</p>
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[5].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue3"))}>
-                                {match.teams[2].teamNumber}
+                                {match.teams[5].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[5].teamNumber + '-' + "Blue3") && <Star className="h-4 w-4 ml-1" />}</p>
                         </div>
                     </div>
@@ -251,15 +251,15 @@ const ScoutMatches = ({eventCode,setDisplay}: Props) => {
                         <div className="flex flex-col p-1 bg-blue-500 rounded-xl">
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[3].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue1"))}>
-                                {match.teams[0].teamNumber}
+                                {match.teams[3].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[3].teamNumber + '-' + "Blue1") && <Star className="h-4 w-4 ml-1" />}</p>
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[4].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue2"))}>
-                                {match.teams[1].teamNumber}
+                                {match.teams[4].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[4].teamNumber + '-' + "Blue2") && <Star className="h-4 w-4 ml-1" />}</p>
                             <p className="flex flex-row justify-center font-bold text-sm my-1 p-1 bg-blue-950 rounded-lg" 
                             onClick={(() => handleScoutMatch(match.teams[5].teamNumber.toString(), match.matchNumber.toString(), match.tournamentLevel, "Blue3"))}>
-                                {match.teams[2].teamNumber}
+                                {match.teams[5].teamNumber}
                                 {appEvent && scoutedIDs.includes(appEvent.code + '-' + match.tournamentLevel + '-' + match.matchNumber.toString() + '-' + match.teams[5].teamNumber + '-' + "Blue3") && <Star className="h-4 w-4 ml-1" />}</p>
                         </div>
                     </div>
