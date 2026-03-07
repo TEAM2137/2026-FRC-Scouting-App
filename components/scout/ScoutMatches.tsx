@@ -56,13 +56,13 @@ const ScoutMatches = ({eventCode,setDisplay}: Props) => {
     }
 
     return (
-        <div className="flex flex-col w-screen text-xs mt-2">
+        <div className="flex flex-col w-screen text-xs gap-2 mt-2">
             {matches.filter((match) => match.actualStartTime === null).filter((match) => match.tournamentLevel === "Qualification").length > 0 && <>
                 <Separator />
                 <h2 className="text-lg font-bold mb-1">Upcoming Qualification Matches</h2>
                 <Separator />
             {matches.filter((match) => match.actualStartTime === null).filter((match) => match.tournamentLevel === "Qualification").map((match, index) => (
-                <div key={index} className="flex flex-col w-3/4 p-2 bg-neutral-800 text-white text-xs rounded-xl">
+                <div key={index} className="flex flex-col w-3/4 p-3 bg-neutral-800 text-white text-xs rounded-xl">
                     <h2 className="text-lg font-bold mb-1">{match.description}</h2>
                     <div className="grid grid-cols-[2fr_2fr_2fr] justify-between">
                         <div className="flex flex-col p-1 bg-red-500 rounded-xl">
