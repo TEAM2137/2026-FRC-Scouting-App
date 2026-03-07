@@ -45,14 +45,7 @@ const ScoutMatches = ({eventCode,setDisplay}: Props) => {
         fetchMatches();
     }, [showForm]);
 
-    useEffect(() => {
-        if (showForm) {
-            document.body.style.overflow = 'hidden';
-            window.scrollTo(0, 0);
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-    }, [showForm]);
+
     
     const handleScoutMatch = (teamNumber: string, matchNumber: string, tournamentLevel: string, postitiom: string) => {
         setTeamNumber(teamNumber);
@@ -63,7 +56,7 @@ const ScoutMatches = ({eventCode,setDisplay}: Props) => {
     }
 
     return (
-        <div className="flex flex-col w-screen text-xs gap-2 mt-2">
+        <div className="flex flex-col w-screen text-xs mt-2">
             {matches.filter((match) => match.actualStartTime === null).filter((match) => match.tournamentLevel === "Qualification").length > 0 && <>
                 <Separator />
                 <h2 className="text-lg font-bold mb-1">Upcoming Qualification Matches</h2>

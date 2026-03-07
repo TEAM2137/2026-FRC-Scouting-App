@@ -18,6 +18,7 @@ import getPitScout from '@/lib/scout/getPitScout';
 const emptyPitScout: IPitScout = {
   pitscoutID: '',
   teamNumber: '',
+  scoutTeamNumber: '',
   eventCode: '',
   maxFuelCarry: 0,
   PassPosition: '',

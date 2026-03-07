@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 export interface IMatchScout {
 matchID: string,
 teamNumber: string,
+scoutTeamNumber: string,
 eventCode: string,
 tournamentLevel: string,
 matchNumber: string,
@@ -25,6 +26,7 @@ export const MatchScoutschema = new mongoose.Schema<IMatchScout>(
         unique: true
     },
     teamNumber:{ type: String },
+    scoutTeamNumber:{ type: String },
     eventCode: { type: String },
     tournamentLevel: { type: String },
     matchNumber: { type: String },

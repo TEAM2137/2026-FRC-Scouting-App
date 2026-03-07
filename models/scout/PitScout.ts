@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 export interface IPitScout {
   pitscoutID: string,
   teamNumber: string,
+  scoutTeamNumber: string,
   eventCode: string,
   maxFuelCarry: number,
   PassPosition: string,
@@ -31,6 +32,7 @@ export const PitScoutSchema = new mongoose.Schema<IPitScout>(
             unique: true,
         },
         teamNumber: { type: String },
+        scoutTeamNumber: { type: String },
         eventCode: { type: String },
         maxFuelCarry: { type: Number },
         PassPosition: { type: String },
