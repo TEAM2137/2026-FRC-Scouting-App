@@ -133,7 +133,7 @@ const MatchScoutForm = ({teamNumber, matchNumber, eventCode, tournamentLevel, po
 
                     <div className="grid grid-cols-2 place-items-center p-1">
                         <div>
-                            <p>Pass Heard</p>
+                            <p>Pass Herd</p>
                             <div className="flex flex-row gap-2 p-2">
                                 
                                 <button className="text-center text-2xl font-bold  my-1 p-1 bg-green-950 rounded-lg size-12" 
