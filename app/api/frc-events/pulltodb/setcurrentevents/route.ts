@@ -22,7 +22,7 @@ export async function GET(req: NextRequest) {
         for (const event of events) {
             const startDate = parseInt(event.dateStart.toISOString().split('T')[0].replace(/-/g, ''));
             const endDate = parseInt(event.dateEnd.toISOString().split('T')[0].replace(/-/g, ''));
-            if (startDate <= (currentDate) && endDate >= (currentDate) && event.districctCode === 'FIM') {
+            if (startDate <= (currentDate) && endDate >= (currentDate) && event.districtCode === 'FIM') {
                 console.log('Setting as Current Event ' + event.code + ' - ' + startDate + ' - ' + endDate);
                 eventsSimple.push({
                     code: event.code,
