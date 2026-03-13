@@ -14,6 +14,7 @@ import { useAppContext } from '@/context/AppContext';
 import { IPitScout } from "@/models/scout/PitScout"
 import storePitScout from '@/lib/scout/storePitScout';
 import getPitScout from '@/lib/scout/getPitScout';
+import { toast } from 'sonner';
 
 const emptyPitScout: IPitScout = {
   pitscoutID: '',
@@ -41,9 +42,10 @@ const emptyPitScout: IPitScout = {
 interface Iprops  {
   eventCode: string,
   teamNumber: string,
+  closeForm: () => void,
 }
 
-const pitScout = ({eventCode, teamNumber}: Iprops) => {
+const pitScout = ({eventCode, teamNumber, closeForm}: Iprops) => {
   const [data, setData] = useState<IPitScout>({...emptyPitScout});
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
@@ -67,6 +69,8 @@ const pitScout = ({eventCode, teamNumber}: Iprops) => {
             const response = await storePitScout(data)
             if (response.result){
                 setSuccess('save successful');
+                toast.success('Pit Report Saved Successfully');
+                closeForm();
             }
         } catch(err) {
             setError('an error occoured when saving the pit scout data. please check connection and try again later.');
@@ -163,12 +167,12 @@ return (
         <div className="flex flex-col gap-3">
             <Label>What is your hopper type?</Label>
             <div className="flex flex-row gap-2 p-2">
-                <button className={`${data.intakeType === 'Open Hopper' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
-                    onClick={() => setData({...data, intakeType: 'Open Hopper'})}>Open Hopper</button>
-                <button className={`${data.intakeType === 'Closed Hopper' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
-                    onClick={() => setData({...data, intakeType: 'Closed Hopper'})}>Closed Hopper</button>
-                <button className={`${data.intakeType === 'No Hopper' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
-                    onClick={() => setData({...data, intakeType: 'No Hopper'})}>No Hopper</button>
+                <button className={`${data.typeHopper === 'Open Hopper' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, typeHopper: 'Open Hopper'})}>Open Hopper</button>
+                <button className={`${data.typeHopper === 'Closed Hopper' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, typeHopper: 'Closed Hopper'})}>Closed Hopper</button>
+                <button className={`${data.typeHopper === 'No Hopper' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, typeHopper: 'No Hopper'})}>No Hopper</button>
                
             </div>
         </div>

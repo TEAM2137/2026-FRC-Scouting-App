@@ -29,6 +29,10 @@ const ScoutPit = ({setDisplay}: Props) => {
         setShowForm(true);
     }
 
+    const handleCloseForm = () => {
+        setShowForm(false);
+    }
+
 
     return (
         <div className="flex flex-col w-screen text-xs gap-2">
@@ -47,7 +51,7 @@ const ScoutPit = ({setDisplay}: Props) => {
                     <div className="p-2 text-right"><button onClick={(() => setShowForm(false))}><CircleX /></button></div>
                 </div>
                 {appEvent?.code &&
-                <PitScoutForm eventCode={appEvent?.code} teamNumber={teamNumber} />
+                <PitScoutForm eventCode={appEvent?.code} teamNumber={teamNumber} closeForm={handleCloseForm} />
                 }
 
                 
