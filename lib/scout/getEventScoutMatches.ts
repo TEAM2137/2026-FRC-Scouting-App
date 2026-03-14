@@ -4,14 +4,14 @@ import connectDB from "@/lib/db"
 import ScoutMatch from "@/models/scout/MatchScout"
 
 
-export async function getEventScoutMatches(eventCode: string) {
+export async function getEventScoutedMatches(eventCode: string) {
     try {
         await connectDB();
-        const match = await ScoutMatch.find({ eventCode: eventCode }).sort({ matchNumber: 1 });
-        if (match === null) {
+        const matches = await ScoutMatch.find({ eventCode: eventCode }).sort({ matchNumber: 1 });
+        if (matches === null) {
             return null;
         }
-        return JSON.stringify(match);
+        return JSON.stringify(matches);
     } catch (error) {
         console.log(error);
         return null;

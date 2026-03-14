@@ -26,7 +26,7 @@ const ScoutMenu = ({setDisplay}: Props) => {
                 <Swords className="h-6 w-6" /> 
                 <p className="text-[8px]">Match Scout</p>
             </button>
-            <button className="flex flex-col justify-center place-items-center text-center bg-blue-900 text-white rounded-lg px-2 py-2 font-bold" onClick={() => setDisplay('main')}>
+            <button className="flex flex-col justify-center place-items-center text-center bg-blue-900 text-white rounded-lg px-2 py-2 font-bold" onClick={() => setDisplay('insights')}>
                 <ChartNoAxesCombined className="h-6 w-6" /> 
                 <p className="text-[8px]">Insights</p>
             </button>

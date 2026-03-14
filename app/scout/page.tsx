@@ -10,6 +10,8 @@ import ScoutMain from '@/components/scout/ScoutMain';
 import ScoutPit from '@/components/scout/ScoutPit';
 import ScoutMatches from '@/components/scout/ScoutMatches';
 
+import Insights from '@/components/scout/Insights';
+
 
 
 const Page = () => {
@@ -35,6 +37,10 @@ return (
         }
         {scoutDisplay === 'matches' && appEvent?.code &&
             <ScoutMatches  eventCode={appEvent?.code} setDisplay={setScoutDisplay} />
+        }
+
+        {scoutDisplay === 'insights' && appEvent?.code &&
+            <Insights  eventCode={appEvent?.code} setDisplay={setScoutDisplay} />
         }
 
     </div>

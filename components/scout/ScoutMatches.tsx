@@ -10,7 +10,7 @@ import { CircleX, Video, Star } from 'lucide-react';
 import { Separator } from '../ui/separator';
 
 import MatchScoutForm from '@/components/scout/MatchScoutForm';
-import { getEventScoutMatches } from '@/components/scout/getEventScoutMatches';
+import { getEventScoutedMatches } from '@/lib/scout/getEventScoutMatches';
 
 interface Props {
     eventCode: string,
@@ -33,7 +33,7 @@ const ScoutMatches = ({eventCode,setDisplay}: Props) => {
             if (matches !== null) {
                 setMatches(JSON.parse(matches));
             }
-            const scoutedMatches = await getEventScoutMatches(eventCode);
+            const scoutedMatches = await getEventScoutedMatches(eventCode);
             if (scoutedMatches !== null) {
                 const scoutedMatchIDs: string[] = []
                 for (const match of JSON.parse(scoutedMatches)) {
