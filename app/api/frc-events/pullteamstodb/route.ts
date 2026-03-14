@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/db';
 import Team from '@/models/frc-events/Team';
 import { ITeam } from '@/models/frc-events/Team';
+import { headers } from 'next/headers';
 
 
 export async function GET(req: NextRequest) {
@@ -20,8 +21,21 @@ export async function GET(req: NextRequest) {
     for (let i = 1; i <= 100; i++) {
 
         // Fetch data from FRC-Events API
-        const response = await fetch(`${url}?page=${i}`);
+        //console.log(`Fetching data from ${url}?page=${i}`);
+        const response = await fetch(`${url}?page=${i}`,
+            {
+                headers: {
+                    'Authorization': `Basic ${process.env.FRC_AUTH}`,
+                    'Content-Type': 'application/json',
+                },
+            }
+        );
+        if (!response.ok) {
+            throw new Error('Failed to fetch data from FRC-Events API');
+        }
         const data = await response.json();
+
+
 
         // Check if data is empty
         if (data.teams.length === 0) {
