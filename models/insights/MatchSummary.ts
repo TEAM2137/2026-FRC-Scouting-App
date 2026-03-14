@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 
 export interface IMatchSummary {
     scoutKey: string,
+    eventCode: string,
+    tournamentLevel: string,
+    matchNumber: number,
     teamNumber: string,
     AutoClimb: number,
     Endgame: number,
@@ -49,6 +52,9 @@ export const MatchSummarySchema = new mongoose.Schema<IMatchSummary>(
         required: true,
         unique: true,
     },
+    eventCode: { type: String, },
+    tournamentLevel: { type: String, },
+    matchNumber: { type: Number, },
     teamNumber: { type: String, },
     AutoClimb: { type: Number, },
     Endgame: { type: Number, },

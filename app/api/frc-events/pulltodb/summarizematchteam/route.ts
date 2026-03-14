@@ -84,26 +84,44 @@ export async function GET(req: NextRequest) {
                 matchrecords[key as keyof typeof matchrecords] = {
                     RED1: {
                         teamNumber: match.teams[0].teamNumber,
+                        eventCode: match.eventCode,
+                        tournamentLevel: match.tournamentLevel,
+                        matchNumber: match.matchNumber,
                         scoutKey: key + "-" + match.teams[0].teamNumber,
                     },
                     RED2: {
                         teamNumber: match.teams[1].teamNumber,
+                        eventCode: match.eventCode,
+                        tournamentLevel: match.tournamentLevel,
+                        matchNumber: match.matchNumber,
                         scoutKey: key + "-" + match.teams[1].teamNumber,
                     },
                     RED3: {
                         teamNumber: match.teams[2].teamNumber,
+                        eventCode: match.eventCode,
+                        tournamentLevel: match.tournamentLevel,
+                        matchNumber: match.matchNumber,
                         scoutKey: key + "-" + match.teams[2].teamNumber,
                     },
                     BLUE1: {
                         teamNumber: match.teams[3].teamNumber,
+                        eventCode: match.eventCode,
+                        tournamentLevel: match.tournamentLevel,
+                        matchNumber: match.matchNumber,
                         scoutKey: key + "-" + match.teams[3].teamNumber,
                     },
                     BLUE2: {
                         teamNumber: match.teams[4].teamNumber,
+                        eventCode: match.eventCode,
+                        tournamentLevel: match.tournamentLevel,
+                        matchNumber: match.matchNumber,
                         scoutKey: key + "-" + match.teams[4].teamNumber,
                     },
                     BLUE3: {
                         teamNumber: match.teams[5].teamNumber,
+                        eventCode: match.eventCode,
+                        tournamentLevel: match.tournamentLevel,
+                        matchNumber: match.matchNumber,
                         scoutKey: key + "-" + match.teams[5].teamNumber,
                     },
                 }
@@ -138,6 +156,9 @@ export async function GET(req: NextRequest) {
                 proccessedrecords[key as keyof typeof proccessedrecords] = {
                     RED1: {
                         teamNumber: matchrecords[key].RED1.teamNumber,
+                        eventCode: matchrecords[key].RED1.eventCode,
+                        tournamentLevel: matchrecords[key].RED1.tournamentLevel,
+                        matchNumber: matchrecords[key].RED1.matchNumber,
                         AutoClimb: matchResult.alliances[1].autoTowerRobot1 === 'None' ? 0 : 15,
                         Endgame: matchResult.alliances[1].endGameTowerRobot1 === 'None' ? 0 : matchResult.alliances[0].endGameTowerRobot3 === 'Level1' ? 10 : matchResult.alliances[0].endGameTowerRobot3 === 'Level2' ? 20 : 30,
                         Teleop: matchResult.alliances[1].totalTeleopPoints,
@@ -162,6 +183,9 @@ export async function GET(req: NextRequest) {
                     },
                     RED2: {
                         teamNumber: matchrecords[key].RED2.teamNumber,
+                        eventCode: matchrecords[key].RED2.eventCode,
+                        tournamentLevel: matchrecords[key].RED2.tournamentLevel,
+                        matchNumber: matchrecords[key].RED2.matchNumber,
                         AutoClimb: matchResult.alliances[1].autoTowerRobot2 === 'None' ? 0 : 15,
                         Endgame: matchResult.alliances[1].endGameTowerRobot2 === 'None' ? 0 : matchResult.alliances[0].endGameTowerRobot3 === 'Level1' ? 10 : matchResult.alliances[0].endGameTowerRobot3 === 'Level2' ? 20 : 30,
                         Teleop: matchResult.alliances[1].totalTeleopPoints,
@@ -185,7 +209,10 @@ export async function GET(req: NextRequest) {
                         scoutKey: matchrecords[key].RED2.scoutKey,
                     },
                     RED3: {
-                        
+                        teamNumber: matchrecords[key].RED3.teamNumber,
+                        eventCode: matchrecords[key].RED3.eventCode,
+                        tournamentLevel: matchrecords[key].RED3.tournamentLevel,
+                        matchNumber: matchrecords[key].RED3.matchNumber,
                         AutoClimb: matchResult.alliances[1].autoTowerRobot3 === 'None' ? 0 : 15,
                         Endgame: matchResult.alliances[1].endGameTowerRobot3 === 'None' ? 0 : matchResult.alliances[0].endGameTowerRobot3 === 'Level1' ? 10 : matchResult.alliances[0].endGameTowerRobot3 === 'Level2' ? 20 : 30,
                         Teleop: matchResult.alliances[1].totalTeleopPoints,
@@ -210,6 +237,9 @@ export async function GET(req: NextRequest) {
                     },
                     BLUE1: {
                         teamNumber: matchrecords[key].BLUE1.teamNumber,
+                        eventCode: matchrecords[key].BLUE1.eventCode,
+                        tournamentLevel: matchrecords[key].BLUE1.tournamentLevel,
+                        matchNumber: matchrecords[key].BLUE1.matchNumber,
                         AutoClimb: matchResult.alliances[0].autoTowerRobot1 === 'None' ? 0 : 15,
                         Endgame: matchResult.alliances[0].endGameTowerRobot1 === 'None' ? 0 : matchResult.alliances[0].endGameTowerRobot3 === 'Level1' ? 10 : matchResult.alliances[0].endGameTowerRobot3 === 'Level2' ? 20 : 30,
                         Teleop: matchResult.alliances[0].totalTeleopPoints,
@@ -234,6 +264,9 @@ export async function GET(req: NextRequest) {
                     },
                     BLUE2: {
                         teamNumber: matchrecords[key].BLUE2.teamNumber,
+                        eventCode: matchrecords[key].BLUE2.eventCode,
+                        tournamentLevel: matchrecords[key].BLUE2.tournamentLevel,
+                        matchNumber: matchrecords[key].BLUE2.matchNumber,
                         AutoClimb: matchResult.alliances[0].autoTowerRobot2 === 'None' ? 0 : 15,
                         Endgame: matchResult.alliances[0].endGameTowerRobot2 === 'None' ? 0 : matchResult.alliances[0].endGameTowerRobot3 === 'Level1' ? 10 : matchResult.alliances[0].endGameTowerRobot3 === 'Level2' ? 20 : 30,
                         Teleop: matchResult.alliances[0].totalTeleopPoints,
@@ -258,6 +291,9 @@ export async function GET(req: NextRequest) {
                     },
                     BLUE3: {
                         teamNumber: matchrecords[key].BLUE3.teamNumber,
+                        eventCode: matchrecords[key].BLUE3.eventCode,
+                        tournamentLevel: matchrecords[key].BLUE3.tournamentLevel,
+                        matchNumber: matchrecords[key].BLUE3.matchNumber,
                         AutoClimb: matchResult.alliances[0].autoTowerRobot3 === 'None' ? 0 : 15,
                         Endgame: matchResult.alliances[0].endGameTowerRobot3 === 'None' ? 0 : matchResult.alliances[0].endGameTowerRobot3 === 'Level1' ? 10 : matchResult.alliances[0].endGameTowerRobot3 === 'Level2' ? 20 : 30,
                         Teleop: matchResult.alliances[0].totalTeleopPoints,
