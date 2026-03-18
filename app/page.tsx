@@ -15,7 +15,7 @@ export default function Home() {
           <Image src="/images/TEAM2137-Robocat-Head.svg" alt="Acme Logo" width={100} height={50} />
           <div className="text-sm font-normal italic">Welcome to our scouting app for 2026!</div>
           <Image src="/images/ABACUS-white-4x5.svg" alt="Abacus Logo" width={200} height={250} />
-          <div className="text-2xl font-bold">ABACUS</div>
+          <div className="text-2xl font-bold">A bus</div>
         </div>
 
         
