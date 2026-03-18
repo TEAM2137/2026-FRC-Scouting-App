@@ -14,8 +14,11 @@ secondShiftLauches: number,
 endgameLaunches: number,
 robotDied: number,
 robotBroke: number,
-passHeard: number,
-passLaunched: number,
+passHeardNeutral: number,
+passHeardOpp: number,
+passLaunchedNeutral: number,
+passLaunchedOpp: number,
+
 }
 
 export const MatchScoutschema = new mongoose.Schema<IMatchScout>(
@@ -37,8 +40,10 @@ export const MatchScoutschema = new mongoose.Schema<IMatchScout>(
     endgameLaunches: { type: Number },
     robotDied: { type: Number },
     robotBroke: { type: Number },
-    passHeard: { type: Number },
-    passLaunched: { type: Number },
+    passHeardNeutral: { type: Number },
+    passHeardOpp: { type: Number },
+    passLaunchedNeutral: { type: Number },
+    passLaunchedOpp: { type: Number},
 }
 )
 const MatchScout = mongoose.models?.MatchScout || mongoose.model<IMatchScout>("MatchScout", MatchScoutschema)
