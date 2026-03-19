@@ -18,7 +18,6 @@ passHeardNeutral: number,
 passHeardOpp: number,
 passLaunchedNeutral: number,
 passLaunchedOpp: number,
-
 }
 
 export const MatchScoutschema = new mongoose.Schema<IMatchScout>(

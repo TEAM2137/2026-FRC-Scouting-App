@@ -46,8 +46,10 @@ const MatchScoutForm = ({teamNumber, matchNumber, eventCode, tournamentLevel, po
         endgameLaunches: 0,
         robotDied: 0,
         robotBroke: 0,
-        passHeard: 0,
-        passLaunched: 0,
+        passHeardNeutral: 0,
+        passHeardOpp: 0,
+        passLaunchedNeutral: 0,
+        passLaunchedOpp: 0,
     });
 
     useEffect(() => {
@@ -61,11 +63,18 @@ const MatchScoutForm = ({teamNumber, matchNumber, eventCode, tournamentLevel, po
     }, []);
 
     useEffect(() => {
-        if (matchData.passHeard < 0) {
-            setMatchData({...matchData, passHeard: 0})
+        if (matchData.passHeardNeutral < 0) {
+            setMatchData({...matchData, passHeardNeutral: 0})
         }
-        if (matchData.passLaunched < 0) {
-            setMatchData({...matchData, passLaunched: 0})
+        if (matchData.passLaunchedNeutral < 0) {
+            setMatchData({...matchData, passLaunchedNeutral: 0})
+        }
+        
+        if (matchData.passHeardOpp < 0) {
+            setMatchData({...matchData, passHeardOpp: 0})
+        }
+        if (matchData.passLaunchedOpp < 0) {
+            setMatchData({...matchData, passLaunchedOpp: 0})
         }
     }, [matchData])
     
@@ -131,42 +140,53 @@ const MatchScoutForm = ({teamNumber, matchNumber, eventCode, tournamentLevel, po
                     <button onClick={() =>decreaseLaunches('endgame')} className="bg-red-600 rounded-2xl border-3 border-red-900 size-16">-1</button>
                     </div>
 
-                    <div className="grid grid-cols-2 place-items-center p-1">
+                    <div className="grid grid-cols-2 gap-4 p-1">
                         <div>
-                            <p>Pass Herd</p>
+                            <p>Pass Heard</p>
                             <div className="flex flex-row gap-2 p-2">
-                                
-                                <button className="text-center text-2xl font-bold  my-1 p-1 bg-green-950 rounded-lg size-12" 
-                                onClick={() => setMatchData({...matchData, passHeard: (matchData.passHeard + 1)})}>
-                                    {matchData.passHeard}
+                                <button className="text-center text-xl font-bold my-1 p-1 bg-green-950 rounded-lg size-12"
+                                    onClick={() => setMatchData({...matchData, passHeardNeutral: matchData.passHeardNeutral + 1})}>
+                                    N {matchData.passHeardNeutral}
                                 </button>
-                                
-                                <button className={`text-center text-xl font-bold  my-1 p-1 bg-red-950 rounded-lg size-12`} 
-                                onClick={() => setMatchData({...matchData, passHeard: (matchData.passHeard - 1)})}>
+                                <button className="text-center text-xl font-bold my-1 p-1 bg-red-950 rounded-lg size-12"
+                                    onClick={() => setMatchData({...matchData, passHeardNeutral: Math.max(0, matchData.passHeardNeutral - 1)})}>
                                     -
                                 </button>
-
+                            </div>
+                            <div className="flex flex-row gap-2 p-2">
+                                <button className="text-center text-xl font-bold my-1 p-1 bg-green-950 rounded-lg size-12"
+                                    onClick={() => setMatchData({...matchData, passHeardOpp: matchData.passHeardOpp + 1})}>
+                                    O {matchData.passHeardOpp}
+                                </button>
+                                <button className="text-center text-xl font-bold my-1 p-1 bg-red-950 rounded-lg size-12"
+                                    onClick={() => setMatchData({...matchData, passHeardOpp: Math.max(0, matchData.passHeardOpp - 1)})}>
+                                    -
+                                </button>
                             </div>
                         </div>
                         <div>
                             <p>Pass Launched</p>
                             <div className="flex flex-row gap-2 p-2">
-
-                                <button className={`text-center text-xl font-bold  my-1 p-1 bg-red-950 rounded-lg size-12`} 
-                                onClick={() => setMatchData({...matchData, passLaunched: (matchData.passLaunched- 1)})}>
+                                <button className="text-center text-xl font-bold my-1 p-1 bg-green-950 rounded-lg size-12"
+                                    onClick={() => setMatchData({...matchData, passLaunchedNeutral: matchData.passLaunchedNeutral + 1})}>
+                                    N {matchData.passLaunchedNeutral}
+                                </button>
+                                <button className="text-center text-xl font-bold my-1 p-1 bg-red-950 rounded-lg size-12"
+                                    onClick={() => setMatchData({...matchData, passLaunchedNeutral: Math.max(0, matchData.passLaunchedNeutral - 1)})}>
                                     -
                                 </button>
-                                
-                                <button className="text-center text-2xl font-bold  my-1 p-1 bg-green-950 rounded-lg size-12" 
-                                onClick={() => setMatchData({...matchData, passLaunched: (matchData.passLaunched + 1)})}>
-                                    {matchData.passLaunched}
+                            </div>
+                            <div className="flex flex-row gap-2 p-2">
+                                <button className="text-center text-xl font-bold my-1 p-1 bg-green-950 rounded-lg size-12"
+                                    onClick={() => setMatchData({...matchData, passLaunchedOpp: matchData.passLaunchedOpp + 1})}>
+                                    O {matchData.passLaunchedOpp}
                                 </button>
-                                
-                                
-
+                                <button className="text-center text-xl font-bold my-1 p-1 bg-red-950 rounded-lg size-12"
+                                    onClick={() => setMatchData({...matchData, passLaunchedOpp: Math.max(0, matchData.passLaunchedOpp - 1)})}>
+                                    -
+                                </button>
                             </div>
                         </div>
-                        
                     </div>
 
                     <div className="grid grid-cols-2 place-items-center p-1">
@@ -204,11 +224,11 @@ const MatchScoutForm = ({teamNumber, matchNumber, eventCode, tournamentLevel, po
                     <div className="grid grid-cols-1 place-items-center p-1 w-full">
                         <button className="bg-neutral-800 w-full p-2 rounded-lg" onClick={() => handleStoreData()}>Save</button>
                     </div>
+                    
                 </CardContent>
                 
             </Card>
         </div>
-    
 );
 }
 
