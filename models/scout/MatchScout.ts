@@ -14,19 +14,20 @@ secondShiftLauches: number,
 endgameLaunches: number,
 robotDied: number,
 robotBroke: number,
-passHeardNeutral: number,
-passHeardOpp: number,
-passLaunchedNeutral: number,
-passLaunchedOpp: number,
+HeardNeutral: number,
+HeardOAScoring: number,
+passNeutral: number,
+passOAScoring: number,
 }
 
 export const MatchScoutschema = new mongoose.Schema<IMatchScout>(
 {
-    matchID: {
-        type:String,
+
+
+ matchID: { type:String,
         required: true,
-        unique: true
-    },
+        unique: true,},
+
     teamNumber:{ type: String },
     scoutTeamNumber:{ type: String },
     eventCode: { type: String },
@@ -39,12 +40,15 @@ export const MatchScoutschema = new mongoose.Schema<IMatchScout>(
     endgameLaunches: { type: Number },
     robotDied: { type: Number },
     robotBroke: { type: Number },
-    passHeardNeutral: { type: Number },
-    passHeardOpp: { type: Number },
-    passLaunchedNeutral: { type: Number },
-    passLaunchedOpp: { type: Number},
-}
+    HeardNeutral: { type: Number },
+    HeardOAScoring: { type: Number },
+    passNeutral: { type: Number },
+    passOAScoring: { type: Number},
+ }
 )
+
+
+   
+
 const MatchScout = mongoose.models?.MatchScout || mongoose.model<IMatchScout>("MatchScout", MatchScoutschema)
 
-export default MatchScout;

@@ -5,11 +5,13 @@ export interface IAlliancePick {
     pickNumber: number,
    pickRank: number,
    scoutTeamNumber: string,
+   eventCode: string,
 }
 
 
 export const AlliancePickSchema = new mongoose.Schema<IAlliancePick>(
     {
+        eventCode: { type: String },
         teamNumber: { type: String },
         pickNumber: { type: Number },
         pickRank: { type: Number },
