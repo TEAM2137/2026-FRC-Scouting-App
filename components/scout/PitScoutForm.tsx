@@ -33,7 +33,6 @@ const emptyPitScout: IPitScout = {
   teleopClimb: '',
   launchSpeed: 0,
   weight: 0,
-  driveTeam: '',
   //meta data for the file. 
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -49,6 +48,7 @@ const pitScout = ({eventCode, teamNumber, closeForm}: Iprops) => {
   const [data, setData] = useState<IPitScout>({...emptyPitScout});
   const [success, setSuccess] = useState('');
   const [error, setError] = useState('');
+  const [saving, setSaving] = useState(false);
   const router = useRouter();
   const { appEvent, setAppEvent } = useAppContext();
 
@@ -67,6 +67,7 @@ const pitScout = ({eventCode, teamNumber, closeForm}: Iprops) => {
     const handleStorePitScout = async () => {
         try {
             const response = await storePitScout(data)
+            setSaving(true)
             if (response.result){
                 setSuccess('save successful');
                 toast.success('Pit Report Saved Successfully');
@@ -74,6 +75,7 @@ const pitScout = ({eventCode, teamNumber, closeForm}: Iprops) => {
             }
         } catch(err) {
             setError('an error occoured when saving the pit scout data. please check connection and try again later.');
+            console.log(err);
         }
     }
     
@@ -204,8 +206,9 @@ return (
 
         <div className="flex flex-col gap-3">
             <Button onClick={handleStorePitScout}>
-                submit
+                {saving ? "Pit Scout Report Saving..." : "Submit Pit Scout Report"}
             </Button>
+            {error !== '' && <div className="text-red-500">{error}</div>}
         </div>
         </CardContent>
    </Card>

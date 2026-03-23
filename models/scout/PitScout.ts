@@ -17,7 +17,6 @@ export interface IPitScout {
   teleopClimb: string,
   launchSpeed: number,
   weight: number,
-  driveTeam: string,
   //meta data for the file. 
   createdAt: Date,
   updatedAt: Date,
