@@ -51,4 +51,4 @@ export const MatchScoutschema = new mongoose.Schema<IMatchScout>(
    
 
 const MatchScout = mongoose.models?.MatchScout || mongoose.model<IMatchScout>("MatchScout", MatchScoutschema)
-
+export default MatchScout;
