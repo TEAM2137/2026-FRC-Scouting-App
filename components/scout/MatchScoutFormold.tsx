@@ -29,7 +29,7 @@ interface IProps {
     closeForm: () => void
 }
 
-const MatchScoutForm = ({teamNumber, matchNumber, eventCode, tournamentLevel, position, closeForm}: IProps) => {
+const MatchScoutFormold = ({teamNumber, matchNumber, eventCode, tournamentLevel, position, closeForm}: IProps) => {
     const router = useRouter();
     const { appEvent, setAppEvent } = useAppContext();
         const [matchData, setMatchData] = useState<IMatchScout>({
@@ -212,4 +212,4 @@ const MatchScoutForm = ({teamNumber, matchNumber, eventCode, tournamentLevel, po
 );
 }
 
-export default MatchScoutForm;
+export default MatchScoutFormold;

@@ -9,7 +9,7 @@ import { CircleX, Video, Star } from 'lucide-react';
 
 import { Separator } from '../ui/separator';
 
-import MatchScoutForm from '@/components/scout/MatchScoutForm';
+import MatchScoutForm from '@/components/scout/MatchScoutFormold';
 import { getEventScoutedMatches } from '@/lib/scout/getEventScoutMatches';
 
 interface Props {
