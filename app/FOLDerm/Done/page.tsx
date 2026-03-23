@@ -20,6 +20,9 @@ const yodeloPage = () => {
     const [Fuel3, setFuel3] = useState(0)
     const [Fuel4, setFuel4] = useState(0)
     const [Shift, setShift] = useState("Auto")
+    // 0-1 = Herd, 2-3 = Pass, 4-5 = Defense
+
+    const [stuff,setStuff] = useState({hn:false,ho:false,pn:false,po:false,dn:false,do:false})
 
     const RemoveFuel = (Amount: number) => {
         if (Shift === "Auto") {
@@ -48,7 +51,9 @@ const yodeloPage = () => {
     }, [Fuel1,Fuel2,Fuel3,Fuel4])
     return (
         <div className="fixed w-full h-full z-11 p-4 justify-center place-items-center bg-blue-950">
-                <div className="grid grid-cols-4 w-full text-white text-5xl text-center">
+            <h1 className="text-3xl font-extrabold"> Match Number Number</h1>
+            <h2>Team #######</h2>
+                <div className="grid grid-cols-4 w-full text-white text-5xl text-center mt-10">
                     <p>{Fuel1}</p>
                     <p>{Fuel2}</p>
                     <p>{Fuel3}</p>
@@ -57,7 +62,7 @@ const yodeloPage = () => {
 
 
 
-                <div className="grid grid-cols-4 w-full">
+                <div className="grid grid-cols-4 w-full mt-3">
                 <button onClick={() => setShift("Auto")} className={`text-white p-2 rounded-lg w-20 h-15  border-3 ${Shift==="Auto" ? "bg-blue-400":"bg-gray-400"}`}>
                     Auto
                 </button>
@@ -88,8 +93,40 @@ const yodeloPage = () => {
                 </button>
         </div>
 
-        <div className="grid grid-cols-4">
-              <button>Defensive Herd</button>
+        <div className="grid grid-cols-2 w-full mt-4 ml-19">
+              <p>Neutral Zone</p>
+              <p>Opposing Zone</p>
+        </div>
+        <div className="grid grid-cols-2 w-full mt-4 ml-15">
+            <button onClick={() => setStuff({...stuff, hn:!stuff.hn})} className={`${stuff.hn ? "bg-blue-500":"bg-gray-500"} rounded-3xl h-10 border-4 w-30 mt-3`}>
+                Herd
+            </button>
+            <button onClick={() => setStuff({...stuff, ho:!stuff.ho})} className={`${stuff.ho ? "bg-blue-500":"bg-gray-500"} rounded-3xl h-10 border-4 w-30  mt-3`}>
+                Herd
+            </button>
+
+            <button  onClick={() => setStuff({...stuff, pn:!stuff.pn})} className={`${stuff.pn ? "bg-blue-500":"bg-gray-500"} rounded-3xl h-10 border-4 w-30  mt-3`}>
+                Pass
+            </button>
+            <button onClick={() => setStuff({...stuff, po:!stuff.po})} className={`${stuff.po ? "bg-blue-500":"bg-gray-500"} rounded-3xl h-10 border-4 w-30  mt-3`}>
+                Pass
+            </button>
+
+            <button  onClick={() => setStuff({...stuff, dn:!stuff.dn})} className={`${stuff.dn ? "bg-blue-500":"bg-gray-500"} rounded-3xl h-10 border-4 w-30  mt-3`}>
+                Defense
+            </button>
+            <button onClick={() => setStuff({...stuff, do:!stuff.do})} className={`${stuff.do ? "bg-blue-500":"bg-gray-500"} rounded-3xl h-10 border-4 w-30  mt-3`}>
+                Defense
+            </button>
+        </div>
+        <div className="bg-blue-400 w-screen h-1.5 mt-15 rounded-4xl"></div>
+        <div className="grid grid-cols-2 w-screen ml-29 mt-4">
+            <button className="bg-amber-400 w-20 h-20 rounded-2xl">
+                Robot DIED
+            </button>
+            <button className="bg-amber-400 w-20 h-20 rounded-2xl" >
+                Robot BROKE
+            </button>
         </div>
         </div>
     );
