@@ -46,7 +46,7 @@ const MatchScoutForm = ({teamNumber, matchNumber, eventCode, tournamentLevel, po
         endgameLaunches: 0,
         robotDied: 0,
         robotBroke: 0,
-        passHeardNeutral: 0,
+        HeardNeutral: 0,
         passHeardOpp: 0,
         passLaunchedNeutral: 0,
         passLaunchedOpp: 0,

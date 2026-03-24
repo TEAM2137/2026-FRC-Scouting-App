@@ -1,23 +1,23 @@
 import mongoose from "mongoose";
 
-export interface IAlliancePick {
+export interface IPickList {
     teamNumber: string,
-    pickNumber: number,
-   pickRank: number,
-   scoutTeamNumber: string,
+    PickListNumber: number,
    eventCode: string,
+   PickListName: string,
+   ScoutingTeam: string,
 }
 
 
-export const AlliancePickSchema = new mongoose.Schema<IAlliancePick>(
+export const PickListSchema = new mongoose.Schema<IPickList>(
     {
         eventCode: { type: String },
         teamNumber: { type: String },
-        pickNumber: { type: Number },
-        pickRank: { type: Number },
-        scoutTeamNumber: { type: String },
+        PickListNumber: { type: Number },
+        PickListName: { type: String },
+        ScoutingTeam: {type: String },
     }
 )
-    const AlliancePick = mongoose.models?.AlliancePick || mongoose.model<IAlliancePick>("AlliancePick", AlliancePickSchema)
+    const PickList = mongoose.models?.PickList || mongoose.model<IPickList>("PickList", PickListSchema)
 
-export default AlliancePick;
+export default PickList;
