@@ -265,7 +265,7 @@ const ScoutMatches = ({eventCode,setDisplay}: Props) => {
 
 
         {showForm && 
-            <div className="fixed top-0 left-0 w-screen h-full z-150 p-4 bg-neutral-800 text-white text-xs  font-bold overflow-y-auto">
+            <div className="fixed top-0 left-0 w-screen h-full z-150 p-4 bg-blue-950 text-white text-xs  font-bold overflow-y-auto">
                 <div className="grid grid-cols-[4fr_1fr] justify-between">
                     <div className="p-2 text-left folt-bold text-sm">Scouting {tournamentLevel} Match {matchNumber}</div>
                     <div className="p-2 text-right"><button onClick={(() => setShowForm(false))}><CircleX /></button></div>

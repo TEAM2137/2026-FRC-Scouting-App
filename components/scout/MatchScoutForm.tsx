@@ -19,6 +19,7 @@ import Image from 'next/image';
 import { IMatchScout } from "@/models/scout/MatchScout"
 import storeMatch from "@/lib/scout/storeMatch"
 import getMatch from "@/lib/scout/getMatch"
+import { set } from "mongoose";
 
 interface IProps {
     teamNumber: string,
@@ -30,186 +31,188 @@ interface IProps {
 }
 
 const MatchScoutForm = ({teamNumber, matchNumber, eventCode, tournamentLevel, position, closeForm}: IProps) => {
-    const router = useRouter();
-    const { appEvent, setAppEvent } = useAppContext();
-        const [matchData, setMatchData] = useState<IMatchScout>({
-        matchID: eventCode + '-' + tournamentLevel + '-' + matchNumber.toString() + '-' + teamNumber + '-' + position,
-        teamNumber: teamNumber,
-        scoutTeamNumber: '',
-        eventCode: eventCode,
-        tournamentLevel: tournamentLevel,
-        matchNumber: matchNumber,
-        alliancePosition: position,
-        autoLaunches: 0,
-        firstShiftLauches: 0,
-        secondShiftLauches: 0,
-        endgameLaunches: 0,
-        robotDied: 0,
-        robotBroke: 0,
-        passHeard: 0,
-        passLaunched: 0,
-    });
+    const [Fuel1, setFuel1] = useState(0)
+    const [Fuel2, setFuel2] = useState(0)
+    const [Fuel3, setFuel3] = useState(0)
+    const [Fuel4, setFuel4] = useState(0)
+    const [Shift, setShift] = useState("Auto")
+    // 0-1 = Herd, 2-3 = Pass, 4-5 = Defense
+
+    const [stuff,setStuff] = useState({hn:false,ho:false,pn:false,po:false,dn:false,do:false})
+    const [DeadOrAlive,setDeadOrAlive] = useState({dead:false,broke:false})
 
     useEffect(() => {
-        const fetchMatchScout = async () => {
-            const matchScout = await getMatch(matchData.matchID);
-            if (matchScout !== null) {
-                setMatchData(JSON.parse(matchScout));
+            const fetchMatchScout = async () => {
+                const matchID = eventCode + '-' + tournamentLevel + '-' + matchNumber.toString() + '-' + teamNumber + '-' + position;
+                const matchScout = await getMatch(matchID);
+                if (matchScout !== null) {
+                    const savedData = JSON.parse(matchScout);
+                    setFuel1(savedData.autoLaunches);
+                    setFuel2(savedData.firstShiftLauches);
+                    setFuel3(savedData.secondShiftLauches);
+                    setFuel4(savedData.endgameLaunches);
+                    setDeadOrAlive({
+                        dead: savedData.robotDied === 1 ? true : false,
+                        broke: savedData.robotBroke === 1 ? true : false,
+                    });
+                    setStuff({
+                        hn: savedData.passHerdNeutral === 1 ? true : false,
+                        ho: savedData.passHerdOpposing === 1 ? true : false,
+                        pn: savedData.passLaunchedNeutral === 1 ? true : false,
+                        po: savedData.passLaunchedOpposing === 1 ? true : false,
+                        dn: savedData.defenseNeutral === 1 ? true : false,
+                        do: savedData.defenseOpposing === 1 ? true : false,
+                    })
+
+                    
+                }
             }
-        }
-        fetchMatchScout();
-    }, []);
-
-    useEffect(() => {
-        if (matchData.passHeard < 0) {
-            setMatchData({...matchData, passHeard: 0})
-        }
-        if (matchData.passLaunched < 0) {
-            setMatchData({...matchData, passLaunched: 0})
-        }
-    }, [matchData])
+            fetchMatchScout();
+        }, []);
     
+    
+    const RemoveFuel = (Amount: number) => {
+        if (Shift === "Auto") {
+             setFuel1(Fuel1 - Amount)
+        } else if (Shift === "First") {
+            setFuel2(Fuel2 - Amount)
+        } else if (Shift === "Second") {
+            setFuel3(Fuel3 - Amount)
+        } else if (Shift === "EndGame") {
+            setFuel4(Fuel4 - Amount)
+        }
+    }
+    useEffect(() => {
+         if (Fuel4 < 0) {
+                setFuel4(0)
+            }
+        if (Fuel3 < 0) {
+                setFuel3(0)
+            }
+        if (Fuel2 < 0) {
+                setFuel2(0)
+            }
+        if (Fuel1 < 0) {
+                setFuel1(0)
+            }
+    }, [Fuel1,Fuel2,Fuel3,Fuel4])
+
     const handleStoreData = async () => {
+        const matchData = {
+            matchID: eventCode + '-' + tournamentLevel + '-' + matchNumber.toString() + '-' + teamNumber + '-' + position,
+            teamNumber: teamNumber,
+            scoutTeamNumber: '',
+            eventCode: eventCode,
+            tournamentLevel: tournamentLevel,
+            matchNumber: matchNumber,
+            alliancePosition: position,
+            autoLaunches: Fuel1,
+            firstShiftLauches: Fuel2,
+            secondShiftLauches: Fuel3,
+            endgameLaunches: Fuel4,
+            robotDied: DeadOrAlive.dead ? 1 : 0,
+            robotBroke: DeadOrAlive.broke ? 1 : 0,
+            passHerdNeutral: stuff.hn ? 1 : 0,
+            passHerdOpposing: stuff.ho ? 1 : 0,
+            passLaunchedNeutral: stuff.pn ? 1 : 0,
+            passLaunchedOpposing: stuff.po ? 1 : 0,
+            defenseNeutral: stuff.dn ? 1 : 0,
+            defenseOpposing: stuff.do ? 1 : 0,
+            updatedAt: new Date(),
+        }
+
+
+
         const response = await storeMatch(matchData);
         if (response.result) {
             closeForm();
         }
     }
-    
 
-    const increaseLaunches = (position: string) => {
-        if (position === 'auto') {
-            setMatchData({...matchData, autoLaunches: (matchData.autoLaunches + 1)});
-        } else if (position === 'shiftone') {
-            setMatchData({...matchData, firstShiftLauches: (matchData.firstShiftLauches + 1)});
-        } else if (position === 'shifttwo') {
-            setMatchData({...matchData, secondShiftLauches: (matchData.secondShiftLauches + 1)});
-        }else if (position === 'endgame') {
-            setMatchData({...matchData, endgameLaunches: (matchData.endgameLaunches + 1)});
-        }
-    }
 
-    const decreaseLaunches = (position: string) => {
-        if (position === 'auto' && matchData.autoLaunches > 0) {
-            setMatchData({...matchData, autoLaunches: (matchData.autoLaunches - 1)});
-        } else if (position === 'shiftone' && matchData.firstShiftLauches > 0) {
-            setMatchData({...matchData, firstShiftLauches: (matchData.firstShiftLauches - 1)});
-        } else if (position === 'shifttwo' && matchData.secondShiftLauches > 0) {
-            setMatchData({...matchData, secondShiftLauches: (matchData.secondShiftLauches - 1)});
-        }else if (position === 'endgame' && matchData.endgameLaunches > 0) {
-            setMatchData({...matchData, endgameLaunches: (matchData.endgameLaunches - 1)});
-        }
-    }
-    
     return (
-        <div className="mt-1">
-            <Card className="rounded-xl w-full h-full">
-                <CardContent className="flex flex-col gap-1">
-                    <div className="grid place-items-center pb-1">AUTO LAUNCHES</div>
+        <div className="w-full h-full justify-center place-items-center  overflow-x-clip">
+                <div className="grid grid-cols-4 w-full text-white text-5xl text-center mt-10">
+                    <p>{Fuel1}</p>
+                    <p>{Fuel2}</p>
+                    <p>{Fuel3}</p>
+                    <p>{Fuel4}</p>
+                </div>
 
-                    <div className="grid grid-cols-3 gap-2 place-items-center bg-blue-950 rounded-lg p-2">
-                    <button onClick={() => increaseLaunches('auto')} className="bg-green-600 border-3 border-green-900 rounded-2xl size-16">+1 </button>
-                    <p className="font-bold text-5xl text-center"> {matchData.autoLaunches}</p>
-                    <button onClick={() =>decreaseLaunches('auto')} className="bg-red-600 rounded-2xl border-3 border-red-900 size-16">-1</button>
-                    </div>
-                    <div className="grid place-items-center p-1">FIRST SCORING SHIFT LAUNCHES</div>
-                    <div className="grid grid-cols-3 gap-2 place-items-center bg-blue-950 rounded-lg p-2">
-                    <button onClick={() => increaseLaunches('shiftone')} className="bg-green-600 border-3 border-green-900 rounded-2xl size-16">+1 </button>
-                    <p className="font-bold text-5xl text-center"> {matchData.firstShiftLauches}</p>
-                    <button onClick={() =>decreaseLaunches('shiftone')} className="bg-red-600 rounded-2xl border-3 border-red-900 size-16">-1</button>
-                    </div>
-                    <div className="grid place-items-center p-1">SECOND SCORING SHIFT LAUNCHES</div>
-                    <div className="grid grid-cols-3 gap-2 place-items-center bg-blue-950 rounded-lg p-2">
-                    <button onClick={() => increaseLaunches('shifttwo')} className="bg-green-600 border-3 border-green-900 rounded-2xl size-16">+1 </button>
-                    <p className="font-bold text-5xl text-center"> {matchData.secondShiftLauches}</p>
-                    <button onClick={() =>decreaseLaunches('shifttwo')} className="bg-red-600 rounded-2xl border-3 border-red-900 size-16">-1</button>
-                    </div>
-                    <div className="grid place-items-center p-1">ENDGAME LAUNCHES</div>
-                    <div className="grid grid-cols-3 gap-2 place-items-center bg-blue-950 rounded-lg p-2">
-                    <button onClick={() => increaseLaunches('endgame')} className="bg-green-600 border-3 border-green-900 rounded-2xl size-16">+1 </button>
-                    <p className="font-bold text-5xl text-center"> {matchData.endgameLaunches}</p>
-                    <button onClick={() =>decreaseLaunches('endgame')} className="bg-red-600 rounded-2xl border-3 border-red-900 size-16">-1</button>
-                    </div>
 
-                    <div className="grid grid-cols-2 place-items-center p-1">
-                        <div>
-                            <p>Pass Herd</p>
-                            <div className="flex flex-row gap-2 p-2">
-                                
-                                <button className="text-center text-2xl font-bold  my-1 p-1 bg-green-950 rounded-lg size-12" 
-                                onClick={() => setMatchData({...matchData, passHeard: (matchData.passHeard + 1)})}>
-                                    {matchData.passHeard}
-                                </button>
-                                
-                                <button className={`text-center text-xl font-bold  my-1 p-1 bg-red-950 rounded-lg size-12`} 
-                                onClick={() => setMatchData({...matchData, passHeard: (matchData.passHeard - 1)})}>
-                                    -
-                                </button>
 
-                            </div>
-                        </div>
-                        <div>
-                            <p>Pass Launched</p>
-                            <div className="flex flex-row gap-2 p-2">
+                <div className="grid grid-cols-4 w-full mt-3">
+                <button onClick={() => setShift("Auto")} className={`text-white p-2 rounded-lg w-20 h-15  border-3 ${Shift==="Auto" ? "bg-blue-700":"bg-gray-700"}`}>
+                    Auto
+                </button>
+                <button onClick={() => setShift("First")} className={`text-white p-2 rounded-lg w-20 h-15  border-3 ${Shift==="First" ? "bg-blue-700":"bg-gray-700"}`}>
+                    First Shift
+                </button>
+                 <button onClick={() => setShift("Second")} className={`text-white p-2 rounded-lg w-20 h-15  border-3 ${Shift==="Second" ? "bg-blue-700":"bg-gray-700"}`}>
+                    Second Shift
+                </button>
+                 <button onClick={() => setShift("EndGame")} className={`text-white p-2 rounded-lg w-20 h-15 border-3 ${Shift==="EndGame" ? "bg-blue-700":"bg-gray-700"}`}>
+                    End Game
+                </button>
+            </div>
+            
 
-                                <button className={`text-center text-xl font-bold  my-1 p-1 bg-red-950 rounded-lg size-12`} 
-                                onClick={() => setMatchData({...matchData, passLaunched: (matchData.passLaunched- 1)})}>
-                                    -
-                                </button>
-                                
-                                <button className="text-center text-2xl font-bold  my-1 p-1 bg-green-950 rounded-lg size-12" 
-                                onClick={() => setMatchData({...matchData, passLaunched: (matchData.passLaunched + 1)})}>
-                                    {matchData.passLaunched}
-                                </button>
-                                
-                                
-
-                            </div>
-                        </div>
-                        
-                    </div>
-
-                    <div className="grid grid-cols-2 place-items-center p-1">
-                        <div>
-                            <p>Robot Died</p>
-                            <div className="flex flex-row gap-2 p-2">
-                                {matchData.robotDied > 0 && 
-                                <button className="text-center font-bold text-sm my-1 p-1 bg-red-950 rounded-lg" 
-                                onClick={(() => setMatchData({...matchData, robotDied: 0}))}>
-                                    <Image src="/icons/RobotDED.png" alt="" width={53} height={63} />
-                                </button>}
-                                {matchData.robotDied === 0 && 
-                                <button className="text-center font-bold text-sm my-1 p-1 bg-red-950 rounded-lg" 
-                                onClick={(() => setMatchData({...matchData, robotDied: 1}))}>
-                                    <Image src="/icons/RobotAlive.png" alt="" width={64} height={66} className="rounded-lg" />
-                                </button>}
-                            </div>
-                        </div>
-                        <div>
-                            <p>Robot Broke</p>
-                            <div className="flex flex-row gap-2 p-2">
-                                {matchData.robotBroke > 0 && 
-                                <button className="text-center font-bold text-sm my-1 p-1 bg-red-950 rounded-lg" 
-                                onClick={(() => setMatchData({...matchData, robotBroke: 0}))}>
-                                    <Image src="/icons/RobotBroken2.png" alt="" width={101} height={49} />
-                                </button>}
-                                {matchData.robotBroke === 0 && 
-                                <button className="text-center font-bold text-sm my-1 p-1 bg-red-950 rounded-lg" 
-                                onClick={(() => setMatchData({...matchData, robotBroke: 1}))}>
-                                    <Image src="/icons/RobotSafe2.png" alt="" width={90} height={67} className="rounded-lg" />
-                                </button>}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-1 place-items-center p-1 w-full">
-                        <button className="bg-neutral-800 w-full p-2 rounded-lg" onClick={() => handleStoreData()}>Save</button>
-                    </div>
-                </CardContent>
-                
-            </Card>
+            <div className="grid grid-cols-4 w-full  mt-2">
+                <button  onClick={() => RemoveFuel(-10)} className="text-white bg-green-500 border-3 border-green-700 rounded-3xl w-20 h-20 font-bold text-3xl ">
+                    +10
+                </button>
+                 <button onClick={() => RemoveFuel(-5)}className="text-white bg-green-500 border-3 border-green-700 rounded-3xl w-20 h-20 font-bold text-3xl ">
+                    +5
+                </button>
+                 <button onClick={() => RemoveFuel(-1)}className="text-white bg-green-500 border-3 border-green-700 rounded-3xl w-20 h-20 font-bold text-3xl ">
+                    +1
+                </button>
+                 <button onClick={() => RemoveFuel(5)} className="text-white bg-red-500 border-3 border-red-700 rounded-3xl w-20 h-20 font-bold text-3xl ">
+                    -5
+                </button>
         </div>
-    
-);
+        <div className="bg-blue-400 w-full h-1.5 mt-6 rounded-4xl"></div>
+        <div className="grid grid-cols-2 w-full mt-4 text-center text-lg">
+              <p>Neutral Zone</p>
+              <p>Opposing Zone</p>
+        </div>
+        <div className="grid grid-cols-2 w-full mt-2 justify-center place-items-center">
+            <button onClick={() => setStuff({...stuff, hn:!stuff.hn})} className={`${stuff.hn ? "bg-blue-700":"bg-gray-700"} rounded-3xl h-10 border-4 w-30 mt-3`}>
+                Herd
+            </button>
+            <button onClick={() => setStuff({...stuff, ho:!stuff.ho})} className={`${stuff.ho ? "bg-blue-700":"bg-gray-700"} rounded-3xl h-10 border-4 w-30  mt-3`}>
+                Herd
+            </button>
+
+            <button  onClick={() => setStuff({...stuff, pn:!stuff.pn})} className={`${stuff.pn ? "bg-blue-700":"bg-gray-700"} rounded-3xl h-10 border-4 w-30  mt-3`}>
+                Pass
+            </button>
+            <button onClick={() => setStuff({...stuff, po:!stuff.po})} className={`${stuff.po ? "bg-blue-700":"bg-gray-700"} rounded-3xl h-10 border-4 w-30  mt-3`}>
+                Pass
+            </button>
+
+            <button  onClick={() => setStuff({...stuff, dn:!stuff.dn})} className={`${stuff.dn ? "bg-blue-700":"bg-gray-700"} rounded-3xl h-10 border-4 w-30  mt-3`}>
+                Defense
+            </button>
+            <button onClick={() => setStuff({...stuff, do:!stuff.do})} className={`${stuff.do ? "bg-blue-700":"bg-gray-700"} rounded-3xl h-10 border-4 w-30  mt-3`}>
+                Defense
+            </button>
+        </div>
+        <div className="bg-blue-400 w-full h-1.5 mt-6 rounded-4xl"></div>
+        <div className="grid grid-cols-2 w-full mt-4 justify-center place-items-center">
+            <button onClick={() => setDeadOrAlive({...DeadOrAlive, dead:!DeadOrAlive.dead})} className={`${DeadOrAlive.dead ? "bg-blue-700":"bg-gray-700"} w-22 h-20 rounded-2xl`}>
+                Robot DIED
+            </button>
+            <button onClick={() => setDeadOrAlive({...DeadOrAlive, broke:!DeadOrAlive.broke})} className={`${DeadOrAlive.broke ? "bg-blue-700":"bg-gray-700"} w-22 h-20 rounded-2xl`}>
+                Robot BROKE
+            </button>
+        </div>
+        <div className="bg-blue-400 w-full h-1.5 mt-6 rounded-4xl"></div>
+        <div className="grid grid-cols-1 place-items-center mt-4 p-1 w-full">
+                        <button className="bg-neutral-700 w-full p-2 rounded-lg h-16" onClick={() => handleStoreData()}>Save Match Data</button>
+                    </div>
+        </div>
+    )
 }
 
 export default MatchScoutForm;
