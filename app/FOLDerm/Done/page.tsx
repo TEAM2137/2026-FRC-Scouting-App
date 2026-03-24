@@ -23,6 +23,7 @@ const yodeloPage = () => {
     // 0-1 = Herd, 2-3 = Pass, 4-5 = Defense
 
     const [stuff,setStuff] = useState({hn:false,ho:false,pn:false,po:false,dn:false,do:false})
+    const [DeadOrAlive,setDeadOrAlive] = useState({dead:false,broke:false})
 
     const RemoveFuel = (Amount: number) => {
         if (Shift === "Auto") {
@@ -121,10 +122,10 @@ const yodeloPage = () => {
         </div>
         <div className="bg-blue-400 w-screen h-1.5 mt-15 rounded-4xl"></div>
         <div className="grid grid-cols-2 w-screen ml-29 mt-4">
-            <button className="bg-amber-400 w-20 h-20 rounded-2xl">
+            <button onClick={() => setDeadOrAlive({...DeadOrAlive, dead:!DeadOrAlive.dead})} className="bg-amber-400 w-20 h-20 rounded-2xl">
                 Robot DIED
             </button>
-            <button className="bg-amber-400 w-20 h-20 rounded-2xl" >
+            <button onClick={() => setDeadOrAlive({...DeadOrAlive, broke:!DeadOrAlive.broke})} className="bg-amber-400 w-20 h-20 rounded-2xl" >
                 Robot BROKE
             </button>
         </div>
