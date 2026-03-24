@@ -1,7 +1,8 @@
 'use client'
 import { Input } from "../ui/input"
 import { Label } from "../ui/label"
-export default function Qualitative() {
+import { Button } from "../ui/button"
+const Qualitative = () => {
     return (
         <div className="flex flex-col gap-4">
             <Label className="text-2xl font-bold">Qualitative Data</Label>         
@@ -24,6 +25,10 @@ export default function Qualitative() {
                 <div className="text-sm italic">This is a free-form text field where you can enter any additional notes about the team that may be useful for the team. This can include things like strategy, alliance preferences, and any other notes that may be useful for the team.</div>
                <Input type="text" placeholder="Enter any additional notes about the team" />
                </div>
+       <Button className="self-end" onClick={} >Save Qualitative Data</Button>
+       
+       
         </div>
     )
 }
+export default Qualitative;
