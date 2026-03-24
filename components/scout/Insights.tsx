@@ -106,8 +106,9 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
                             <div>{matchSummary.secondShiftLauches}</div>
                             <div>{matchSummary.endgameLaunches}</div>
                             <div>&nbsp;</div>
-                            <div>{matchSummary.passHeard}</div>
-                            <div>{matchSummary.passLaunched}</div>
+                            <div>{matchSummary.passHerdNeutral}</div>
+                            <div>{matchSummary.passHerdOpposing}</div>
+                            
                             <div>&nbsp;</div>
                             <div>{matchSummary.robotDied}</div>
                             <div>{matchSummary.robotBroke}</div>
