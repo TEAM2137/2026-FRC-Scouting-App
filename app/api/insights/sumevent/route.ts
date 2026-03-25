@@ -10,8 +10,8 @@ console.log('Current Date: ' + currentDate);
 
 export async function GET(req: NextRequest) {
     // Load Data Sources
-    const events: string[] = []
-
+    const events: string[] = ['MIMIL']
+    /*
     try {
         await connectDB();
         const currentEvents = await CurrentEvent.findOne({ ID: currentDate.toString() });
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
         console.log(error);
         return NextResponse.json({ error: 'Error retrieving current event codes.' });
     }
-
+    */
     console.log(events)
 
     interface IMatchSummary {
