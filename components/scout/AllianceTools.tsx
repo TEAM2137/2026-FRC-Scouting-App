@@ -32,9 +32,9 @@ return (
 
 
 
-<div className=' w-32 sm:w-60 md:w-75 text-center'>
+<div className=' w-32 sm:w-60 md:w-72 text-center'>
 <p>Allience 1</p>
-<div className=' border-3 w-32 sm:w-60 md:w-75 text-center'>
+<div className=' border-3 w-full text-center'>
     <div className="grid grid-cols-2 place-items-center">
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
@@ -43,9 +43,9 @@ return (
 </div>
 </div>
 
-<div className=' w-32 sm:w-60 md:w-75 text-center'>
+<div className=' w-32 sm:w-60 md:w-72 text-center'>
 <p>Allience 2</p>
-<div className=' border-3 w-32 sm:w-60 md:w-75 text-center'>
+<div className=' border-3 w-full text-center'>
     <div className="grid grid-cols-2 place-items-center">
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
@@ -54,9 +54,9 @@ return (
 </div>
 </div>
 
-<div className=' w-32 sm:w-60 md:w-75 text-center'>
+<div className=' w-32 sm:w-60 md:w-72 text-center'>
 <p>Allience 3</p>
-<div className=' border-3 w-32 sm:w-60 md:w-75 text-center'>
+<div className=' border-3 w-full text-center'>
     <div className="grid grid-cols-2 place-items-center">
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
@@ -65,9 +65,9 @@ return (
 </div>
 </div>
 
-<div className=' w-32 sm:w-60 md:w-75 text-center'>
+<div className=' w-32 sm:w-60 md:w-72 text-center'>
 <p>Allience 4</p>
-<div className=' border-3 w-32 sm:w-60 md:w-75 text-center'>
+<div className=' border-3 w-full text-center'>
     <div className="grid grid-cols-2 place-items-center">
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
@@ -76,9 +76,9 @@ return (
 </div>
 </div>
 
-<div className=' w-32 sm:w-60 md:w-75 text-center'>
+<div className=' w-32 sm:w-60 md:w-72 text-center'>
 <p>Allience 5</p>
-<div className=' border-3 w-32 sm:w-60 md:w-75 text-center'>
+<div className=' border-3 w-full text-center'>
     <div className="grid grid-cols-2 place-items-center">
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
@@ -87,9 +87,9 @@ return (
 </div>
 </div>
 
-<div className=' w-32 sm:w-60 md:w-75 text-center'>
+<div className=' w-32 sm:w-60 md:w-72 text-center'>
 <p>Allience 6</p>
-<div className=' border-3 w-32 sm:w-60 md:w-75 text-center'>
+<div className=' border-3 w-full text-center'>
     <div className="grid grid-cols-2 place-items-center">
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
@@ -98,9 +98,9 @@ return (
 </div>
 </div>
 
-<div className=' w-32 sm:w-60 md:w-75 text-center'>
+<div className=' w-32 sm:w-60 md:w-72 text-center'>
 <p>Allience 7</p>
-<div className=' border-3 w-32 sm:w-60 md:w-75 text-center'>
+<div className=' border-3 w-full text-center'>
     <div className="grid grid-cols-2 place-items-center">
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
@@ -109,9 +109,9 @@ return (
 </div>
 </div>
 
-<div className=' w-32 sm:w-60 md:w-75 text-center'>
+<div className=' w-32 sm:w-60 md:w-72 text-center'>
 <p>Allience 8</p>
-<div className=' border-3 w-32 sm:w-60 md:w-75 text-center'>
+<div className=' border-3 w-full text-center'>
     <div className="grid grid-cols-2 place-items-center">
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
     <p className='font-bold text-base'>2137</p><p className='text-[8px]'>The Oxford RoboCats</p>
