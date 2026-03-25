@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 
 export interface IQualitativeScout {
+    [x: string]: any;
     qualitativeScoutID: string,
     teamNumber: string,
     scoutTeamNumber: string,
