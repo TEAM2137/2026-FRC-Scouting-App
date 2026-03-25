@@ -2,8 +2,10 @@
 
 import { IPickList } from "@/models/scout/AlliancePick"
 import PickList from "@/models/scout/AlliancePick"
+import connectDB from "@/lib/db"
 
 export default async function storeAlliancePick(pickList: IPickList) {
+    await connectDB()   
     try {
         const store = await PickList.findOneAndUpdate(
             { eventCode: pickList.eventCode, PickListName: pickList.PickListName },
