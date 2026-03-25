@@ -6,7 +6,7 @@ import PickList from "@/models/scout/AlliancePick"
 export default async function storeAlliancePick(pickList: IPickList) {
     try {
         const store = await PickList.findOneAndUpdate(
-            { teamNumber: pickList.teamNumber, eventCode: pickList.eventCode },
+            { eventCode: pickList.eventCode, PickListName: pickList.PickListName },
             pickList,
             { upsert: true, new: true }
         )
