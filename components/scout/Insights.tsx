@@ -8,25 +8,30 @@ import { CircleX } from 'lucide-react';
 
 
 import { getEventScoutedMatches } from '@/lib/scout/getEventScoutMatches';
+import { match } from 'assert';
 
 
 interface ITeamSummary  {
-    teamNumber: string,
+    teamNumber: number,
+    matchesPlayed: number,
     avgTotalFuel: number,
-    avgAutoFuel: number,
-    avgFirstShiftFuel: number,
-    avgSecondShiftFuel: number,
-    avgEndgameFuel: number,
-    avgTeleopFuel: number,
-    avgAutoClimb: number,
-    avgEndgameClimb: number,
-    totalMatches: number,
-    adjMatches: number,
-    adjAvgAutoFuel: number,
-    adjAvgFirstShiftFuel: number,
-    adjAvgSecondShiftFuel: number,
-    adjAvgEndgameFuel: number,
-    adjAvgTeleopFuel: number,
+    avgAutoOnlyFuel: number,
+    alliancesScouted: number,
+    avgTotalAdjFuel: number,
+    avgAdjAutoFuel: number,
+    matchesScouted: number,
+    avgAutoLaunches: number,
+    avgFirstShiftLaunches: number,
+    avgSecondShiftLaunches: number,
+    avgEndgameLaunches: number,
+    avgPassHerdNeutral: number,
+    avgPassHerdOpposing: number,
+    avgPassLaunchedNeutral: number,
+    avgPassLaunchedOpposing: number,
+    avgDefenseNeutral: number,
+    avgDefenseOpposing: number,
+    avgRobotDied: number,
+    avgRobotBroke: number,
 }
 
 
@@ -44,6 +49,9 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
     const [scoutedMatches, setScoutedMatches] = useState<IMatchScout[]>([]);
     const [teams, setTeams] = useState<string[]>([]);
 
+    const [width, setWidth] = useState(window.innerWidth); // default width, detect on server.
+    const handleResize = () => setWidth(window.innerWidth);
+
     useEffect(() => {
         const fetchMatchSummaries = async () => {
             const Matches = await getEventScoutedMatches(eventCode);   
@@ -59,6 +67,38 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
                 setTeams(getteams);
             }
 
+            const response = await fetch('/api/insights/teamsummaries/' + eventCode);
+            if (response) {
+                const Summaries = await response.json();
+                const displaySummaries: ITeamSummary[] = [];
+                for (const teamSummary of Summaries) {
+                    const displaySummary = {
+                        teamNumber: teamSummary.teamNumber,
+                        matchesPlayed: teamSummary.matchesPlayed,
+                        avgTotalFuel: teamSummary.avgTotalFuel,
+                        avgAutoOnlyFuel: teamSummary.avgAutoOnlyFuel,
+                        alliancesScouted: teamSummary.allianceScouted,
+                        avgTotalAdjFuel: teamSummary.avgTotalAdjFuel,
+                        avgAdjAutoFuel: teamSummary.avgAdjAutoFuel,
+                        matchesScouted: teamSummary.matchesScouted,
+                        avgAutoLaunches: teamSummary.avgAutoLaunches,
+                        avgFirstShiftLaunches: teamSummary.avgFirstShiftLaunches,
+                        avgSecondShiftLaunches: teamSummary.avgSecondShiftLaunches,
+                        avgEndgameLaunches: teamSummary.avgEndgameLaunches,
+                        avgPassHerdNeutral: teamSummary.avgPassHerdNeutral,
+                        avgPassHerdOpposing: teamSummary.avgPassHerdOpposing,
+                        avgPassLaunchedNeutral: teamSummary.avgPassLaunchedNeutral,
+                        avgPassLaunchedOpposing: teamSummary.avgPassLaunchedOpposing,
+                        avgDefenseNeutral: teamSummary.avgDefenseNeutral,
+                        avgDefenseOpposing: teamSummary.avgDefenseOpposing,
+                        avgRobotDied: teamSummary.avgRobotDied,
+                        avgRobotBroke: teamSummary.avgRobotBroke,
+                    }
+                    displaySummaries.push(displaySummary);
+                }
+                setTeamSummaries(displaySummaries);
+            }
+
         }
         fetchMatchSummaries();
     }, []);
@@ -71,7 +111,33 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
 
 
     return (
-        <div className="flex flex-col w-screen text-xs gap-2">
+        <div className="flex flex-col w-19/20 text-xs gap-2">
+            <div className="mt-4 text-xl">Teams by Average Alliance Scores </div>
+            <div className="flex flex-col w-full gap-2">
+                {teamSummaries.sort((a, b) => b.avgTotalFuel - a.avgTotalFuel).map((teamSummary, index) => (
+                    <div key={index} className="grid grid-cols-[1fr_9fr] px-2 bg-neutral-800 text-white rounded-xl text-lg font-bold">
+                        <div>{teamSummary.teamNumber}</div>
+                        <div>
+                            <div style={{ width: `${(teamSummary.avgTotalFuel*((width / 500)-1)+15)}px` }} className={`grid bg-amber-500 p-2 rounded-lg text-xs`}>{teamSummary.avgTotalFuel}</div>
+                        </div>
+                    </div>))}
+            </div>
+
+            <div className="mt-4 text-xl">Teams by Average Adjusted Alliance Scores </div>
+            <div className="flex flex-col w-full gap-2">
+                {teamSummaries.sort((a, b) => b.avgTotalAdjFuel - a.avgTotalAdjFuel).map((teamSummary, index) => (
+                    <div key={index} className="grid grid-cols-[1fr_9fr] px-2 bg-neutral-800 text-white rounded-xl text-lg font-bold">
+                        <div>{teamSummary.teamNumber}</div>
+                        <div>
+                            <div style={{ width: `${(teamSummary.avgTotalAdjFuel*((width / 500)-1)+15)}px` }} className={`grid bg-blue-800 p-2 rounded-lg text-xs`}>{teamSummary.avgTotalAdjFuel}</div>
+                        </div>
+                    </div>))}
+            </div>
+
+
+
+
+
             <div>{teams.length} Teams | {scoutedMatches.length} Matches</div>
             {teams && teams.sort((a, b) => parseInt(a) - parseInt(b)).map((team, index) => (
                 <div key={index} className="flex flex-col w-3/4 p-4 bg-neutral-800 text-white rounded-xl text-lg font-bold">
