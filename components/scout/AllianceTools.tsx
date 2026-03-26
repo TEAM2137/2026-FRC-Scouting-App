@@ -27,6 +27,7 @@ const AllianceTools = ({eventCode}: IProps) => {
     const [rankings, setRankings] = useState<any[]>([]);
     const [displayRankings, setDisplayRankings] = useState<any[]>([]);
     const [showEventRankings, setShowEventRankings] = useState<boolean>(true);
+    const [showPickLists, setShowPickLists] = useState<boolean[]>([true,true,true,true,true]);
     const { appEvent } = useAppContext();
 
     const getTeamName = (teamNumber: string) => {
@@ -48,6 +49,11 @@ const AllianceTools = ({eventCode}: IProps) => {
     const subtractAlliance = () => {
         const updatedAlliances = alliances.filter((alliance) => alliance !== alliances[alliances.length - 1]);
         setAlliances(updatedAlliances);
+    }
+
+    const handleShowPickLists = (index: number) => {
+        const updatedShowPickLists = showPickLists.map((showPickList, i) => i === index ? !showPickList : showPickList);
+        setShowPickLists(updatedShowPickLists);
     }
 
     useEffect(() => {
@@ -173,7 +179,7 @@ return (
 
 </div>
 
-{/* Test Alliances Array - Remove when done testing   */}
+{/* Undo Button - step backward in case of mistakes */}
 <div className="flex flex-row flex-wrap gap-2 place-items-center p-2 mt-2">
     {alliances.length > 0 &&
         <button className="bg-blue-500 hover:bg-blue-700 text-white w-full font-bold py-2 px-4 rounded-lg" onClick={() => subtractAlliance()}>UNDO</button>
@@ -206,7 +212,29 @@ return (
         ))}
     </div>
     }
+</div>
 
+    {/* for each picklist, render picklist html */}
+<div className="flex flex-col gap-2 w-70">
+    <div className="grid grid-cols-[3fr_1fr] gap-2 place-items-center">
+        <h1 className="text-center text-lg font-bold">First Picklist</h1>
+        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={() => handleShowPickLists(0)}>
+            {showPickLists[0] ? <ChevronUp className="h-6 w-6" /> : <ChevronDown className="h-6 w-6" />}
+        </button>
+    </div>
+    {showPickLists[0] && rankings.length > 0 && 
+    <div className="flex flex-col w-full gap-2">
+        {displayRankings.map((ranking, index) => (
+            <div key={index} 
+            className="grid grid-cols-[1fr_1fr_3fr] gap-2 w-full bg-neutral-800 text-white text-xs rounded-xl justify-center place-items-center"
+            onClick={() => addSelection(ranking.teamNumber)}>
+                <p className="text-center font-bold text-sm my-1" >{ranking.rank}</p>
+                <p className="text-center font-bold text-sm my-1" >{ranking.teamNumber}</p>
+                <p className="text-center font-bold text-[8px] my-1" >{getTeamName(ranking.teamNumber)}</p>
+            </div>
+        ))}
+    </div>
+    }
 </div>
 
 
