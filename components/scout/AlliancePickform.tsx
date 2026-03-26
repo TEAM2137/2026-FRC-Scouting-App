@@ -5,7 +5,7 @@ import { Button } from "../ui/button"
 import { Checkbox } from "../ui/checkbox"
 import { useState } from "react"
 import { useEffect } from "react"
-import { getRankings } from "@/lib/bluealliance/getRankings"
+import { getRankings } from "@/lib/scout/getRankings"
 import { useAppContext } from "@/context/AppContext"
 
 const  AlliancePickform = () => {
