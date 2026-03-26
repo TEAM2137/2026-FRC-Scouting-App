@@ -43,11 +43,15 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ even
                 autoClimb: 0,
                 endgameClimb: 0,
                 autoOnlyFuelTotal: 0,
+                maxAutoOnlyFuel: 0,
+                minAutoOnlyFuel: 0,
                 autoFuelTotal: 0,
                 firstShiftFuelTotal: 0,
                 secondShiftFuelTotal: 0,
                 endgameFuelTotal: 0,
                 totalFuelTotal: 0,
+                maxTotalFuel: 0,
+                minTotalFuel: 0,
                 avgAutoOnlyFuel: 0,
                 avgAutoFuel: 0,
                 avgFirstShiftFuel: 0,
@@ -73,6 +77,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ even
                 adjSecondShiftFuel: 0,
                 adjEndgameFuel: 0,
                 totalAdjFuel: 0,
+                maxAdjFuel: 0,
+                minAdjFuel: 0,
                 avgAutoLaunches: 0,
                 avgFirstShiftLaunches: 0,
                 avgSecondShiftLaunches: 0,
@@ -90,11 +96,18 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ even
                 avgAdjSecondShiftFuel: 0,
                 avgAdjEndgameFuel: 0,
                 avgTotalAdjFuel: 0,
+                
             };
 
 
             for (const match of teamMatches) {
                 if (match.tournamentLevel === "Qualification") {
+                    if (teamSummary.matchesPlayed === 0) {
+                        teamSummary.maxAutoOnlyFuel = match.autoOnlyFuel;
+                        teamSummary.minAutoOnlyFuel = match.autoOnlyFuel;
+                        teamSummary.maxTotalFuel = match.totalFuel;
+                        teamSummary.minTotalFuel = match.totalFuel;
+                    }
                 teamSummary.matchesPlayed++;
                 if (match.autoClimb === "None") { teamSummary.autoClimb += 0; }
                 if (match.autoClimb === "Level1") { teamSummary.autoClimb += 15; }
@@ -102,12 +115,16 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ even
                 if (match.endgameClimb === "Level1") { teamSummary.endgameClimb += 10; }
                 if (match.endgameClimb === "Level2") { teamSummary.endgameClimb += 20; }
                 if (match.endgameClimb === "Level3") { teamSummary.endgameClimb += 30; }
+                teamSummary.maxAutoOnlyFuel = Math.max(teamSummary.maxAutoOnlyFuel, match.autoOnlyFuel);
+                teamSummary.minAutoOnlyFuel = Math.min(teamSummary.minAutoOnlyFuel, match.autoOnlyFuel);
                 teamSummary.autoOnlyFuelTotal += match.autoOnlyFuel;
                 teamSummary.autoFuelTotal += match.autoFuel;
                 teamSummary.firstShiftFuelTotal += match.firstShiftFuel;
                 teamSummary.secondShiftFuelTotal += match.secondShiftFuel;
                 teamSummary.endgameFuelTotal += match.endgameFuel;
                 teamSummary.totalFuelTotal += match.totalFuel;
+                teamSummary.maxTotalFuel = Math.max(teamSummary.maxTotalFuel, match.totalFuel);
+                teamSummary.minTotalFuel = Math.min(teamSummary.minTotalFuel, match.totalFuel);
                 }
                 if (match.scoutedData.teamNumber === teamNumber.toString()) {
                     teamSummary.matchesScouted++;
@@ -125,12 +142,18 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ even
                     teamSummary.robotBroke += match.scoutedData.robotBroke > 0 ? match.scoutedData.robotBroke : 0;
                 }
                 if (match.allianceScouted) {
+                    if (teamSummary.allianceScouted === 0) {
+                        teamSummary.maxAdjFuel = match.totalAdjFuel;
+                        teamSummary.minAdjFuel = match.totalAdjFuel;
+                    }
                     teamSummary.allianceScouted++;
                     teamSummary.adjAutoFuel += match.adjAutoFuel > 0 ? match.adjAutoFuel : 0;
                     teamSummary.adjFirstShiftFuel += match.adjFirstShiftFuel > 0 ? match.adjFirstShiftFuel : 0;
                     teamSummary.adjSecondShiftFuel += match.adjSecondShiftFuel > 0 ? match.adjSecondShiftFuel : 0;
                     teamSummary.adjEndgameFuel += match.adjEndgameFuel > 0 ? match.adjEndgameFuel : 0;
                     teamSummary.totalAdjFuel += match.totalAdjFuel > 0 ? match.totalAdjFuel : 0;
+                    teamSummary.maxAdjFuel = Math.max(teamSummary.maxAdjFuel, match.totalAdjFuel);
+                    teamSummary.minAdjFuel = Math.min(teamSummary.minAdjFuel, match.totalAdjFuel);
                 }
             }
                 teamSummary.avgAutoOnlyFuel = Math.floor(teamSummary.autoOnlyFuelTotal / teamSummary.matchesPlayed);
