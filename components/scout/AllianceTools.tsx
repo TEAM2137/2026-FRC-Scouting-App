@@ -189,11 +189,11 @@ return (
 
 
 {/* Lists of teams Section   */}
-<div className="flex flex-row flex-wrap gap-2 place-items-center p-2 mt-2">
+<div className="flex flex-row flex-wrap gap-2  p-2 mt-2">
 
 {/* Event Rankings Section   */}
 <div className="flex flex-col gap-2 w-70">
-    <div className="grid grid-cols-[3fr_1fr] gap-2 place-items-center">
+    <div className="grid grid-cols-[3fr_1fr] gap-2 ">
         <h1 className="text-center text-lg font-bold">Event Rankings</h1>
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={() => setShowEventRankings(!showEventRankings)}>
             {showEventRankings ? <ChevronUp className="h-6 w-6" /> : <ChevronDown className="h-6 w-6" />}
@@ -216,7 +216,7 @@ return (
 
     {/* for each picklist, render picklist html */}
 <div className="flex flex-col gap-2 w-70">
-    <div className="grid grid-cols-[3fr_1fr] gap-2 place-items-center">
+    <div className="grid grid-cols-[3fr_1fr] gap-2 ">
         <h1 className="text-center text-lg font-bold">First Picklist</h1>
         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={() => handleShowPickLists(0)}>
             {showPickLists[0] ? <ChevronUp className="h-6 w-6" /> : <ChevronDown className="h-6 w-6" />}
