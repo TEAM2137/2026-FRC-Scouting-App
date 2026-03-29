@@ -140,9 +140,9 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
 
             <div>{teams.length} Teams | {scoutedMatches.length} Matches</div>
             {teams && teams.sort((a, b) => parseInt(a) - parseInt(b)).map((team, index) => (
-                <div key={index} className="flex flex-col w-3/4 p-4 bg-neutral-800 text-white rounded-xl text-lg font-bold">
+                <div key={index} className="flex flex-col w-full p-4 bg-neutral-800 text-white rounded-xl text-lg font-bold">
                     <div>{team}</div>
-                    <div className="grid grid-cols-[70px_30px_15px_10px_15px_15px_15px_15px_10px_15px_15px_10px_15px_15px]   bg-neutral-900 text-white  text-[8px] font-bold">
+                    <div className="grid grid-cols-[70px_30px_30px_5px_1fr_1fr_1fr_1fr_5px_1fr_1fr_1fr_1fr_5px_1fr_1fr_5px_1fr_1fr]    bg-neutral-900 text-white  text-[9px] font-bold">
                             <div>MATCH</div>
                             <div>POS</div>
                             <div>TLs</div>
@@ -153,31 +153,40 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
                             <div>S</div>
                             <div>E</div>
                             <div>&nbsp;</div>
-                            <div>PH</div>
-                            <div>PL</div>
+                            <div>PHN</div>
+                            <div>PHO</div>
+                            <div>PLN</div>
+                            <div>PLO</div>
+                            <div>&nbsp;</div>
+                            <div>DN</div>
+                            <div>DO</div>
                             <div>&nbsp;</div>
                             <div>RD</div>
                             <div>RB</div>
 
                         </div>
                     {scoutedMatches.filter(matchSummary => matchSummary.teamNumber === team).sort((a, b) => parseInt(a.matchNumber) - parseInt(b.matchNumber)).map((matchSummary, index) => (
-                        <div key={index} className="grid grid-cols-[70px_30px_15px_10px_15px_15px_15px_15px_10px_15px_15px_10px_15px_15px]   bg-neutral-900 text-white  text-[8px] font-bold">
+                        <div key={index} className="grid grid-cols-[70px_30px_30px_5px_1fr_1fr_1fr_1fr_5px_1fr_1fr_1fr_1fr_5px_1fr_1fr_5px_1fr_1fr]   bg-neutral-900 text-white  text-[8px] font-bold">
                             <div>{matchSummary.tournamentLevel} {matchSummary.matchNumber}</div>
                             <div>{matchSummary.alliancePosition}</div>
                             <div>{matchSummary.autoLaunches + matchSummary.firstShiftLauches + matchSummary.secondShiftLauches + matchSummary.endgameLaunches}</div>
                             <div>&nbsp;</div>
                             
-                            <div>{matchSummary.autoLaunches}</div>
-                            <div>{matchSummary.firstShiftLauches}</div>
-                            <div>{matchSummary.secondShiftLauches}</div>
-                            <div>{matchSummary.endgameLaunches}</div>
+                            <div className="text-center text-sm">{matchSummary.autoLaunches}</div>
+                            <div className="text-center text-sm">{matchSummary.firstShiftLauches}</div>
+                            <div className="text-center text-sm">{matchSummary.secondShiftLauches}</div>
+                            <div className="text-center text-sm">{matchSummary.endgameLaunches}</div>
                             <div>&nbsp;</div>
-                            <div>{matchSummary.passHerdNeutral}</div>
-                            <div>{matchSummary.passHerdOpposing}</div>
-                            
+                            <div className="text-center text-sm">{matchSummary.passHerdNeutral}</div>
+                            <div className="text-center text-sm">{matchSummary.passHerdOpposing}</div>
+                            <div className="text-center text-sm">{matchSummary.passLaunchedNeutral}</div>
+                            <div className="text-center text-sm">{matchSummary.passLaunchedOpposing}</div>
                             <div>&nbsp;</div>
-                            <div>{matchSummary.robotDied}</div>
-                            <div>{matchSummary.robotBroke}</div>
+                            <div className="text-center text-sm">{matchSummary.defenseNeutral}</div>
+                            <div className="text-center text-sm">{matchSummary.defenseOpposing}</div>
+                            <div>&nbsp;</div>
+                            <div className="text-center text-sm">{matchSummary.robotDied}</div>
+                            <div className="text-center text-sm">{matchSummary.robotBroke}</div>
 
                         </div>))}
                 </div>))}

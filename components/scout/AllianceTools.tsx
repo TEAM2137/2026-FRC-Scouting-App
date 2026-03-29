@@ -3,17 +3,9 @@
 import { use, useEffect, useState } from 'react';
 import { useAppContext } from '@/context/AppContext';
 import { getRankings } from '@/lib/scout/getrankings';
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import { ChevronUp, ChevronDown, CirclePlus, CircleX } from 'lucide-react';
 
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import AlliancePickForm from '@/components/scout/AlliancePickForm';
 
 
 interface IProps {
@@ -29,6 +21,7 @@ const AllianceTools = ({eventCode}: IProps) => {
     const [showEventRankings, setShowEventRankings] = useState<boolean>(true);
     const [showPickLists, setShowPickLists] = useState<boolean[]>([true,true,true,true,true]);
     const { appEvent } = useAppContext();
+    const [showForm, setShowForm] = useState(false);
 
     const getTeamName = (teamNumber: string) => {
         if (appEvent?.teams) {
@@ -191,58 +184,65 @@ return (
 {/* Lists of teams Section   */}
 <div className="flex flex-row flex-wrap gap-2  p-2 mt-2">
 
-{/* Event Rankings Section   */}
-<div className="flex flex-col gap-2 w-70">
-    <div className="grid grid-cols-[3fr_1fr] gap-2 ">
-        <h1 className="text-center text-lg font-bold">Event Rankings</h1>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={() => setShowEventRankings(!showEventRankings)}>
-            {showEventRankings ? <ChevronUp className="h-6 w-6" /> : <ChevronDown className="h-6 w-6" />}
-        </button>
+    {/* Event Rankings Section   */}
+    <div className="flex flex-col gap-2 w-70">
+        <div className="grid grid-cols-[3fr_1fr] gap-2 ">
+            <h1 className="text-center text-lg font-bold">Event Rankings</h1>
+            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={() => setShowEventRankings(!showEventRankings)}>
+                {showEventRankings ? <ChevronUp className="h-6 w-6" /> : <ChevronDown className="h-6 w-6" />}
+            </button>
+        </div>
+        {showEventRankings && rankings.length > 0 && 
+        <div className="flex flex-col w-full gap-2">
+            {displayRankings.map((ranking, index) => (
+                <div key={index} 
+                className="grid grid-cols-[1fr_1fr_3fr] gap-2 w-full bg-neutral-800 text-white text-xs rounded-xl justify-center place-items-center"
+                onClick={() => addSelection(ranking.teamNumber)}>
+                    <p className="text-center font-bold text-sm my-1" >{ranking.rank}</p>
+                    <p className="text-center font-bold text-sm my-1" >{ranking.teamNumber}</p>
+                    <p className="text-center font-bold text-[8px] my-1" >{getTeamName(ranking.teamNumber)}</p>
+                </div>
+            ))}
+        </div>
+        }
     </div>
-    {showEventRankings && rankings.length > 0 && 
-    <div className="flex flex-col w-full gap-2">
-        {displayRankings.map((ranking, index) => (
-            <div key={index} 
-            className="grid grid-cols-[1fr_1fr_3fr] gap-2 w-full bg-neutral-800 text-white text-xs rounded-xl justify-center place-items-center"
-            onClick={() => addSelection(ranking.teamNumber)}>
-                <p className="text-center font-bold text-sm my-1" >{ranking.rank}</p>
-                <p className="text-center font-bold text-sm my-1" >{ranking.teamNumber}</p>
-                <p className="text-center font-bold text-[8px] my-1" >{getTeamName(ranking.teamNumber)}</p>
-            </div>
-        ))}
-    </div>
-    }
-</div>
 
     {/* for each picklist, render picklist html */}
-<div className="flex flex-col gap-2 w-70">
-    <div className="grid grid-cols-[3fr_1fr] gap-2 ">
-        <h1 className="text-center text-lg font-bold">First Picklist</h1>
-        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg" onClick={() => handleShowPickLists(0)}>
-            {showPickLists[0] ? <ChevronUp className="h-6 w-6" /> : <ChevronDown className="h-6 w-6" />}
-        </button>
+    
+
+
+
+
+    <div className="flex flex-col gap-2 w-70">
+        <button className=" block w-50 text-lg font-bold justify-center place-items-center" onClick={(() => setShowForm(true))}><CirclePlus /> Add a Pick List</button>
     </div>
-    {showPickLists[0] && rankings.length > 0 && 
-    <div className="flex flex-col w-full gap-2">
-        {displayRankings.map((ranking, index) => (
-            <div key={index} 
-            className="grid grid-cols-[1fr_1fr_3fr] gap-2 w-full bg-neutral-800 text-white text-xs rounded-xl justify-center place-items-center"
-            onClick={() => addSelection(ranking.teamNumber)}>
-                <p className="text-center font-bold text-sm my-1" >{ranking.rank}</p>
-                <p className="text-center font-bold text-sm my-1" >{ranking.teamNumber}</p>
-                <p className="text-center font-bold text-[8px] my-1" >{getTeamName(ranking.teamNumber)}</p>
+
+
+
+
+</div>
+
+
+    {/* Add Edit PickList Form */}
+    {showForm && 
+        <div className="fixed top-0 left-0 w-screen h-full z-150 p-4 bg-blue-950 text-white text-xs  font-bold overflow-y-auto">
+            <div className="grid grid-cols-[4fr_1fr] justify-between">
+                <div className="p-2 text-left folt-bold text-lg">Pick List Editor</div>
+                <div className="p-2 text-right"><button onClick={(() => setShowForm(false))}><CircleX /></button></div>
             </div>
-        ))}
-    </div>
+            
+            <AlliancePickForm eventCode={eventCode} list={''} closeForm={() => setShowForm(false)} />
+            
+        </div>
     }
-</div>
+
+
+
+
 
 
 </div>
 
+)}
 
-</div>
-
-)
-    }
 export default AllianceTools;
