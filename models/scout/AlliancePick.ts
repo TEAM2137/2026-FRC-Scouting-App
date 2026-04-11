@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 export interface IPickList {
+  findOneAndUpdate(arg0: { PickListName: IPickList; }, PickList: IPickList, arg2: { upsert: boolean; new: boolean; }): unknown;
     teamNumber: string,
     PickListNumber: number,
    eventCode: string,
