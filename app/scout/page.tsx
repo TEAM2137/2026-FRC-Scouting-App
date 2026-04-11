@@ -11,6 +11,7 @@ import ScoutPit from '@/components/scout/ScoutPit';
 import ScoutMatches from '@/components/scout/ScoutMatches';
 
 import Insights from '@/components/scout/Insights';
+import AllianceTools from '@/components/scout/AllianceTools';
 
 
 
@@ -41,6 +42,10 @@ return (
 
         {scoutDisplay === 'insights' && appEvent?.code &&
             <Insights  eventCode={appEvent?.code} setDisplay={setScoutDisplay} />
+        }
+
+        {scoutDisplay === 'alliance' && appEvent?.code &&
+            <AllianceTools  eventCode={appEvent?.code}  />
         }
 
     </div>
