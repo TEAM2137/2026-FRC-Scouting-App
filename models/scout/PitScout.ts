@@ -18,6 +18,12 @@ export interface IPitScout {
   launchSpeed: number,
   weight: number,
   driveTeam: string,
+  swerve: boolean,
+  tallbot: boolean,
+  canPassFromoOpp: boolean,
+  launcherType: string,
+  
+  
   //meta data for the file. 
   createdAt: Date,
   updatedAt: Date,
@@ -48,7 +54,13 @@ export const PitScoutSchema = new mongoose.Schema<IPitScout>(
         multishot: { type: Number },
         launchSpeed: { type: Number },
         weight: { type: Number },
+    swerve: { type: Boolean, default: false },
+    tallbot: { type: Boolean, default: false },
+    canPassFromoOpp: { type: Boolean, default: false },
+    launcherType: { type: String },
+    
     },
+
 );
 
 const PitScout = mongoose.models?.PitScout || mongoose.model<IPitScout>("PitScout", PitScoutSchema);

@@ -34,6 +34,11 @@ const emptyPitScout: IPitScout = {
   launchSpeed: 0,
   weight: 0,
   driveTeam: '',
+  swerve: false,
+ tallbot: false,
+ canPassFromoOpp: false,
+launcherType: '',
+ 
   //meta data for the file. 
   createdAt: new Date(),
   updatedAt: new Date(),
@@ -127,9 +132,57 @@ return (
                     onClick={() => setData({...data, intakeType: 'Over Bumper'})}>Over Bumper</button>
                 <button className={`${data.intakeType === 'Can\'t Intake' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
                     onClick={() => setData({...data, intakeType: 'Can\'t Intake'})}>Can't Intake</button>
+              
+            </div>
+        </div>
+
+ <div className="flex flex-col gap-3">
+            <Label>Can they swerve?</Label>
+            <div className="flex flex-row gap-2 p-2">
+                <button className={`${data.intakeType === 'yes' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, swerve: true})}>Yes</button>
+                <button className={`${data.intakeType === 'no' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, swerve: false})}>No</button>
+               
+              
+            </div>
+        </div>
+         
+         <div className="flex flex-col gap-3">
+            <Label>Are they a tall bot</Label>
+            <div className="flex flex-row gap-2 p-2">
+                <button className={`${data.intakeType === 'yes' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, tallbot: true})}>yes</button>
+                <button className={`${data.intakeType === 'no' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, tallbot: false})}>no</button>
                
             </div>
         </div>
+         
+         <div className="flex flex-col gap-3">
+            <Label>Can they pass from the opposite side?</Label>
+            <div className="flex flex-row gap-2 p-2">
+                <button className={`${data.intakeType === 'yes' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, swerve: true})}>yes</button>
+                <button className={`${data.intakeType === 'no' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, swerve: false})}>No</button>
+               
+              
+            </div>
+        </div>
+
+        <div className="flex flex-col gap-3">
+            <Label>Do they have a drum or turret?</Label>
+            <div className="flex flex-row gap-2 p-2">
+                <button className={`${data.intakeType === 'drum' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, swerve: true})}>Drum</button>
+                <button className={`${data.intakeType === 'turret' ? 'bg-blue-800' : 'bg-gray-800'} text-white border-2 border-neutral-500 rounded-lg px-2 py-2 font-bold`} 
+                    onClick={() => setData({...data, swerve: false})}>Turret</button>
+               
+              
+            </div>
+        </div>
+
         <div className="flex flex-col gap-3">
         <Label>What is the robot's weight?</Label>
             <Input
