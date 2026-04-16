@@ -45,7 +45,7 @@ return (
         }
 
         {scoutDisplay === 'alliance' && appEvent?.code &&
-            <AllianceTools  eventCode={appEvent?.code} setDisplay={setScoutDisplay} />
+            <AllianceTools  eventCode={appEvent?.code}  />
         }
 
     </div>
