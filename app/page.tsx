@@ -1,10 +1,7 @@
 'use client'
-
-import SignIn from '@/components/auth/SignIn';
-import SignUpTeam from '@/components/auth/SignUpTeam';
 import Image from 'next/image';
 import { useState } from 'react';
-import SignUpScout from '@/components/auth/SignUpScout'
+
 export default function Home() {
   const [authDisplay, setAuthDisplay] = useState('signin');
 
