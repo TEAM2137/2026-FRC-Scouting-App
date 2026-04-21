@@ -55,7 +55,7 @@ const SignUpScout = ({setDisplay}: Props) => {
       return;
     }
     if (!data.email) {
-      setError("Please enter your Manager Email");
+      setError("Please enter your Email");
       return;
     }
 

@@ -5,7 +5,8 @@ import { useAppContext } from '@/context/AppContext';
 import { IMatchSummary } from '@/models/insights/MatchSummary';
 import { IMatchScout } from '@/models/scout/MatchScout';
 import { CircleX } from 'lucide-react';
-
+import { WhiskerChart } from '@/components/chart/WhiskerChart';
+import { calculateFuelStats } from '@/lib/charts/FuelStatsCalculation';
 
 import { getEventScoutedMatches } from '@/lib/scout/getEventScoutMatches';
 import { match } from 'assert';
@@ -52,7 +53,7 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
 
     const [width, setWidth] = useState(window.innerWidth); // default width, detect on server.
     const handleResize = () => setWidth(window.innerWidth);
-
+   
     useEffect(() => {
         const fetchMatchSummaries = async () => {
             const Matches = await getEventScoutedMatches(eventCode);   
@@ -114,6 +115,9 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
 
     return (
         <div className="flex flex-col w-19/20 text-xs gap-2">
+            <div className="mt-4 text-xl">Fuel Score Distribution by Team</div>
+            <WhiskerChart data={calculateFuelStats(scoutedMatches)} />
+
             <div className="mt-4 text-xl">Teams by Average Alliance Scores </div>
             <div className="flex flex-col w-full gap-2">
                 {teamSummaries.sort((a, b) => b.avgTotalFuel - a.avgTotalFuel).map((teamSummary, index) => (
@@ -131,8 +135,15 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
                     <div key={index} className="grid grid-cols-[1fr_9fr] px-2 bg-neutral-800 text-white rounded-xl text-lg font-bold">
                      <div>{teamSummary.teamNumber}</div>
                         <div>
-                            <div style={{ width: `${(teamSummary.maxTotalFuel*((width / 500)-1)+15)}px` }} className={`grid bg-blue-800 p-2 rounded-lg text-xs`}>{teamSummary.avgTotalAdjFuel} <div style={{ width: `${(teamSummary.avgTotalAdjFuel*((width / 500)-1)+15)}px` }} className={`grid bg-blue-200 p-2 rounded-lg text-xs`}>{teamSummary.avgTotalAdjFuel}</div> <div style={{ width: `${(teamSummary.avgTotalAdjFuel*((width / 500)-1)+15)}px` }} className={`grid bg-bl p-2 rounded-lg text-xs`}>{teamSummary.avgTotalAdjFuel}</div></div>
-                           
+                            <div style={{ width: `${(teamSummary.maxTotalFuel*((width / 500)-1)+15)}px` }} className={`grid bg-blue-800 p-2 rounded-lg text-xs`}>{teamSummary.avgTotalAdjFuel} </div>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         </div>
                     </div>))}
             </div>
