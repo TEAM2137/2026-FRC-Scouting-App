@@ -12,6 +12,7 @@ import { match } from 'assert';
 
 
 interface ITeamSummary  {
+    maxTotalFuel: number;
     teamNumber: number,
     matchesPlayed: number,
     avgTotalFuel: number,
@@ -93,6 +94,7 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
                         avgDefenseOpposing: teamSummary.avgDefenseOpposing,
                         avgRobotDied: teamSummary.avgRobotDied,
                         avgRobotBroke: teamSummary.avgRobotBroke,
+                       maxTotalFuel : teamSummary.maxTotalFuel,
                     }
                     displaySummaries.push(displaySummary);
                 }
@@ -127,9 +129,10 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
             <div className="flex flex-col w-full gap-2">
                 {teamSummaries.sort((a, b) => b.avgTotalAdjFuel - a.avgTotalAdjFuel).map((teamSummary, index) => (
                     <div key={index} className="grid grid-cols-[1fr_9fr] px-2 bg-neutral-800 text-white rounded-xl text-lg font-bold">
-                        <div>{teamSummary.teamNumber}</div>
+                     <div>{teamSummary.teamNumber}</div>
                         <div>
-                            <div style={{ width: `${(teamSummary.avgTotalAdjFuel*((width / 500)-1)+15)}px` }} className={`grid bg-blue-800 p-2 rounded-lg text-xs`}>{teamSummary.avgTotalAdjFuel}</div>
+                            <div style={{ width: `${(teamSummary.maxTotalFuel*((width / 500)-1)+15)}px` }} className={`grid bg-blue-800 p-2 rounded-lg text-xs`}>{teamSummary.avgTotalAdjFuel} <div style={{ width: `${(teamSummary.avgTotalAdjFuel*((width / 500)-1)+15)}px` }} className={`grid bg-blue-200 p-2 rounded-lg text-xs`}>{teamSummary.avgTotalAdjFuel}</div> <div style={{ width: `${(teamSummary.avgTotalAdjFuel*((width / 500)-1)+15)}px` }} className={`grid bg-bl p-2 rounded-lg text-xs`}>{teamSummary.avgTotalAdjFuel}</div></div>
+                           
                         </div>
                     </div>))}
             </div>
