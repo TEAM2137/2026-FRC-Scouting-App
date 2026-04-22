@@ -111,13 +111,31 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
     const handleCloseForm = () => {
         setShowForm(false);
     }
+// const summaries: IMatchSummary[] = [...]; // your summary data
 
+  // Same function, different mapper for IMatchSummary
+  const fuelStats = calculateFuelStats(matchSummaries, (summary) => ({
+    teamNumber: summary.teamNumber.toString(),
+    totalFuel: summary.autoFuel + 
+               summary.firstShiftFuel + 
+               summary.secondShiftFuel + 
+               summary.endgameFuel,
+  }));
+ 
+  //const matches: IMatchScout[] = [...]; 
 
+  const fuelStatsSumm = calculateFuelStats(scoutedMatches, (match) => ({
+    teamNumber: match.teamNumber,
+    totalFuel: match.autoLaunches + 
+               match.firstShiftLauches + 
+               match.secondShiftLauches + 
+               match.endgameLaunches,
+  }));
     return (
         <div className="flex flex-col w-19/20 text-xs gap-2">
             <div className="mt-4 text-xl">Fuel Score Distribution by Team</div>
-            <WhiskerChart data={calculateFuelStats(scoutedMatches)} />
-
+            <WhiskerChart data={fuelStats} />
+                <WhiskerChart data={fuelStatsSumm} />
             <div className="mt-4 text-xl">Teams by Average Alliance Scores </div>
             <div className="flex flex-col w-full gap-2">
                 {teamSummaries.sort((a, b) => b.avgTotalFuel - a.avgTotalFuel).map((teamSummary, index) => (

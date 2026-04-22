@@ -1,3 +1,4 @@
+import { IMatchSummary } from '@/models/insights/MatchSummary';
 import { IMatchScout } from '@/models/scout/MatchScout';
 
 export interface FuelStats {
@@ -22,45 +23,39 @@ const calculatePercentile = (sortedData: number[], percentile: number): number =
   return sortedData[lower] * (1 - weight) + sortedData[upper] * weight;
 };
 
-export const calculateFuelStats = (matches: IMatchScout[]): FuelStats[] => {
+export interface FuelData {
+  teamNumber: string;
+  totalFuel: number;
+}
+
+export const calculateFuelStats = <T>(
+  data: T[],
+  mapper: (item: T) => FuelData
+): FuelStats[] => {
   const teamMap = new Map<string, number[]>();
 
-  // Group fuel scores by team
-  matches.forEach((match) => {
-    const totalFuel =
-      match.autoLaunches +
-      match.firstShiftLauches +
-      match.secondShiftLauches +
-      match.endgameLaunches;
+  data.forEach((item) => {
+    const { teamNumber, totalFuel } = mapper(item);
 
-    if (!teamMap.has(match.teamNumber)) {
-      teamMap.set(match.teamNumber, []);
+    if (!teamMap.has(teamNumber)) {
+      teamMap.set(teamNumber, []);
     }
-    teamMap.get(match.teamNumber)!.push(totalFuel);
+    teamMap.get(teamNumber)!.push(totalFuel);
   });
 
-  // Calculate stats for each team
   const stats: FuelStats[] = Array.from(teamMap.entries()).map(
     ([teamNumber, fuelScores]) => {
       const sorted = [...fuelScores].sort((a, b) => a - b);
-      const min = sorted[0];
-      const max = sorted[sorted.length - 1];
-      const q1 = calculatePercentile(sorted, 25);
-      const median = calculatePercentile(sorted, 50);
-      const q3 = calculatePercentile(sorted, 75);
-
       return {
         teamNumber,
-        min,
-        q1: Math.round(q1 * 10) / 10,
-        median: Math.round(median * 10) / 10,
-        q3: Math.round(q3 * 10) / 10,
-        max,
+        min: sorted[0],
+        max: sorted[sorted.length - 1],
+        q1: Math.round(calculatePercentile(sorted, 25) * 10) / 10,
+        median: Math.round(calculatePercentile(sorted, 50) * 10) / 10,
+        q3: Math.round(calculatePercentile(sorted, 75) * 10) / 10,
       };
     }
   );
 
-  return stats.sort(
-    (a, b) => parseInt(b.teamNumber) - parseInt(a.teamNumber)
-  );
+  return stats.sort((a, b) => parseInt(b.teamNumber) - parseInt(a.teamNumber));
 };
