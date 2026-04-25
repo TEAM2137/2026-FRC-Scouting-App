@@ -41,7 +41,7 @@ const SignUpTeam = () => {
     
     
     // Validate all fields are filled
-    if (!formData.number) {
+    if (!formData.number || isNaN(Number(formData.number))) {
       setError("Please enter your Team Number");
       return;
     }
@@ -61,7 +61,7 @@ const SignUpTeam = () => {
       return;
     }
 
-    if (!formData.phone) {
+    if (!formData.phone || isNaN(Number(formData.phone))) {
       setError("Please enter your Phone Number");
       return;
     }

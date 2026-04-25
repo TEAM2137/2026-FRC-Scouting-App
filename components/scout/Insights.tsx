@@ -134,8 +134,11 @@ const ScoutInsights = ({eventCode, setDisplay}: Props) => {
     return (
         <div className="flex flex-col w-19/20 text-xs gap-2">
             <div className="mt-4 text-xl">Fuel Score Distribution by Team</div>
+            <div>
             <WhiskerChart data={fuelStats} />
+                </div>
                 <WhiskerChart data={fuelStatsSumm} />
+                
             <div className="mt-4 text-xl">Teams by Average Alliance Scores </div>
             <div className="flex flex-col w-full gap-2">
                 {teamSummaries.sort((a, b) => b.avgTotalFuel - a.avgTotalFuel).map((teamSummary, index) => (
